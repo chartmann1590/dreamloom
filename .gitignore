@@ -1,0 +1,13 @@
+/.gradle
+/build
+/app/build
+/captures
+local.properties
+*.iml
+.idea
+.DS_Store
+llm_aar
+gradle-8.10.2
+gradle-8.10.2-bin.zip
+litertlm-aar.zip
+tmp-maven.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dreamloom</string>
+    <string name="com.google.firebase.crashlytics.mapping_file_id" translatable="false">none</string>
+    <string name="cd_record_dream">Record a new dream</string>
+    <string name="home_tap_to_record">tap to record a dream</string>
+    <string name="home_last_night">Last night was %1$s · day %2$d</string>
+    <string name="home_ask_dream">Ask the dream</string>
+</resources>
