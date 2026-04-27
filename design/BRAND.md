@@ -1,6 +1,6 @@
 # Brand — Dreamloom
 
-The brand is the moat. Functionally similar apps already exist; what we sell is a feeling.
+Functionally similar apps already exist; what sets Dreamloom apart is a feeling, not a feature list.
 
 ---
 
@@ -101,15 +101,13 @@ Never use Cormorant for buttons or labels — it loses authority outside its reg
 
 ---
 
-## Marketing channels (post-launch — passive-income loop)
+## Marketing channels (post-launch)
 
-1. **TikTok** — 30-second videos: a person waking up, whispering a dream, watching it weave into meaning. The aesthetic is the marketing. Hashtags: `#dreamjournal #aijournal #privacymatters #manifestation #spirituality`. Posting: 3×/week, no paid ad spend, cross-post to Reels and YouTube Shorts. Goal: organic loop.
-2. **Reddit** — `r/Dreams`, `r/LucidDreaming`, `r/Privacy`, `r/Android`. Post the launch as a "I built this because no good dream journal runs on-device" story. Honest, not spammy.
-3. **Product Hunt** — single launch day. Submission emphasizes the on-device privacy angle.
-4. **Hacker News** — title: "Show HN: A dream journal that runs Gemma 4 entirely on your phone". Skews technical; the audience cares about the engineering and will share.
-5. **Google Play organic** — winning ASO with the keywords listed in `play_store/listing.md`. The Play Store privacy badge ("No data collected") is itself a search advantage in the wellness category.
-
-No paid acquisition. The economics of $0.04–0.10 ARPDAU only work with organic growth.
+1. **TikTok** — 30-second videos: a person waking up, whispering a dream, watching it weave into meaning. Hashtags: `#dreamjournal #aijournal #privacymatters #manifestation #spirituality`. Post 3×/week; cross-post to Reels and YouTube Shorts.
+2. **Reddit** — `r/Dreams`, `r/LucidDreaming`, `r/Privacy`, `r/Android`. Honest "built this for on-device privacy" story; not spammy.
+3. **Product Hunt** — single launch day, privacy angle.
+4. **Hacker News** — technical audience: on-device Gemma, Android.
+5. **Google Play organic** — ASO using `play_store/listing.md`. A strong data-safety story helps discovery.
 
 ---
 

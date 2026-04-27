@@ -292,7 +292,7 @@ sealed class InterpretChunk {
   - Settings → "Reload model" (debug only)
   - The wipe-everything flow (after the user confirms)
 
-If we release prematurely, the next dream entry costs the user a 5-second cold load. We protect that path religiously.
+If we release prematurely, the next dream entry forces a 5-second cold load. We protect that path carefully.
 
 ---
 

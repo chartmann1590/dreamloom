@@ -2,7 +2,7 @@
 
 All prompts are designed for Gemma 4 E2B-IT (instruction-tuned). They use Gemma's chat template — see `tech/GEMMA_INTEGRATION.md` for exact token handling. The prompts here are the **user-visible** content; the wrapper handles `<start_of_turn>user`, `<start_of_turn>model`, etc.
 
-We deliberately keep prompts short — every token costs ~22ms on CPU, and we want first-token latency under 800ms.
+We deliberately keep prompts short — every extra token adds ~22ms on CPU, and we want first-token latency under 800ms.
 
 ---
 

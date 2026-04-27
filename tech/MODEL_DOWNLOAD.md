@@ -13,12 +13,12 @@ https://github.com/<user>/dreamloom-android/releases/download/model-v1/gemma-4-E
 ```
 
 Why GitHub Releases:
-- Free
-- Generous bandwidth (GitHub doesn't enforce a hard public-release egress cap)
+- Straightforward public hosting for release assets
+- Generous bandwidth for public releases; suitable CDN behavior for large files
 - Resumable via HTTP `Range` headers (GitHub's CDN supports this)
-- Versionable via release tags — we ship `model-v2` if we re-quantize
+- Versionable via release tags — ship `model-v2` if you re-quantize
 
-Backup: **Cloudflare R2** free tier (10 GB storage, 10 GB egress/month) as a secondary mirror configured in the app — if GitHub returns 403/429, fall back automatically.
+Backup: **Cloudflare R2** (or similar object storage) as a secondary mirror in `SOURCES` — if the primary returns 403/429, fall back automatically.
 
 The release tag MUST be immutable. Never overwrite `model-v1`. New model = new tag, app config bumps.
 

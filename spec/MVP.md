@@ -10,7 +10,7 @@ A 4-screen flow, no signup, no email:
 
 1. **Welcome** — full-bleed cosmic gradient, "Dreamloom" in Cormorant Garamond, "Your dreams, decoded. Privately." Tap to continue.
 2. **Privacy promise** — three short rows: "No account.", "No cloud.", "Your dreams stay on your phone." A faint moon icon. Tap to continue.
-3. **Model download** — "Dreamloom uses an AI brain that lives entirely on your phone. We'll download it once (about 2.6 GB). It's free, and you'll never need internet again after this." Buttons: "Download on Wi-Fi only" (default) / "Download now". A clean progress bar with MB downloaded + estimated time. (See `tech/MODEL_DOWNLOAD.md`.)
+3. **Model download** — "Dreamloom uses an AI brain that lives entirely on your phone. We'll download it once (about 2.6 GB). After that, you won't need the internet to journal." Buttons: "Download on Wi-Fi only" (default) / "Download now". A clean progress bar with MB downloaded + estimated time. (See `tech/MODEL_DOWNLOAD.md`.)
 4. **Permissions ask** — microphone permission with friendly explainer ("So you can whisper your dream while your eyes are still closed."). Notification permission with "Optional — for a gentle morning nudge."
 
 After this: land on the Home screen. **Never re-show onboarding.**
@@ -60,10 +60,10 @@ Filter chips at top: All / This Week / Symbol picker (bottom sheet listing all s
 - **Reminders** — toggle morning nudge. Time picker (default 7:30am).
 - **Theme** — Dark (default), Light, System.
 - **Voice** — toggle "Auto-stop after 30s of silence".
-- **About** — version, model version, build number, an honest "How is this free?" explainer about AdMob.
-- **Send feedback** — opens email client to `hello@dreamloom.app`. No in-app form (avoid backend cost).
+- **About** — version, model version, build number, short explainer that the app is supported by ads (AdMob).
+- **Send feedback** — opens email client to `hello@dreamloom.app`. No in-app form (mailto only).
 
-## [P0] AdMob integration (see `spec/MONETIZATION.md` for full plan)
+## [P0] AdMob integration (see `spec/ADS.md` for full plan)
 
 - App Open ad on cold start, 4-hour cooldown
 - Interstitial after closing a dream Detail screen, 1 per session, 60s cooldown
@@ -87,7 +87,7 @@ Use Gemma 4 E2B's vision capability. User attaches a photo, prompt becomes "{use
 
 ## [P1] Dream image generation (rewarded)
 
-After interpretation, a CTA: "Watch a short ad to see your dream illustrated." Tap → rewarded video → on completion, send the interpretation title + symbols to Gemma to generate a richly descriptive prompt, then to **Stable Diffusion XS or SDXL Turbo via LiteRT** (later — for v1.1 — start by using a remote free generator like Pollinations.ai with privacy disclosure for users who opt in).
+After interpretation, a CTA: "Watch a short ad to see your dream illustrated." Tap → rewarded video → on completion, send the interpretation title + symbols to Gemma to generate a richly descriptive prompt, then to **Stable Diffusion XS or SDXL Turbo via LiteRT** (later — for v1.1 — a remote image API is optional; disclose clearly if the user's content leaves the device).
 
 ## [P2] Lucid dreaming trainer
 
@@ -112,5 +112,5 @@ Spanish, Portuguese, German, French, Indonesian. Gemma is multilingual; UI strin
 - **Social / sharing within the app** — privacy story breaks. Users can screenshot.
 - **Cloud sync** — privacy story breaks. Use Android's automatic backup of the local DB if user opts in (via standard Android backup, encrypted, Google's responsibility).
 - **Account / login** — adds friction, breaks privacy story.
-- **Subscription** — cannibalizes ads, breaks "free forever" hook.
+- **In-app subscription or paid tiers** — out of scope; ads-only model for v1.
 - **Web app companion** — we are mobile, on-device, only.

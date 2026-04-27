@@ -10,7 +10,7 @@ You are building **Dreamloom**, an Android app. The whole specification is in th
 6. `../tech/GEMMA_INTEGRATION.md` — the LLM — most error-prone integration; read carefully
 7. `../tech/MODEL_DOWNLOAD.md` — the 2.6 GB model dance
 8. `../spec/PROMPTS.md` — copy these prompts verbatim into Kotlin
-9. `../spec/MONETIZATION.md` — AdMob placement and rules
+9. `../spec/ADS.md` — AdMob placement and rules
 10. `../design/SYSTEM.md` and `../design/BRAND.md` — visual + copy
 11. `BUILD_ORDER.md` — the ordered task list
 
@@ -24,8 +24,8 @@ These are non-negotiable. Violating any of them breaks the product:
 2. **Single LlmEngine instance per process.** Hilt singleton, owned by Application. Never recreate on rotation.
 3. **The 5 brand promises in `design/BRAND.md` are invariants.** Add an instrumented test for each.
 4. **No banner ads in the main flow.** Settings → About only.
-5. **No interstitial during streaming, recording, or onboarding.** See `spec/MONETIZATION.md` for the full list.
-6. **Free, no IAP, no subscription.** Don't introduce them, ever.
+5. **No interstitial during streaming, recording, or onboarding.** See `spec/ADS.md` for the full list.
+6. **No IAP or subscription billing.** The product uses ads only; do not add in-app purchases or subscriptions.
 7. **Encrypt the local DB.** SQLCipher with a key stored in EncryptedSharedPreferences.
 8. **Don't bundle the model file in the AAB.** Always download via `ModelDownloadWorker`.
 9. **Match the visual style.** Cormorant + Inter. Indigo + Aurora + Moonglow. No other fonts, no other primary colors.

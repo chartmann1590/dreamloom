@@ -63,8 +63,6 @@ Dream well.
 **Primary**: Lifestyle
 **Secondary**: Health & Fitness
 
-(Lifestyle has higher AdMob eCPM than Health, lower content-policy friction than Medical.)
-
 ## Tags / Keywords (Play Console "tags" + ASO keywords)
 
 Primary keywords (target):
@@ -93,11 +91,11 @@ Long-tail (high intent, low competition):
 
 ## Contact email
 
-`hello@dreamloom.app` (set up a free forwarding alias on the dev's domain)
+`hello@dreamloom.app`
 
 ## Privacy policy URL
 
-Required by Play Store. Host on GitHub Pages free. Template provided in `tech/PRIVACY_POLICY_TEMPLATE.md` (Cursor: generate this file from the template — basic "we don't collect anything except anonymous Firebase Analytics events you can opt out of").
+Required by Play Store. Host a public page (e.g. GitHub Pages) using `tech/PRIVACY_POLICY_TEMPLATE.md` as a starting point. It should reflect Firebase Analytics / Crashlytics and AdMob as described in the template.
 
 ## Data safety form (Play Console)
 
@@ -129,7 +127,7 @@ Crescent moon overlaid on a thread/loom motif. Monochrome silver-gold on deep in
 3. Portuguese (BR)
 4. German
 5. French
-6. Indonesian (huge dream-journaling culture, Tier 2 eCPM still decent)
+6. Indonesian
 
 Use Gemma's multilingual capability to translate the system prompts; UI strings via `strings.xml` resource folders.
 
@@ -142,6 +140,6 @@ Use Gemma's multilingual capability to translate the system prompts; UI strings 
 - [ ] First review reply set up (template in Play Console)
 - [ ] Pre-launch report run via Play Console internal testing track
 
-## Pricing
+## Monetization (Play Console)
 
-**Free**. No IAP. No subscription. AdMob only. (This is a deliberate competitive moat — every existing AI dream journal charges, and Play Store algorithms reward "free" apps with higher rankings in the lifestyle category.)
+The app is free to download, supported by advertising (AdMob). No in-app purchases or subscriptions in v1.

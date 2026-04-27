@@ -103,7 +103,7 @@ Estimated total: **~6–10 working days** of focused work for one engineer.
 2. Implement `AppOpenAdManager` registered on `ProcessLifecycleOwner`.
 3. Implement `InterstitialAdManager`, hook into `DreamDetailViewModel.onBackPressed()`.
 4. Implement `RewardedAdManager` with two gates: extended interpretation (Detail), weekly insight (Insight).
-5. Implement `AdGate` with all frequency caps from `spec/MONETIZATION.md`.
+5. Implement `AdGate` with all frequency caps from `spec/ADS.md`.
 6. Integrate UMP for EU consent.
 7. Use **test ad unit IDs in debug**, real IDs in release.
 

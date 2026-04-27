@@ -11,7 +11,7 @@ class AdGate @Inject constructor(
     private val clock: Clock,
 ) {
     /**
-     * Frequency rules from [spec/MONETIZATION.md]. Implement with DataStore reads in
+     * Frequency rules from [spec/ADS.md]. Implement with DataStore reads in
      * call sites; this is the pure policy layer for tests and clarity.
      */
     fun canShowAppOpen(

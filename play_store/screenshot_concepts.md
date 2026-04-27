@@ -48,11 +48,11 @@ Each frame: phone mockup (Pixel 9 silhouette) on aurora gradient background (#0f
 **Sub**: "No account. No cloud. Built so we couldn't read you if we tried."
 **Phone shows**: Settings → Privacy panel. Three rows: "Data shared with us: None", "Account: None", "Cloud sync: Disabled (and impossible)". A "Wipe everything" button below.
 
-## Frame 8 — Free forever
+## Frame 8 — The full experience
 
-**Headline**: "No subscription. Ever."
-**Sub**: "The full Dreamloom is free. Always. (Yes, really.)"
-**Phone shows**: Pricing comparison card. "Dreamloom — Free." vs three blurred competitor names with "$5.99/mo", "$9.99/mo", "$14.99/mo".
+**Headline**: "Everything runs on your phone."
+**Sub**: "After the one-time model download, your journal works offline. No account. No cloud."
+**Phone shows**: Home with moon, status bar in airplane mode — same privacy story as Frame 1, reframed as ownership of the full app.
 
 ---
 

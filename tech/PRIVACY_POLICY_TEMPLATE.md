@@ -48,7 +48,7 @@ When the app crashes we send Google a stack trace and basic device info. Crash r
 
 ### Ad data (Google AdMob)
 
-We use Google AdMob to show ads, which is how the app stays free. AdMob may collect:
+We use Google AdMob to show ads. AdMob may collect:
 - Your device's advertising ID (Ad ID)
 - Approximate location (country/region)
 - Ad interaction events (impression, click)
@@ -113,4 +113,4 @@ Questions: **hello@dreamloom.app**
 
 ---
 
-*Dreamloom is open about being free because of ads, and private because we wrote it that way. If you ever feel you've found a privacy issue, write to us — we will treat it as a critical bug.*
+*We built Dreamloom so your dream content stays on your device, and we are clear about how ads and analytics work. If you believe you have found a privacy issue, write to us — we will treat it as a critical bug.*
