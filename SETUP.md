@@ -1,10 +1,10 @@
-# Dreamloom — setup for release
+# Release setup
 
-Replace the following placeholders before a production build:
+Use this checklist before a **production** build. Local debug builds work with defaults where noted.
 
 | Item | Where |
 | --- | --- |
-| GitHub `REPLACE_USER` in `ModelConfig.SOURCES` | [llm/ModelConfig.kt](app/src/main/java/app/dreamloom/llm/ModelConfig.kt) |
+| GitHub `REPLACE_USER` in `ModelConfig.SOURCES` | [app/.../llm/ModelConfig.kt](app/src/main/java/com/charles/app/dreamloom/llm/ModelConfig.kt) |
 | Model `SHA256` (when not using `REPLACE_AT_BUILD_TIME`) | `ModelConfig.SHA256` |
 | Firebase / `google-services.json` | Use your Firebase project; package ids `com.charles.app.dreamloom` and `com.charles.app.dreamloom.debug` |
 | AdMob ad unit IDs | `AdUnits` (add when you create the module; use Google test IDs in `debug` only) |

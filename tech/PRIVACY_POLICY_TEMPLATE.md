@@ -1,6 +1,6 @@
 # Privacy Policy — Dreamloom
 
-This is the source-of-truth policy. Cursor: render this as static HTML and host on GitHub Pages at `https://<user>.github.io/dreamloom/privacy.html`. Use the URL in the Play Console.
+This is a starting point for a public privacy policy. Publish it as static HTML (for example on GitHub Pages) and add the public URL in Google Play and in the app. Replace `<user>` in example URLs with your org or user name.
 
 Effective date: **<DATE OF FIRST PUBLIC RELEASE>**
 

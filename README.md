@@ -2,42 +2,23 @@
 
 **Your dreams, decoded. Privately.**
 
-An on-device AI dream journal and daily oracle. Record or type your dream, and Gemma (via LiteRT-LM) runs entirely on your phone: symbols, themes over time, and a personal daily intention. No account. No cloud. Your dreams stay on the device.
+Dreamloom is an Android dream journal. You record or type your dream, and on-device AI (Gemma through LiteRT-LM) helps interpret themes and symbols. **Your entries stay on your phone**—no account, no cloud sync. An optional one-time download brings the model onto the device; after that, core journaling works offline.
 
-This repository is the Android app source. For build steps, see [SETUP.md](SETUP.md) and [cursor/INSTRUCTIONS.md](cursor/INSTRUCTIONS.md).
+## Privacy
 
----
+Journaling and interpretation are processed locally. Network use is limited to what you would expect: first-time model download, optional crash and usage analytics (with controls in the app), and ads if you use the ad-supported build. See the in-app privacy information and, when published, the privacy policy linked from the store listing.
 
-## Features
+## Get the app
 
-- On-device LLM (Gemma) for interpretation; optional voice input and local storage
-- Dream Atlas, weekly insight, daily oracle (per [spec/MVP.md](spec/MVP.md))
-- Google AdMob for App Open, interstitial, and rewarded placements (see [spec/ADS.md](spec/ADS.md))
+Install from **Google Play** when the listing is live. (A store link can be added here for releases.)
 
----
+## Build from source
 
-## Repository layout
+You need [Android Studio](https://developer.android.com/studio) (recommended) or the Android command-line tools, plus **JDK 17**.
 
-```
-Dreamloom/
-├── README.md
-├── SETUP.md
-├── cursor/           INSTRUCTIONS.md, BUILD_ORDER.md
-├── play_store/       listing and screenshot copy drafts
-├── spec/             MVP, screens, prompts, ADS
-├── tech/             stack, architecture, model download, etc.
-└── design/           brand and UI system
-```
+1. Clone this repository.
+2. Open the project root in Android Studio and let it sync Gradle.
+3. Ensure `local.properties` exists in the project root with `sdk.dir=`<path to your Android SDK> (Android Studio usually creates this).
+4. Run the `app` run configuration on a device or emulator.
 
----
-
-## Stack (summary)
-
-- **Android**: Kotlin, Jetpack Compose, Material 3, Hilt, Room + SQLCipher, WorkManager
-- **LLM**: Gemma via LiteRT-LM; large model file downloaded on first launch (see [tech/MODEL_DOWNLOAD.md](tech/MODEL_DOWNLOAD.md))
-- **Ads**: Google Mobile Ads (AdMob) with optional mediation adapters
-- **Analytics / crashes**: Firebase Analytics and Crashlytics (see [tech/STACK.md](tech/STACK.md))
-
-## Where to start (contributors)
-
-Open [cursor/INSTRUCTIONS.md](cursor/INSTRUCTIONS.md) and follow [cursor/BUILD_ORDER.md](cursor/BUILD_ORDER.md).
+A release build also needs your own Firebase project, AdMob configuration, signing setup, and hosted model URLs. See [SETUP.md](SETUP.md) for that checklist.

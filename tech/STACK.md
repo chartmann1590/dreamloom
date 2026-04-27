@@ -1,6 +1,6 @@
 # Tech Stack
 
-All versions are floor versions known to work as of April 2026. Cursor: bump to latest stable in each line if compatible — but verify Compose BOM compatibility before bumping core libraries.
+All versions are floor versions known to work as of April 2026. When updating dependencies, prefer latest stable releases that stay compatible with the Compose BOM and the rest of the stack.
 
 ---
 

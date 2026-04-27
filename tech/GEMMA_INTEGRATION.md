@@ -1,6 +1,6 @@
 # Gemma 4 E2B via LiteRT-LM — Integration Recipe
 
-The single most important file for Cursor. This is how we actually run the LLM on the user's phone.
+This document explains how the app runs the on-device LLM.
 
 We use **Gemma 4 E2B IT** (instruction-tuned), int4 quantized, via the **LiteRT-LM Android API**. Source: `huggingface.co/litert-community/gemma-4-E2B-it-litert-lm`.
 
@@ -153,7 +153,7 @@ sealed class LlmEngineState {
 }
 ```
 
-> **Cursor**: the LiteRT-LM Android API surface is still beta as of v1.0.0-beta01. The exact method names (`createSession`, `addQuery`, `streamResponse`, `addImage`) may differ slightly in the released SDK. After adding the dependency, run a quick "Show Method Signatures" pass in Android Studio on `GenAI` and adjust this file. The shape — *create options → create model → create session → add input → stream → close* — is correct.
+> **Note:** the LiteRT-LM Android API surface is still beta as of v1.0.0-beta01. The exact method names (`createSession`, `addQuery`, `streamResponse`, `addImage`) may differ slightly in the released SDK. After adding the dependency, use Android Studio to inspect `GenAI` and adjust this file if needed. The overall flow—*create options → create model → create session → add input → stream → close*—stays the same.
 
 ---
 
