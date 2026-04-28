@@ -22,6 +22,19 @@ Every push triggers a workflow that publishes:
 - `app-release.apk`
 - `app-release.aab`
 
+The workflow requires these GitHub repository secrets:
+
+- `DREAMLOOM_MODEL_SHA256`
+- `ANDROID_KEYSTORE_B64` (base64 of your release keystore)
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+Release versioning is automatic in CI:
+
+- `versionCode = github.run_number` (always increases)
+- `versionName = 0.1.<github.run_number>`
+
 ## Screenshots
 
 ![Dreamloom Home](docs/assets/screenshots/home.svg)
