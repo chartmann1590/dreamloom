@@ -4,7 +4,6 @@ import com.charles.app.dreamloom.data.db.DreamDao
 import com.charles.app.dreamloom.data.db.DreamEntity
 import com.charles.app.dreamloom.llm.Interpretation
 import kotlinx.coroutines.flow.Flow
-import org.json.JSONArray
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,6 +15,11 @@ class DreamRepository @Inject constructor(
     fun byId(id: Long): Flow<DreamEntity?> = dao.observeById(id)
     suspend fun getById(id: Long): DreamEntity? = dao.getById(id)
     fun searchFts(q: String): Flow<List<DreamEntity>> = dao.searchFts(q)
+
+    /** Most recent [limit] fully interpreted dreams (newest first in DB; reverse for “oldest first” prompts). */
+    suspend fun latestInterpretedDreams(limit: Int): List<DreamEntity> = dao.latestInterpretedDreams(limit)
+
+    suspend fun interpretedDreamsSince(sinceMin: Long): List<DreamEntity> = dao.interpretedDreamsSince(sinceMin)
 
     suspend fun create(
         id: Long,
@@ -48,7 +52,7 @@ class DreamRepository @Inject constructor(
         modelVersion: String,
     ) {
         val cur = dao.getById(id) ?: return
-        val syms = JSONArray().apply { interp.symbols.forEach { put(it) } }.toString()
+        val syms = symbolsJsonForStorage(interp.symbols)
         dao.update(
             cur.copy(
                 title = interp.title,
@@ -79,4 +83,25 @@ class DreamRepository @Inject constructor(
     suspend fun delete(id: Long) = dao.deleteById(id)
     suspend fun wipeAll() = dao.deleteAll()
     suspend fun countAll(): Int = dao.countAll()
+
+    /** JSON array of strings (same shape as legacy `JSONArray` output) without Android-stubbed `org.json` on JVM tests. */
+    internal fun symbolsJsonForStorage(symbols: List<String>): String {
+        val parts = symbols.map { sym ->
+            buildString(sym.length + 2) {
+                append('"')
+                for (ch in sym) {
+                    when (ch) {
+                        '\\' -> append("\\\\")
+                        '"' -> append("\\\"")
+                        '\n' -> append("\\n")
+                        '\r' -> append("\\r")
+                        '\t' -> append("\\t")
+                        else -> append(ch)
+                    }
+                }
+                append('"')
+            }
+        }
+        return parts.joinToString(",", prefix = "[", postfix = "]")
+    }
 }

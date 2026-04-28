@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AdMob app ID (GMA; format ca-app-pub-XXXX~XXXX). Debug builds still use test ad units in code where applicable. -->
+    <string name="admob_app_id" translatable="false">ca-app-pub-8382831211800454~5919305033</string>
+    <string name="ad_int_post_detail" translatable="false">ca-app-pub-8382831211800454/6756999129</string>
+    <string name="ad_app_open_main" translatable="false">ca-app-pub-8382831211800454/2973666782</string>
+    <string name="ad_rewarded" translatable="false">ca-app-pub-8382831211800454/6154363894</string>
+    <string name="ad_native_advanced" translatable="false">ca-app-pub-8382831211800454/1420911963</string>
+</resources>

@@ -164,7 +164,7 @@ If the user backs out mid-stream, save partial text but don't claim the interpre
 │  Today's intention           │
 │  Today, let one thing…       │  card with gold border
 │                              │
-│  [Generate dream image] (P1) │  rewarded video gate
+│  [Generate dream image] (post-MVP) │  rewarded video gate — omit until shipped
 │  [Extended interpretation]   │  rewarded video gate
 └──────────────────────────────┘
 ```

@@ -20,7 +20,7 @@ private val provider = GoogleFont.Provider(
 @OptIn(ExperimentalTextApi::class)
 private val cormorantName = GoogleFont("Cormorant Garamond")
 @OptIn(ExperimentalTextApi::class)
-private val interName = GoogleFont("Inter")
+private val jakartaName = GoogleFont("Plus Jakarta Sans")
 
 @OptIn(ExperimentalTextApi::class)
 val CormorantFont = FontFamily(Font(googleFont = cormorantName, fontProvider = provider, weight = FontWeight.Medium))
@@ -29,11 +29,11 @@ val CormorantFontItalic = FontFamily(
     Font(googleFont = cormorantName, fontProvider = provider, style = FontStyle.Italic),
 )
 @OptIn(ExperimentalTextApi::class)
-val InterFont = FontFamily(Font(googleFont = interName, fontProvider = provider, weight = FontWeight.Normal))
+val BodyFont = FontFamily(Font(googleFont = jakartaName, fontProvider = provider, weight = FontWeight.Normal))
 @OptIn(ExperimentalTextApi::class)
-val InterFontMedium = FontFamily(Font(googleFont = interName, fontProvider = provider, weight = FontWeight.Medium))
+val BodyFontMedium = FontFamily(Font(googleFont = jakartaName, fontProvider = provider, weight = FontWeight.Medium))
 @OptIn(ExperimentalTextApi::class)
-val InterFontSemiBold = FontFamily(Font(googleFont = interName, fontProvider = provider, weight = FontWeight.SemiBold))
+val BodyFontSemiBold = FontFamily(Font(googleFont = jakartaName, fontProvider = provider, weight = FontWeight.SemiBold))
 
 @OptIn(ExperimentalTextApi::class)
 val DreamloomTypography = androidx.compose.material3.Typography(
@@ -47,19 +47,19 @@ val DreamloomTypography = androidx.compose.material3.Typography(
     displaySmall = TextStyle(fontFamily = CormorantFont, fontSize = 32.sp, lineHeight = 40.sp),
     headlineLarge = TextStyle(fontFamily = CormorantFont, fontSize = 26.sp, lineHeight = 34.sp),
     headlineMedium = TextStyle(fontFamily = CormorantFont, fontSize = 22.sp, lineHeight = 30.sp),
-    titleLarge = TextStyle(fontFamily = InterFontMedium, fontSize = 18.sp, fontWeight = FontWeight.Medium),
-    titleMedium = TextStyle(fontFamily = InterFontMedium, fontSize = 16.sp, fontWeight = FontWeight.Medium),
-    bodyLarge = TextStyle(fontFamily = InterFont, fontSize = 16.sp, lineHeight = 24.sp),
-    bodyMedium = TextStyle(fontFamily = InterFont, fontSize = 14.sp, lineHeight = 20.sp),
-    bodySmall = TextStyle(fontFamily = InterFont, fontSize = 12.sp, lineHeight = 16.sp),
+    titleLarge = TextStyle(fontFamily = BodyFontMedium, fontSize = 18.sp, fontWeight = FontWeight.Medium),
+    titleMedium = TextStyle(fontFamily = BodyFontMedium, fontSize = 16.sp, fontWeight = FontWeight.Medium),
+    bodyLarge = TextStyle(fontFamily = BodyFont, fontSize = 16.sp, lineHeight = 24.sp),
+    bodyMedium = TextStyle(fontFamily = BodyFont, fontSize = 14.sp, lineHeight = 20.sp),
+    bodySmall = TextStyle(fontFamily = BodyFont, fontSize = 12.sp, lineHeight = 16.sp),
     labelLarge = TextStyle(
-        fontFamily = InterFontSemiBold,
+        fontFamily = BodyFontSemiBold,
         fontSize = 14.sp,
         fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.5.sp,
     ),
     labelSmall = TextStyle(
-        fontFamily = InterFont,
+        fontFamily = BodyFont,
         fontSize = 11.sp,
         letterSpacing = 1.sp,
     ),

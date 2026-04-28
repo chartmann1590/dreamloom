@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "100000000001",
-    "project_id": "dreamloom-placeholder",
-    "storage_bucket": "dreamloom-placeholder.appspot.com"
+    "project_number": "360745741594",
+    "project_id": "dreamloom-a51ec",
+    "storage_bucket": "dreamloom-a51ec.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:100000000001:android:0000000000000000000000",
+        "mobilesdk_app_id": "1:360745741594:android:6e875beac09a7ed6b110a3",
         "android_client_info": {
           "package_name": "com.charles.app.dreamloom"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "placeholder"
+          "current_key": "AIzaSyA5E8sjveYwzywJhXiOTwFj_bojjJR5d0Y"
         }
       ],
       "services": {
@@ -26,7 +26,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:100000000001:android:0000000000000000000001",
+        "mobilesdk_app_id": "1:360745741594:android:6e875beac09a7ed6b110a3e",
         "android_client_info": {
           "package_name": "com.charles.app.dreamloom.debug"
         }
@@ -34,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "placeholder"
+          "current_key": "AIzaSyA5E8sjveYwzywJhXiOTwFj_bojjJR5d0Y"
         }
       ],
       "services": {

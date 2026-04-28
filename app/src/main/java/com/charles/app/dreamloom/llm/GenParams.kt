@@ -10,4 +10,14 @@ object GenParams {
     const val INTERPRET_TOP_P = 0.95f
     const val INTERPRET_TOP_K = 64
     const val INTERPRET_MAX_TOKENS = 320
+
+    const val WEEKLY_INSIGHT_TEMPERATURE = 0.7f
+    const val WEEKLY_INSIGHT_TOP_P = 0.9f
+    const val WEEKLY_INSIGHT_TOP_K = 40
+    const val WEEKLY_INSIGHT_MAX_TOKENS = 300
+
+    const val ORACLE_TEMPERATURE = 0.85f
+    const val ORACLE_TOP_P = 0.95f
+    const val ORACLE_TOP_K = 64
+    const val ORACLE_MAX_TOKENS = 220
 }

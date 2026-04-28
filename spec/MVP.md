@@ -2,6 +2,8 @@
 
 The MVP is what ships to Play Store on day one. Everything in `[P0]` must work. `[P1]` is "ship within 30 days". `[P2]` is roadmap.
 
+**Explicitly post-MVP (ignore for initial build)** — not scheduled in `cursor/BUILD_ORDER.md` until core MVP is shipped: **iOS**; **heavy UI localization** (MVP = English-only strings; wider `values-xx` coverage later); **dream image generation** (rewarded + on-device or remote image pipeline); **sleep / Health Connect** (dream–sleep correlation); plus other `[P2]` items below unless explicitly promoted.
+
 ---
 
 ## [P0] Onboarding
@@ -67,7 +69,7 @@ Filter chips at top: All / This Week / Symbol picker (bottom sheet listing all s
 
 - App Open ad on cold start, 4-hour cooldown
 - Interstitial after closing a dream Detail screen, 1 per session, 60s cooldown
-- Rewarded video gates: "Generate dream image" (P1), "Extended interpretation" (P0), "Weekly Insight" (P0)
+- Rewarded video gates (MVP): "Extended interpretation" (P0), "Weekly Insight" (P0). Dream image reward (`rew_dream_image`) is **post-MVP** — see *Explicitly post-MVP* above.
 
 ## [P1] Pattern Insight (weekly)
 
@@ -85,7 +87,9 @@ A discoverable feature on the Home screen below the moon: "Ask the dream." Tap �
 
 Use Gemma 4 E2B's vision capability. User attaches a photo, prompt becomes "{user_text}\n\nUser also drew this. Use the drawing as additional symbolic input." Vision pass adds 1–3 extra symbols.
 
-## [P1] Dream image generation (rewarded)
+## [P2] Dream image generation (rewarded)
+
+**Post-MVP** — same build bucket as *Explicitly post-MVP* above; do not block initial ship.
 
 After interpretation, a CTA: "Watch a short ad to see your dream illustrated." Tap → rewarded video → on completion, send the interpretation title + symbols to Gemma to generate a richly descriptive prompt, then to **Stable Diffusion XS or SDXL Turbo via LiteRT** (later — for v1.1 — a remote image API is optional; disclose clearly if the user's content leaves the device).
 
@@ -95,20 +99,21 @@ Reality checks: scheduled notifications throughout the day asking "Are you dream
 
 ## [P2] Sleep tracker integration
 
-Read Health Connect. Correlate dream content with sleep stages.
+**Post-MVP** — Health Connect: read sleep stages and correlate dream content. Out of initial `BUILD_ORDER` scope.
 
 ## [P2] Pattern reports — monthly + yearly
 
 Year-in-review with shareable card (designed for TikTok/Instagram aspect ratio). Strong viral loop.
 
-## [P2] Localization
+## [P2] Localization (heavy)
 
-Spanish, Portuguese, German, French, Indonesian. Gemma is multilingual; UI strings via Android resources.
+**Post-MVP** for full rollout: Spanish, Portuguese, German, French, Indonesian. Gemma is multilingual; UI strings via Android resources. MVP ships **English-only** UI.
 
 ---
 
 ## Out of scope (deliberately)
 
+- **iOS / non-Android platforms** — Play Store Android MVP only; other platforms are later (see *Explicitly post-MVP*).
 - **Social / sharing within the app** — privacy story breaks. Users can screenshot.
 - **Cloud sync** — privacy story breaks. Use Android's automatic backup of the local DB if user opts in (via standard Android backup, encrypted, Google's responsibility).
 - **Account / login** — adds friction, breaks privacy story.

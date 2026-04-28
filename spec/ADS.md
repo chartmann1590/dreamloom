@@ -12,7 +12,7 @@ The app is supported with Google AdMob: App Open, interstitial, and rewarded pla
 | `int_post_detail` | Interstitial | After closing a Dream Detail view |
 | `rew_extended_interp` | Rewarded | Unlock extended interpretation |
 | `rew_weekly_insight` | Rewarded | Unlock the Sunday weekly insight |
-| `rew_dream_image` | Rewarded | Unlock dream image generation (P1) |
+| `rew_dream_image` | Rewarded | Unlock dream image generation (**post-MVP** — unit may be omitted until shipped; see `spec/MVP.md`) |
 | `banner_settings` | Banner (adaptive) | Settings → About only |
 
 Use **AdMob mediation** with at least Meta Audience Network + AppLovin enabled in the AdMob console.

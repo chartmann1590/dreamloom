@@ -9,7 +9,7 @@ The Gemma 4 E2B model file is ~2.58 GB. We must NOT bundle it in the AAB (Play S
 **GitHub Releases** under the project repo, e.g.:
 
 ```
-https://github.com/<user>/dreamloom-android/releases/download/model-v1/gemma-4-E2B-it-int4.litertlm
+https://github.com/chartmann1590/dreamloom/releases/download/model-v1/gemma-4-E2B-it-int4.litertlm
 ```
 
 Why GitHub Releases:
@@ -26,23 +26,23 @@ The release tag MUST be immutable. Never overwrite `model-v1`. New model = new t
 
 ## App-side constants
 
-In `app/src/main/java/app/dreamloom/llm/ModelConfig.kt`:
+In `app/src/main/java/com/charles/app/dreamloom/llm/ModelConfig.kt` (digest comes from `BuildConfig.MODEL_SHA256`; release builds require `dreamloom.modelSha256` in `local.properties` — see [SETUP.md](../SETUP.md)):
 
 ```kotlin
 object ModelConfig {
     const val VERSION = "v1"
     const val FILENAME = "gemma-4-E2B-it-int4.litertlm"
     const val EXPECTED_SIZE_BYTES = 2_770_000_000L  // ~2.58 GiB; tweak after first build
-    const val SHA256 = "REPLACE_AT_BUILD_TIME"
+    val modelSha256: String get() = BuildConfig.MODEL_SHA256
 
     val SOURCES = listOf(
-        "https://github.com/<user>/dreamloom-android/releases/download/model-$VERSION/$FILENAME",
+        "https://github.com/chartmann1590/dreamloom/releases/download/model-$VERSION/$FILENAME",
         "https://r2.dreamloom.app/model-$VERSION/$FILENAME",
     )
 }
 ```
 
-The SHA-256 is recorded once during build of the model release. Verifying it on download prevents corruption and prevents a malicious mirror from swapping the model.
+The SHA-256 is set at **release compile time** from the published model file. Verifying it on download prevents corruption and prevents a malicious mirror from swapping the model. Debug builds use the placeholder and skip verification.
 
 ---
 
@@ -100,7 +100,7 @@ class ModelDownloadWorker @AssistedInject constructor(
             val ok = runCatching { downloadWithResume(url, tmp, resumeFrom) }
                 .getOrDefault(false)
             if (ok) {
-                if (!verifySha256(tmp, ModelConfig.SHA256)) {
+                if (!verifySha256(tmp, ModelConfig.modelSha256)) {
                     tmp.delete()
                     return Result.retry()
                 }

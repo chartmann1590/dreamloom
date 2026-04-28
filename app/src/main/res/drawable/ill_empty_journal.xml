@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="160dp"
+    android:viewportWidth="200"
+    android:viewportHeight="160">
+    <!-- Open book / journal silhouette -->
+    <path
+        android:pathData="M40,45 L100,25 L160,45 L160,125 L100,145 L40,125 Z"
+        android:fillColor="#33231854"
+        android:strokeColor="#55D4B483"
+        android:strokeWidth="2" />
+    <path
+        android:pathData="M100,25 L100,145"
+        android:strokeColor="#44A5A4C7"
+        android:strokeWidth="1.5" />
+    <!-- Moon above -->
+    <path
+        android:pathData="M100,12 A10,10 0 1,1 100,32 A8,8 0 1,0 100,12 Z"
+        android:fillColor="#CCFBE9C3" />
+    <!-- Decorative lines (dream lines) -->
+    <path
+        android:pathData="M55,70 L90,70 M110,85 L145,85 M60,100 L85,100"
+        android:strokeColor="#408B5CF6"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+</vector>

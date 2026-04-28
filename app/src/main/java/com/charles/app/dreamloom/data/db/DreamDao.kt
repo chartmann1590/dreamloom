@@ -21,6 +21,12 @@ interface DreamDao {
     @Query("SELECT * FROM dreams WHERE id = :id")
     suspend fun getById(id: Long): DreamEntity?
 
+    @Query("SELECT * FROM dreams WHERE isInterpretationComplete = 1 ORDER BY createdAt DESC LIMIT :limit")
+    suspend fun latestInterpretedDreams(limit: Int): List<DreamEntity>
+
+    @Query("SELECT * FROM dreams WHERE isInterpretationComplete = 1 AND createdAt >= :sinceMin")
+    suspend fun interpretedDreamsSince(sinceMin: Long): List<DreamEntity>
+
     @Query("SELECT * FROM dreams ORDER BY createdAt DESC")
     fun observeAll(): Flow<List<DreamEntity>>
 

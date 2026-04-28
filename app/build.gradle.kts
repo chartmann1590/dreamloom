@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Properties
 
 buildscript {
     repositories {
@@ -20,6 +21,14 @@ plugins {
     id("com.google.firebase.crashlytics")
 }
 
+val localProperties = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+val dreamloomModelSha256: String? =
+    localProperties.getProperty("dreamloom.modelSha256")?.trim()?.takeIf { it.isNotEmpty() }
+        ?: (project.findProperty("dreamloom.modelSha256") as String?)?.trim()?.takeIf { it.isNotEmpty() }
+
 android {
     namespace = "com.charles.app.dreamloom"
     compileSdk = 35
@@ -32,7 +41,6 @@ android {
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
-        buildConfigField("Boolean", "USE_FAKE_LLM", "false")
     }
 
     buildTypes {
@@ -42,10 +50,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            val sha = dreamloomModelSha256 ?: ""
+            buildConfigField("String", "MODEL_SHA256", "\"$sha\"")
         }
         debug {
             applicationIdSuffix = ".debug"
-            buildConfigField("Boolean", "USE_FAKE_LLM", "true")
+            buildConfigField("String", "MODEL_SHA256", "\"REPLACE_AT_BUILD_TIME\"")
         }
     }
     compileOptions {
@@ -143,3 +153,18 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 apply(plugin = "com.google.android.gms.oss-licenses-plugin")
+
+gradle.taskGraph.whenReady {
+    val runsReleaseArtifact = allTasks.any { t ->
+        val n = t.name
+        (n.startsWith("assemble") || n.startsWith("bundle")) && n.endsWith("Release")
+    }
+    if (!runsReleaseArtifact) return@whenReady
+    val sha = dreamloomModelSha256
+    if (sha.isNullOrBlank() || sha.equals("REPLACE_AT_BUILD_TIME", ignoreCase = true)) {
+        throw org.gradle.api.GradleException(
+            "Release builds require dreamloom.modelSha256 in local.properties (or -Pdreamloom.modelSha256). " +
+                "Compute: shasum -a 256 gemma-4-E2B-it-int4.litertlm",
+        )
+    }
+}

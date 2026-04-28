@@ -35,6 +35,7 @@ class WipeDataUseCase @Inject constructor(
             if (model.exists()) model.delete()
             val modelsDir = File(app.filesDir, "models")
             if (modelsDir.isDirectory) modelsDir.listFiles()?.forEach { it.delete() }
+            File(app.filesDir, "dreams").takeIf { it.exists() }?.deleteRecursively()
         }
         prefs.clearAll()
         pass.clear()

@@ -95,7 +95,7 @@ Long-tail (high intent, low competition):
 
 ## Privacy policy URL
 
-Required by Play Store. Host a public page (e.g. GitHub Pages) using `tech/PRIVACY_POLICY_TEMPLATE.md` as a starting point. It should reflect Firebase Analytics / Crashlytics and AdMob as described in the template.
+**Canonical file to host:** [play_store/privacy.html](privacy.html) (static HTML aligned with Firebase / AdMob / model download). The app and listing should use the same public URL as [app/src/main/res/values/strings.xml](../app/src/main/res/values/strings.xml) (`https://dreamloom.app/privacy`). For longer legal copy, still start from `tech/PRIVACY_POLICY_TEMPLATE.md`.
 
 ## Data safety form (Play Console)
 
@@ -130,6 +130,10 @@ Crescent moon overlaid on a thread/loom motif. Monochrome silver-gold on deep in
 6. Indonesian
 
 Use Gemma's multilingual capability to translate the system prompts; UI strings via `strings.xml` resource folders.
+
+## Internal testing track (BUILD_ORDER 15–16)
+
+Screens **15 — Reminders** and **16 — About** (`spec/SCREENS.md`) are required for a trustworthy Settings area before internal testers: morning nudge, time + copy, version/model/AdMob/privacy link, OSS licenses. Confirm on a release build after uploading the model GitHub asset and setting `dreamloom.modelSha256` (see [SETUP.md](../SETUP.md)).
 
 ## ASO launch checklist
 

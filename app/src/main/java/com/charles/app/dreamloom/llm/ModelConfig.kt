@@ -1,13 +1,20 @@
 package com.charles.app.dreamloom.llm
 
+import com.charles.app.dreamloom.BuildConfig
+
 object ModelConfig {
     const val VERSION = "v1"
-    const val FILENAME = "gemma-4-E2B-it-int4.litertlm"
-    const val EXPECTED_SIZE_BYTES = 2_770_000_000L
-    const val SHA256 = "REPLACE_AT_BUILD_TIME"
+    const val FILENAME = "gemma-4-E2B-it.litertlm"
+
+    /** Shown in Settings → About (matches product spec wording). */
+    const val ABOUT_LABEL = "Gemma 4 E2B-IT, int4, May 2026"
+    const val EXPECTED_SIZE_BYTES = 2_583_085_056L
+
+    /** Expected SHA-256 of [FILENAME] after download (`BuildConfig.MODEL_SHA256`). */
+    val modelSha256: String get() = BuildConfig.MODEL_SHA256
 
     val SOURCES: List<String> = listOf(
-        "https://github.com/REPLACE_USER/dreamloom-android/releases/download/model-$VERSION/$FILENAME",
-        "https://r2.dreamloom.app/model-$VERSION/$FILENAME",
+        "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME",
+        "https://huggingface.co/huggingworld/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME",
     )
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="140dp"
+    android:viewportWidth="320"
+    android:viewportHeight="140">
+    <!-- Soft aurora wash -->
+    <path
+        android:pathData="M0,90 Q80,40 160,70 T320,55 L320,140 L0,140 Z"
+        android:fillColor="#338B5CF6" />
+    <!-- Thread curves (loom) -->
+    <path
+        android:pathData="M20,115 C60,60 120,130 180,75 S280,95 300,50"
+        android:strokeColor="#66D4B483"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M40,125 C90,85 150,115 210,90 S290,105 305,70"
+        android:strokeColor="#44FBE9C3"
+        android:strokeWidth="1.8"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round" />
+    <!-- Moon disc -->
+    <path
+        android:pathData="M255,55m-20,0a20,20 0 1,1 40,0a20,20 0 1,1 -40,0"
+        android:fillColor="#E8D4A8" />
+    <!-- Small stars -->
+    <path
+        android:pathData="M52,32 L54,38 L60,38 L55,42 L57,48 L52,44 L47,48 L49,42 L44,38 L50,38 Z"
+        android:fillColor="#99FBE9C3" />
+    <path
+        android:pathData="M92,48 L93,51 L96,51 L93.5,53 L94.5,56 L92,54 L89.5,56 L90.5,53 L88,51 L91,51 Z"
+        android:fillColor="#66FFFFFF" />
+    <path
+        android:pathData="M140,28 L141.5,32 L146,32 L142.5,35 L144,40 L140,37 L136,40 L137.5,35 L134,32 L138.5,32 Z"
+        android:fillColor="#77D4B483" />
+</vector>

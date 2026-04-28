@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Dreamloom</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem;
+      line-height: 1.55; color: #1a1a2e; background: #fafbff; }
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.15rem; margin-top: 1.75rem; }
+    a { color: #3d4f8f; }
+    .muted { color: #555; font-size: 0.9rem; }
+    ul { padding-left: 1.2rem; }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy — Dreamloom</h1>
+  <p class="muted">Effective: April 27, 2026 · Contact: <a href="mailto:hello@dreamloom.app">hello@dreamloom.app</a></p>
+
+  <h2>The short version</h2>
+  <ul>
+    <li><strong>Your dream entries never leave your phone.</strong> We do not collect, store, transmit, or share dream text, voice recordings, photos, interpretations, intentions, weekly insights, or oracle answers.</li>
+    <li>No account is required. There is no cloud sync.</li>
+    <li>The app downloads one AI model file on first launch (from GitHub Releases and/or our CDN), then runs offline.</li>
+    <li>Optional anonymous app-usage analytics (Firebase Analytics) and optional crash reports (Firebase Crashlytics) can be turned off in Settings → Privacy.</li>
+    <li>We show ads through Google AdMob, which may use device identifiers as described below.</li>
+  </ul>
+  <p>Uninstalling Dreamloom removes all local data including the model file. We do not retain copies on our servers.</p>
+
+  <h2>What we collect</h2>
+  <p><strong>Journal content:</strong> none. Everything you enter stays in an encrypted local database (SQLCipher) on your device.</p>
+  <p><strong>Analytics (optional):</strong> coarse events such as “a dream was saved” with flags like whether a photo was attached — never dream text or titles. Default is on; you may disable in Settings.</p>
+  <p><strong>Crash reports (optional):</strong> stack traces to fix stability issues, without dream content. Default is on; you may disable in Settings.</p>
+
+  <h2>Advertising (Google AdMob)</h2>
+  <p>Dreamloom is free and supported by ads. AdMob may collect device identifiers and ad interaction data under Google’s policies. You can reset or limit the advertising ID in your device settings. In applicable regions, consent is handled via Google’s User Messaging Platform before personalized ads.</p>
+  <p>AdMob privacy policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
+
+  <h2>Firebase</h2>
+  <p>When enabled, we use Google Firebase (project-linked) for Analytics and Crashlytics as above. Google’s policy: <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></p>
+
+  <h2>Model download</h2>
+  <p>We perform a standard HTTPS download of a public model file (same artifact for every user). No user identifier is sent with the request. Hosting may include GitHub (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy</a>) and our mirror at <code>r2.dreamloom.app</code>.</p>
+
+  <h2>Children</h2>
+  <p>Dreamloom is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+
+  <h2>Changes</h2>
+  <p>We may update this policy; the effective date at the top will change. Continued use after updates means you accept the revised policy.</p>
+
+  <p class="muted">This page is the canonical policy referenced from the app (Settings → About) and the Google Play listing at <code>https://dreamloom.app/privacy</code>. Host this file at that URL or redirect to your deployed copy.</p>
+</body>
+</html>
