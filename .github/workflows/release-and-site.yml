@@ -89,6 +89,29 @@ jobs:
             -Pdreamloom.modelSha256="$MODEL_SHA256" \
             -x lintVitalRelease
 
+      - name: Collect release artifacts
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+
+          out = Path("release-artifacts")
+          out.mkdir(exist_ok=True)
+
+          apk_candidates = sorted(Path("app/build/outputs/apk/release").glob("*.apk"))
+          aab_candidates = sorted(Path("app/build/outputs/bundle/release").glob("*.aab"))
+
+          if not apk_candidates:
+              raise SystemExit("No APK found under app/build/outputs/apk/release")
+          if not aab_candidates:
+              raise SystemExit("No AAB found under app/build/outputs/bundle/release")
+
+          shutil.copy2(apk_candidates[0], out / "app-release.apk")
+          shutil.copy2(aab_candidates[0], out / "app-release.aab")
+          print(f"Using APK: {apk_candidates[0]}")
+          print(f"Using AAB: {aab_candidates[0]}")
+          PY
+
       - name: Create GitHub release with artifacts
         uses: softprops/action-gh-release@v2
         with:
@@ -96,8 +119,8 @@ jobs:
           name: Dreamloom v${{ env.VERSION_NAME }} (${{ github.sha }})
           generate_release_notes: true
           files: |
-            app/build/outputs/apk/release/app-release.apk
-            app/build/outputs/bundle/release/app-release.aab
+            release-artifacts/app-release.apk
+            release-artifacts/app-release.aab
 
   deploy-site:
     name: Deploy Download Website
