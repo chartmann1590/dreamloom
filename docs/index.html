@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dreamloom Downloads</title>
+    <title>Dreamloom - Private AI Dream Journal</title>
     <style>
       :root {
         --bg: #070a17;
@@ -25,7 +25,7 @@
           radial-gradient(900px 450px at 90% 10%, #238a8380, transparent),
           var(--bg);
       }
-      .wrap { max-width: 1050px; margin: 0 auto; padding: 28px 16px 56px; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 16px 56px; }
       .hero {
         background: linear-gradient(145deg, #18295a, #0f1a37);
         border: 1px solid var(--stroke);
@@ -59,10 +59,16 @@
       }
       .panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
       .muted { color: var(--muted); }
+      .hero-grid {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 14px;
+      }
       .media {
         margin-top: 24px;
         display: grid;
-        grid-template-columns: 1.25fr 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 14px;
       }
       .video-card {
@@ -73,6 +79,52 @@
       }
       .video-card video { width: 100%; display: block; background: #000; }
       .video-card p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
+      .about-card {
+        border-radius: 16px;
+        border: 1px solid var(--stroke);
+        background: linear-gradient(180deg, var(--card), var(--card-2));
+        padding: 18px;
+      }
+      .about-card h2 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+      .about-card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+      .pill {
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        padding: 6px 11px;
+        font-size: 0.85rem;
+        color: #dbe5ff;
+        background: #0d1740;
+      }
+      .features {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .feature {
+        border-radius: 14px;
+        border: 1px solid var(--stroke);
+        background: #0c1638;
+        padding: 14px;
+      }
+      .feature h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+        line-height: 1.45;
+      }
       .grid {
         margin-top: 24px;
         display: grid;
@@ -88,6 +140,7 @@
       .shot img { width: 100%; display: block; }
       .shot p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
       @media (max-width: 900px) {
+        .hero-grid { grid-template-columns: 1fr; }
         .media { grid-template-columns: 1fr; }
       }
       footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
@@ -103,33 +156,60 @@
   <body>
     <main class="wrap">
       <section class="hero">
-        <h1>Dreamloom Android Downloads</h1>
+        <h1>Dreamloom: Private AI Dream Journal</h1>
         <p class="sub">
-          Every push builds a fresh release APK and Play Store AAB automatically.
+          Capture dreams, decode symbols, and discover patterns. All on-device. No account. No cloud upload of dream text.
         </p>
         <div class="actions">
           <a id="apk-link" class="btn" href="#">Download APK</a>
           <a id="aab-link" class="btn alt" href="#">Download AAB</a>
           <a id="release-link" class="btn alt" href="#">Open Release</a>
         </div>
-        <div class="panel">
-          <h2>Latest Release Status</h2>
-          <p id="release-meta" class="muted">Loading latest release...</p>
+        <div class="hero-grid">
+          <article class="video-card">
+            <video controls autoplay muted loop playsinline preload="metadata" poster="./assets/store/01-home.png">
+              <source src="./assets/video/promo_video_voiceover_burned_v2.mp4" type="video/mp4" />
+              <source src="./assets/video/promo_video_voiceover_burned.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+            <p>Official Dreamloom promo video.</p>
+          </article>
+          <div class="panel">
+            <h2>Latest Release Status</h2>
+            <p id="release-meta" class="muted">Loading latest release...</p>
+            <div class="pill-row">
+              <span class="pill">On-device Gemma AI</span>
+              <span class="pill">Encrypted local storage</span>
+              <span class="pill">Weekly insight</span>
+              <span class="pill">Dream Oracle</span>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="media">
-        <article class="video-card">
-          <video controls preload="metadata" poster="./assets/store/01-home.png">
-            <source src="./assets/video/promo_video_voiceover_burned_v2.mp4" type="video/mp4" />
-            <source src="./assets/video/promo_video_voiceover_burned.mp4" type="video/mp4" />
-            Your browser does not support embedded video.
-          </video>
-          <p>Official Dreamloom promo video from the Play Store media kit.</p>
+        <article class="about-card">
+          <h2>What Dreamloom does</h2>
+          <p>Dreamloom turns voice or text dream entries into structured interpretation: title, symbols, meaning, and intention.</p>
+          <p>It keeps your most intimate writing private by processing interpretations directly on your phone.</p>
+          <div class="features">
+            <div class="feature">
+              <h3>Morning Capture</h3>
+              <p>Record or type dreams quickly right after waking, then save entries to your Dream Atlas.</p>
+            </div>
+            <div class="feature">
+              <h3>Pattern Insight</h3>
+              <p>See recurring themes and symbols through weekly local analysis of your journal history.</p>
+            </div>
+            <div class="feature">
+              <h3>Privacy by Design</h3>
+              <p>No account and no cloud sync for dream text. Data stays local with encrypted storage.</p>
+            </div>
+          </div>
         </article>
         <article class="shot">
-          <img src="./assets/store/07-settings-about.png" alt="Dreamloom about screen" />
-          <p>About screen with privacy links and app metadata.</p>
+          <img src="./assets/store/07-settings-about.png" alt="Dreamloom about and privacy screen" />
+          <p>In-app About + Privacy section with version and legal links.</p>
         </article>
       </section>
 
