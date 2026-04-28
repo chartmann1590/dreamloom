@@ -37,9 +37,14 @@ Release versioning is automatic in CI:
 
 ## Screenshots
 
-![Dreamloom Home](docs/assets/screenshots/home.svg)
-![Dreamloom Interpreter](docs/assets/screenshots/interpreter.svg)
-![Dreamloom Atlas](docs/assets/screenshots/atlas.svg)
+![Dreamloom Home](docs/assets/store/01-home.png)
+![Dreamloom Atlas](docs/assets/store/02-atlas.png)
+![Dreamloom Insight](docs/assets/store/03-insight.png)
+
+## Promo
+
+- **Website:** [Dreamloom Downloads](https://chartmann1590.github.io/dreamloom/)
+- **Promo video (local asset):** [promo_video_voiceover_burned_v2.mp4](docs/assets/video/promo_video_voiceover_burned_v2.mp4)
 
 ## Build from source
 

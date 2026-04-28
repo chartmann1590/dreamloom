@@ -59,6 +59,20 @@
       }
       .panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
       .muted { color: var(--muted); }
+      .media {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 14px;
+      }
+      .video-card {
+        border-radius: 16px;
+        border: 1px solid var(--stroke);
+        overflow: hidden;
+        background: #0c1430;
+      }
+      .video-card video { width: 100%; display: block; background: #000; }
+      .video-card p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
       .grid {
         margin-top: 24px;
         display: grid;
@@ -73,6 +87,9 @@
       }
       .shot img { width: 100%; display: block; }
       .shot p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
+      @media (max-width: 900px) {
+        .media { grid-template-columns: 1fr; }
+      }
       footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
       code {
         color: var(--accent-2);
@@ -101,18 +118,33 @@
         </div>
       </section>
 
+      <section class="media">
+        <article class="video-card">
+          <video controls preload="metadata" poster="./assets/store/01-home.png">
+            <source src="./assets/video/promo_video_voiceover_burned_v2.mp4" type="video/mp4" />
+            <source src="./assets/video/promo_video_voiceover_burned.mp4" type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+          <p>Official Dreamloom promo video from the Play Store media kit.</p>
+        </article>
+        <article class="shot">
+          <img src="./assets/store/07-settings-about.png" alt="Dreamloom about screen" />
+          <p>About screen with privacy links and app metadata.</p>
+        </article>
+      </section>
+
       <section class="grid">
         <article class="shot">
-          <img src="./assets/screenshots/home.svg" alt="Dreamloom home screen" />
-          <p>Reflective Home experience with calming visual style.</p>
+          <img src="./assets/store/01-home.png" alt="Dreamloom home screen" />
+          <p>Reflective Home screen from the latest onboarded build.</p>
         </article>
         <article class="shot">
-          <img src="./assets/screenshots/interpreter.svg" alt="Dream interpretation screen" />
-          <p>AI interpretation stream with symbols and intention output.</p>
+          <img src="./assets/store/02-atlas.png" alt="Dream atlas screen" />
+          <p>Dream Atlas trends and saved symbolism history.</p>
         </article>
         <article class="shot">
-          <img src="./assets/screenshots/atlas.svg" alt="Dream atlas insights screen" />
-          <p>Dream Atlas and Insight views for long-term patterns.</p>
+          <img src="./assets/store/03-insight.png" alt="Dream insight screen" />
+          <p>Weekly insight card generated from local journal history.</p>
         </article>
       </section>
 
