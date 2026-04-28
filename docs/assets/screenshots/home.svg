@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1600" role="img" aria-label="Dreamloom Home Screenshot">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#11183d"/>
+      <stop offset="100%" stop-color="#1e2f66"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#233f8f"/>
+      <stop offset="100%" stop-color="#182c66"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1600" fill="url(#bg)"/>
+  <circle cx="150" cy="200" r="120" fill="#7f8cff33"/>
+  <circle cx="640" cy="320" r="160" fill="#4de4cf26"/>
+  <text x="60" y="140" fill="#eef3ff" font-family="Inter, Arial" font-size="54" font-weight="700">Dreamloom</text>
+  <text x="60" y="200" fill="#b7c5eb" font-family="Inter, Arial" font-size="30">Home</text>
+  <rect x="48" y="260" rx="34" ry="34" width="704" height="280" fill="url(#card)"/>
+  <text x="84" y="330" fill="#ebf0ff" font-family="Inter, Arial" font-size="36" font-weight="700">Tonight's Reflection</text>
+  <text x="84" y="390" fill="#c4d1f4" font-family="Inter, Arial" font-size="28">Capture your dream while it is fresh.</text>
+  <rect x="84" y="430" rx="24" ry="24" width="260" height="72" fill="#7f8cff"/>
+  <text x="115" y="477" fill="#0d1230" font-family="Inter, Arial" font-size="28" font-weight="700">New Entry</text>
+  <rect x="48" y="580" rx="30" ry="30" width="704" height="250" fill="#14234d"/>
+  <rect x="84" y="640" rx="18" ry="18" width="620" height="26" fill="#7d90c8"/>
+  <rect x="84" y="690" rx="18" ry="18" width="520" height="26" fill="#6f81b8"/>
+  <rect x="84" y="740" rx="18" ry="18" width="440" height="26" fill="#5f71a7"/>
+  <rect x="48" y="868" rx="30" ry="30" width="704" height="250" fill="#14234d"/>
+  <text x="84" y="940" fill="#d6e1ff" font-family="Inter, Arial" font-size="34">Dream Atlas Preview</text>
+  <circle cx="130" cy="1006" r="26" fill="#4de4cf"/>
+  <circle cx="206" cy="1006" r="26" fill="#7f8cff"/>
+  <circle cx="282" cy="1006" r="26" fill="#ffb37a"/>
+</svg>

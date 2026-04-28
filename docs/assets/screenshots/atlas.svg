@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1600" role="img" aria-label="Dream atlas screenshot">
+  <defs>
+    <linearGradient id="bg3" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f1532"/>
+      <stop offset="100%" stop-color="#1a2250"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1600" fill="url(#bg3)"/>
+  <text x="60" y="138" fill="#eef3ff" font-family="Inter, Arial" font-size="50" font-weight="700">Dream Atlas</text>
+  <text x="60" y="194" fill="#b6c4e8" font-family="Inter, Arial" font-size="28">Trends and weekly insights</text>
+  <rect x="48" y="252" rx="30" ry="30" width="704" height="330" fill="#17224d"/>
+  <text x="84" y="320" fill="#e4ebff" font-family="Inter, Arial" font-size="32" font-weight="700">Mood Trajectory</text>
+  <polyline points="90,500 180,460 260,470 350,420 440,438 530,380 620,396 700,330"
+    fill="none" stroke="#7f8cff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="700" cy="330" r="12" fill="#4de4cf"/>
+  <rect x="48" y="616" rx="30" ry="30" width="344" height="236" fill="#12204a"/>
+  <rect x="408" y="616" rx="30" ry="30" width="344" height="236" fill="#12204a"/>
+  <text x="84" y="678" fill="#d8e2ff" font-family="Inter, Arial" font-size="28">Top Symbols</text>
+  <text x="444" y="678" fill="#d8e2ff" font-family="Inter, Arial" font-size="28">Oracle Activity</text>
+  <rect x="84" y="712" rx="12" ry="12" width="210" height="22" fill="#6f83be"/>
+  <rect x="84" y="746" rx="12" ry="12" width="182" height="22" fill="#6074af"/>
+  <rect x="444" y="712" rx="12" ry="12" width="230" height="22" fill="#7f8cff"/>
+  <rect x="444" y="746" rx="12" ry="12" width="170" height="22" fill="#4de4cf"/>
+  <rect x="48" y="890" rx="30" ry="30" width="704" height="490" fill="#111d43"/>
+  <text x="84" y="962" fill="#e4ebff" font-family="Inter, Arial" font-size="32" font-weight="700">Weekly Insight</text>
+  <rect x="84" y="1006" rx="14" ry="14" width="620" height="26" fill="#7083bd"/>
+  <rect x="84" y="1048" rx="14" ry="14" width="592" height="26" fill="#6273ab"/>
+  <rect x="84" y="1090" rx="14" ry="14" width="536" height="26" fill="#54649a"/>
+  <rect x="84" y="1132" rx="14" ry="14" width="566" height="26" fill="#6475ad"/>
+</svg>

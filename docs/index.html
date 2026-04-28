@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dreamloom Downloads</title>
+    <style>
+      :root {
+        --bg: #070a17;
+        --card: #101831;
+        --card-2: #162247;
+        --text: #ebf1ff;
+        --muted: #a9b8db;
+        --accent: #7f8cff;
+        --accent-2: #4de4cf;
+        --stroke: #2b3e75;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 500px at 20% -5%, #20326b80, transparent),
+          radial-gradient(900px 450px at 90% 10%, #238a8380, transparent),
+          var(--bg);
+      }
+      .wrap { max-width: 1050px; margin: 0 auto; padding: 28px 16px 56px; }
+      .hero {
+        background: linear-gradient(145deg, #18295a, #0f1a37);
+        border: 1px solid var(--stroke);
+        border-radius: 22px;
+        padding: 28px;
+        box-shadow: 0 18px 60px #00000055;
+      }
+      h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 3vw, 2.6rem); }
+      .sub { margin: 0; color: var(--muted); }
+      .actions { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        color: #0d1230;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent), #9bceff);
+        border-radius: 999px;
+        padding: 11px 18px;
+      }
+      .btn.alt {
+        color: var(--text);
+        background: transparent;
+        border: 1px solid var(--stroke);
+      }
+      .panel {
+        margin-top: 16px;
+        border: 1px solid var(--stroke);
+        background: linear-gradient(180deg, var(--card), var(--card-2));
+        border-radius: 16px;
+        padding: 16px;
+      }
+      .panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
+      .muted { color: var(--muted); }
+      .grid {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .shot {
+        border-radius: 16px;
+        border: 1px solid var(--stroke);
+        overflow: hidden;
+        background: #0c1430;
+      }
+      .shot img { width: 100%; display: block; }
+      .shot p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
+      footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
+      code {
+        color: var(--accent-2);
+        background: #0a1230;
+        border: 1px solid var(--stroke);
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <h1>Dreamloom Android Downloads</h1>
+        <p class="sub">
+          Every push builds a fresh release APK and Play Store AAB automatically.
+        </p>
+        <div class="actions">
+          <a id="apk-link" class="btn" href="#">Download APK</a>
+          <a id="aab-link" class="btn alt" href="#">Download AAB</a>
+          <a id="release-link" class="btn alt" href="#">Open Release</a>
+        </div>
+        <div class="panel">
+          <h2>Latest Release Status</h2>
+          <p id="release-meta" class="muted">Loading latest release...</p>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="shot">
+          <img src="./assets/screenshots/home.svg" alt="Dreamloom home screen" />
+          <p>Reflective Home experience with calming visual style.</p>
+        </article>
+        <article class="shot">
+          <img src="./assets/screenshots/interpreter.svg" alt="Dream interpretation screen" />
+          <p>AI interpretation stream with symbols and intention output.</p>
+        </article>
+        <article class="shot">
+          <img src="./assets/screenshots/atlas.svg" alt="Dream atlas insights screen" />
+          <p>Dream Atlas and Insight views for long-term patterns.</p>
+        </article>
+      </section>
+
+      <footer>
+        This page uses the GitHub Releases API for <code>chartmann1590/dreamloom</code>.
+      </footer>
+    </main>
+
+    <script>
+      const repo = "chartmann1590/dreamloom";
+      const latestReleaseApi = `https://api.github.com/repos/${repo}/releases/latest`;
+      const releaseMeta = document.getElementById("release-meta");
+      const apkLink = document.getElementById("apk-link");
+      const aabLink = document.getElementById("aab-link");
+      const releaseLink = document.getElementById("release-link");
+
+      async function loadLatestRelease() {
+        try {
+          const res = await fetch(latestReleaseApi, {
+            headers: { Accept: "application/vnd.github+json" }
+          });
+          if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+          const release = await res.json();
+          const assets = Array.isArray(release.assets) ? release.assets : [];
+          const apk = assets.find((a) => a.name.endsWith(".apk"));
+          const aab = assets.find((a) => a.name.endsWith(".aab"));
+
+          releaseLink.href = release.html_url;
+          releaseMeta.textContent =
+            `Latest tag: ${release.tag_name} | Published: ${new Date(release.published_at).toLocaleString()}`;
+
+          if (apk) {
+            apkLink.href = apk.browser_download_url;
+          } else {
+            apkLink.textContent = "APK unavailable";
+            apkLink.removeAttribute("href");
+          }
+
+          if (aab) {
+            aabLink.href = aab.browser_download_url;
+          } else {
+            aabLink.textContent = "AAB unavailable";
+            aabLink.removeAttribute("href");
+          }
+        } catch (err) {
+          releaseMeta.textContent = `Unable to load release data: ${err.message}`;
+          apkLink.textContent = "APK unavailable";
+          aabLink.textContent = "AAB unavailable";
+          apkLink.removeAttribute("href");
+          aabLink.removeAttribute("href");
+          releaseLink.href = `https://github.com/${repo}/releases`;
+        }
+      }
+
+      loadLatestRelease();
+    </script>
+  </body>
+</html>

@@ -10,7 +10,23 @@ Journaling and interpretation are processed locally. Network use is limited to w
 
 ## Get the app
 
-Install from **Google Play** when the listing is live. (A store link can be added here for releases.)
+Install from **Google Play** when the listing is live.
+
+Until then, use the automatic build releases:
+
+- **Download page:** [Dreamloom Downloads](https://chartmann1590.github.io/dreamloom/)
+- **All CI releases:** [GitHub Releases](https://github.com/chartmann1590/dreamloom/releases)
+
+Every push triggers a workflow that publishes:
+
+- `app-release.apk`
+- `app-release.aab`
+
+## Screenshots
+
+![Dreamloom Home](docs/assets/screenshots/home.svg)
+![Dreamloom Interpreter](docs/assets/screenshots/interpreter.svg)
+![Dreamloom Atlas](docs/assets/screenshots/atlas.svg)
 
 ## Build from source
 
