@@ -1,11 +1,14 @@
 package com.charles.app.dreamloom.notification
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.pm.PackageManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.charles.app.dreamloom.MainActivity
@@ -30,6 +33,15 @@ object ReminderNotifications {
     }
 
     fun showReminder(ctx: Context, body: String) {
+        val manager = NotificationManagerCompat.from(ctx)
+        if (!manager.areNotificationsEnabled()) return
+        if (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(ctx, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+
         ensureChannel(ctx)
         val open = Intent(ctx, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -50,6 +62,6 @@ object ReminderNotifications {
             .setAutoCancel(true)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .build()
-        NotificationManagerCompat.from(ctx).notify(NOTIF_ID, notif)
+        manager.notify(NOTIF_ID, notif)
     }
 }

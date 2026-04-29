@@ -53,7 +53,11 @@ class LlmEngine @Inject constructor() {
     }
 
     private fun isQualcomm(): Boolean =
-        (android.os.Build.SOC_MANUFACTURER ?: "").contains("Qualcomm", ignoreCase = true)
+        when {
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ->
+                (android.os.Build.SOC_MANUFACTURER ?: "").contains("Qualcomm", ignoreCase = true)
+            else -> (android.os.Build.MANUFACTURER ?: "").contains("Qualcomm", ignoreCase = true)
+        }
 
     /**
      * Loads the on-disk model. Thread-safe; safe to call multiple times.
