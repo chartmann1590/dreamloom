@@ -131,7 +131,7 @@ dependencies {
     implementation("net.zetetic:android-database-sqlcipher:4.5.4")
     implementation("androidx.sqlite:sqlite-ktx:2.4.0")
 
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.2.1")
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     implementation("androidx.work:work-runtime-ktx:2.10.0")
