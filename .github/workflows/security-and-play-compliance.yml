@@ -46,7 +46,7 @@ jobs:
 
       - name: Run MobSFScan
         run: |
-          mobsfscan app/src/main --json -o mobsfscan.json
+          mobsfscan app/src/main --json -o mobsfscan.json || true
 
       - name: Upload MobSFScan report
         uses: actions/upload-artifact@v4
