@@ -85,12 +85,16 @@ jobs:
             echo "DREAMLOOM_MODEL_SHA256 secret is missing."
             exit 1
           fi
+          if grep -Eni 'ca-app-pub-3940256099942544|REPLACE_ME|ca-app-pub-XXXXXXXXXXXXXXXX' app/src/main/res/values/ads.xml; then
+            echo "ads.xml appears to contain test/placeholder ad IDs. Refusing release build."
+            exit 1
+          fi
           chmod +x ./gradlew
           ./gradlew :app:assembleRelease :app:bundleRelease \
             -Pdreamloom.modelSha256="$MODEL_SHA256" \
             -x lintVitalRelease
 
-      - name: Verify release APK is signed
+      - name: Verify release APK is signed with non-debug key
         run: |
           set -e
           APK="$(ls app/build/outputs/apk/release/*.apk | head -n1)"
@@ -104,7 +108,31 @@ jobs:
             echo "apksigner not found under $ANDROID_SDK_ROOT/build-tools — skipping signature verify."
             exit 0
           fi
-          "$BUILD_TOOLS_DIR/apksigner" verify --verbose "$APK"
+          "$BUILD_TOOLS_DIR/apksigner" verify --verbose --print-certs "$APK" | tee /tmp/apk-signing.txt
+          if grep -En "CN=Android Debug" /tmp/apk-signing.txt; then
+            echo "APK is signed with debug certificate, expected release certificate."
+            exit 1
+          fi
+
+      - name: Verify release AAB is signed
+        run: |
+          set -e
+          AAB="$(ls app/build/outputs/bundle/release/*.aab | head -n1)"
+          if [ -z "$AAB" ]; then
+            echo "No release AAB produced."
+            exit 1
+          fi
+          jarsigner -verify -verbose -certs "$AAB" | tee /tmp/aab-signing.txt
+          if grep -En "jar verified\." /tmp/aab-signing.txt; then
+            true
+          else
+            echo "AAB signature verification failed."
+            exit 1
+          fi
+          if grep -En "CN=Android Debug" /tmp/aab-signing.txt; then
+            echo "AAB is signed with debug certificate, expected release certificate."
+            exit 1
+          fi
 
       - name: Collect release artifacts
         run: |

@@ -46,12 +46,6 @@ android {
                 storePassword = releaseStorePassword
                 keyAlias = releaseKeyAlias
                 keyPassword = releaseKeyPassword
-            } else {
-                // Local fallback so assembleRelease is installable without extra setup.
-                storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
-                storePassword = "android"
-                keyAlias = "androiddebugkey"
-                keyPassword = "android"
             }
         }
     }
@@ -185,6 +179,22 @@ gradle.taskGraph.whenReady {
         (n.startsWith("assemble") || n.startsWith("bundle")) && n.endsWith("Release")
     }
     if (!runsReleaseArtifact) return@whenReady
+    val releaseStoreFile = localProperties.getProperty("dreamloom.release.storeFile")?.trim()
+    val releaseStorePassword = localProperties.getProperty("dreamloom.release.storePassword")?.trim()
+    val releaseKeyAlias = localProperties.getProperty("dreamloom.release.keyAlias")?.trim()
+    val releaseKeyPassword = localProperties.getProperty("dreamloom.release.keyPassword")?.trim()
+    if (
+        releaseStoreFile.isNullOrBlank() ||
+        releaseStorePassword.isNullOrBlank() ||
+        releaseKeyAlias.isNullOrBlank() ||
+        releaseKeyPassword.isNullOrBlank()
+    ) {
+        throw org.gradle.api.GradleException(
+            "Release builds require configured signing credentials in local.properties: " +
+                "dreamloom.release.storeFile, dreamloom.release.storePassword, " +
+                "dreamloom.release.keyAlias, dreamloom.release.keyPassword.",
+        )
+    }
     val sha = dreamloomModelSha256
     if (sha.isNullOrBlank() || sha.equals("REPLACE_AT_BUILD_TIME", ignoreCase = true)) {
         throw org.gradle.api.GradleException(
