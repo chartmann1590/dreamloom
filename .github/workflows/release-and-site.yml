@@ -3,7 +3,8 @@ name: Release Android Build And Site
 on:
   push:
     branches:
-      - "**"
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: write

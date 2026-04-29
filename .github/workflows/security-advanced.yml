@@ -3,10 +3,10 @@ name: Security Advanced
 on:
   pull_request:
     branches:
-      - "**"
+      - main
   push:
     branches:
-      - "**"
+      - main
   schedule:
     - cron: "17 5 * * 1"
   workflow_dispatch:
@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -38,8 +40,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v3
+      - name: Build for CodeQL extraction
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :app:assembleDebug --no-daemon
 
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v3
@@ -51,6 +55,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Dependency Review
         uses: actions/dependency-review-action@v4

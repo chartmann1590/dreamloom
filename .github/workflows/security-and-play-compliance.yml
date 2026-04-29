@@ -3,10 +3,10 @@ name: Security Audit And Play Compliance
 on:
   pull_request:
     branches:
-      - "**"
+      - main
   push:
     branches:
-      - "**"
+      - main
   workflow_dispatch:
 
 permissions:
