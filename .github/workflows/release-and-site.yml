@@ -56,6 +56,18 @@ jobs:
             echo "Android signing secrets are missing."
             exit 1
           fi
+          if [ "$KEY_ALIAS" = "androiddebugkey" ]; then
+            echo "ANDROID_KEY_ALIAS is androiddebugkey. Configure a real release/upload key alias."
+            exit 1
+          fi
+          keytool -list -v \
+            -keystore "$RUNNER_TEMP/release.keystore" \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -alias "$KEY_ALIAS" > /tmp/keystore-cert.txt
+          if grep -En "Owner: .*CN=Android Debug" /tmp/keystore-cert.txt; then
+            echo "Configured keystore alias resolves to Android Debug certificate. Use a real release/upload keystore."
+            exit 1
+          fi
           python3 - <<'PY'
           import os
           import re
