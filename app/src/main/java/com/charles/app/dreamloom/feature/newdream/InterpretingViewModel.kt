@@ -46,34 +46,43 @@ class InterpretingViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val entity = dreams.getById(id) ?: return@launch
-            runCatching { engine.ensureLoaded(ModelStorage.modelFile(app)) }
             val photo = entity.photoPath?.let { File(it) }?.takeIf { it.exists() }
             val hadPhoto = photo != null
-            interpreter.interpret(entity.rawText, entity.mood, photo).collect { chunk ->
-                when (chunk) {
-                    is InterpretChunk.Partial -> {
-                        _raw.value = chunk.raw
-                    }
-                    is InterpretChunk.Done -> {
-                        dreams.attachInterpretation(
-                            id,
-                            chunk.interp,
-                            "gemma-4-e2b-${ModelConfig.VERSION}",
-                        )
-                        analytics.logInterpretationCompleted(hadPhoto)
-                        _streamSuccess.value = true
-                        _streamFinished.value = true
-                    }
-                    is InterpretChunk.Failed -> {
-                        _raw.value = chunk.raw
-                        if (chunk.raw.isNotBlank()) {
-                            dreams.attachPartialInterpretation(id, chunk.raw)
+            runCatching {
+                engine.ensureLoaded(ModelStorage.modelFile(app))
+                interpreter.interpret(entity.rawText, entity.mood, photo).collect { chunk ->
+                    when (chunk) {
+                        is InterpretChunk.Partial -> {
+                            _raw.value = chunk.raw
                         }
-                        analytics.logInterpretationFailed(hadPhoto)
-                        _streamSuccess.value = false
-                        _streamFinished.value = true
+                        is InterpretChunk.Done -> {
+                            dreams.attachInterpretation(
+                                id,
+                                chunk.interp,
+                                "gemma-4-e2b-${ModelConfig.VERSION}",
+                            )
+                            analytics.logInterpretationCompleted(hadPhoto)
+                            _streamSuccess.value = true
+                            _streamFinished.value = true
+                        }
+                        is InterpretChunk.Failed -> {
+                            _raw.value = chunk.raw
+                            if (chunk.raw.isNotBlank()) {
+                                dreams.attachPartialInterpretation(id, chunk.raw)
+                            }
+                            analytics.logInterpretationFailed(hadPhoto)
+                            _streamSuccess.value = false
+                            _streamFinished.value = true
+                        }
                     }
                 }
+            }.onFailure {
+                if (_raw.value.isNotBlank()) {
+                    runCatching { dreams.attachPartialInterpretation(id, _raw.value) }
+                }
+                runCatching { analytics.logInterpretationFailed(hadPhoto) }
+                _streamSuccess.value = false
+                _streamFinished.value = true
             }
         }
     }

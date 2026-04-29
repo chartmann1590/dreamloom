@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Crescent moon — single-color silhouette for themed icons (Android 13+) -->
+    <path
+        android:pathData="M58,32 C44,32 32,44 32,58 C32,72 44,84 58,84 C66,84 73,80 78,74 C68,76 58,68 58,58 C58,48 66,40 78,42 C73,36 66,32 58,32 Z"
+        android:fillColor="#FFFFFFFF" />
+    <!-- Sparkles -->
+    <path
+        android:pathData="M82,32 L83,35 L86,35 L83.5,37 L84.5,40 L82,38 L79.5,40 L80.5,37 L78,35 L81,35 Z"
+        android:fillColor="#FFFFFFFF" />
+    <path
+        android:pathData="M30,80 L30.7,82 L32.7,82 L31.1,83.2 L31.7,85.2 L30,84 L28.3,85.2 L28.9,83.2 L27.3,82 L29.3,82 Z"
+        android:fillColor="#FFFFFFFF" />
+</vector>

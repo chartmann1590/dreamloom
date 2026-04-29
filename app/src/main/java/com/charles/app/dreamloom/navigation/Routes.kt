@@ -6,6 +6,7 @@ object Routes {
     const val PRIVACY = "onboarding/privacy"
     const val MODEL_DOWNLOAD = "onboarding/modelDownload"
     const val PERMISSIONS = "onboarding/permissions"
+    const val ONBOARDING_NOTIFICATIONS = "onboarding/notifications"
     const val HOME = "home"
     const val RECORDING = "newDream/recording"
     const val INTERPRETING = "newDream/interpreting/{id}"

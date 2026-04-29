@@ -1,38 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="320dp"
     android:height="140dp"
     android:viewportWidth="320"
     android:viewportHeight="140">
-    <!-- Soft aurora wash -->
+
+    <!-- Distant nebula glow, lower-left -->
+    <path android:pathData="M-20,140 L340,140 L340,40 L-20,40 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="60"
+                android:centerY="120"
+                android:gradientRadius="160"
+                android:startColor="#55FF6FD8"
+                android:endColor="#00FF6FD8" />
+        </aapt:attr>
+    </path>
+
+    <!-- Aurora wash band -->
+    <path android:pathData="M0,90 Q80,40 160,70 T320,55 L320,140 L0,140 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="0"
+                android:startY="55"
+                android:endX="320"
+                android:endY="140"
+                android:startColor="#557C3AED"
+                android:endColor="#3338BDF8" />
+        </aapt:attr>
+    </path>
+
+    <!-- Secondary aurora ribbon -->
+    <path android:pathData="M0,108 Q100,72 200,96 T320,82 L320,140 L0,140 Z"
+        android:fillColor="#33A371FF" />
+
+    <!-- Loom threads weaving across -->
     <path
-        android:pathData="M0,90 Q80,40 160,70 T320,55 L320,140 L0,140 Z"
-        android:fillColor="#338B5CF6" />
-    <!-- Thread curves (loom) -->
-    <path
-        android:pathData="M20,115 C60,60 120,130 180,75 S280,95 300,50"
-        android:strokeColor="#66D4B483"
-        android:strokeWidth="2.5"
+        android:pathData="M16,118 C58,72 122,128 184,80 S278,98 304,52"
+        android:strokeColor="#88E8C77A"
+        android:strokeWidth="2.4"
         android:fillColor="#00000000"
         android:strokeLineCap="round" />
     <path
-        android:pathData="M40,125 C90,85 150,115 210,90 S290,105 305,70"
-        android:strokeColor="#44FBE9C3"
-        android:strokeWidth="1.8"
+        android:pathData="M40,128 C92,90 154,118 214,94 S294,108 308,72"
+        android:strokeColor="#66FCE9B8"
+        android:strokeWidth="1.6"
         android:fillColor="#00000000"
         android:strokeLineCap="round" />
-    <!-- Moon disc -->
     <path
-        android:pathData="M255,55m-20,0a20,20 0 1,1 40,0a20,20 0 1,1 -40,0"
-        android:fillColor="#E8D4A8" />
-    <!-- Small stars -->
+        android:pathData="M-4,98 C46,58 110,108 180,68 S270,82 320,38"
+        android:strokeColor="#44FFD98A"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round" />
+
+    <!-- Moon halo -->
+    <path android:pathData="M255,55 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="255"
+                android:centerY="55"
+                android:gradientRadius="36"
+                android:startColor="#55FCE9B8"
+                android:endColor="#00FCE9B8" />
+        </aapt:attr>
+    </path>
+
+    <!-- Moon disc with gradient -->
+    <path android:pathData="M255,55 m-22,0 a22,22 0 1,1 44,0 a22,22 0 1,1 -44,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="248"
+                android:centerY="49"
+                android:gradientRadius="28"
+                android:startColor="#FFFCE9B8"
+                android:endColor="#FFB68C3F">
+                <item android:offset="0.0" android:color="#FFFCE9B8" />
+                <item android:offset="0.6" android:color="#FFFFD98A" />
+                <item android:offset="1.0" android:color="#FFB68C3F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Crescent shadow -->
+    <path android:pathData="M262,55 m-18,0 a18,18 0 1,1 36,0 a18,18 0 1,1 -36,0"
+        android:fillColor="#552A1E6E" />
+
+    <!-- Stars near the moon -->
     <path
-        android:pathData="M52,32 L54,38 L60,38 L55,42 L57,48 L52,44 L47,48 L49,42 L44,38 L50,38 Z"
-        android:fillColor="#99FBE9C3" />
+        android:pathData="M210,28 L211.4,32 L215.4,32 L212.2,34.4 L213.4,38.2 L210,36 L206.6,38.2 L207.8,34.4 L204.6,32 L208.6,32 Z"
+        android:fillColor="#CCFCE9B8" />
     <path
-        android:pathData="M92,48 L93,51 L96,51 L93.5,53 L94.5,56 L92,54 L89.5,56 L90.5,53 L88,51 L91,51 Z"
-        android:fillColor="#66FFFFFF" />
+        android:pathData="M298,90 L298.9,92.4 L301.4,92.4 L299.4,93.9 L300.1,96.4 L298,94.9 L295.9,96.4 L296.6,93.9 L294.6,92.4 L297.1,92.4 Z"
+        android:fillColor="#AAC084FC" />
+
+    <!-- Distant scattered stars across the sky -->
+    <path android:pathData="M30,28 m-1.4,0 a1.4,1.4 0 1,1 2.8,0 a1.4,1.4 0 1,1 -2.8,0"
+        android:fillColor="#CCFFFFFF" />
+    <path android:pathData="M62,16 m-1,0 a1,1 0 1,1 2,0 a1,1 0 1,1 -2,0"
+        android:fillColor="#99FFFFFF" />
+    <path android:pathData="M92,42 m-1.2,0 a1.2,1.2 0 1,1 2.4,0 a1.2,1.2 0 1,1 -2.4,0"
+        android:fillColor="#BBFFFFFF" />
+    <path android:pathData="M134,18 m-0.9,0 a0.9,0.9 0 1,1 1.8,0 a0.9,0.9 0 1,1 -1.8,0"
+        android:fillColor="#88FFFFFF" />
+    <path android:pathData="M168,32 m-1.3,0 a1.3,1.3 0 1,1 2.6,0 a1.3,1.3 0 1,1 -2.6,0"
+        android:fillColor="#AAFFFFFF" />
     <path
-        android:pathData="M140,28 L141.5,32 L146,32 L142.5,35 L144,40 L140,37 L136,40 L137.5,35 L134,32 L138.5,32 Z"
-        android:fillColor="#77D4B483" />
+        android:pathData="M120,52 L121,55 L124,55 L121.5,57 L122.5,60 L120,58 L117.5,60 L118.5,57 L116,55 L119,55 Z"
+        android:fillColor="#99FFD98A" />
+    <path android:pathData="M186,12 m-1,0 a1,1 0 1,1 2,0 a1,1 0 1,1 -2,0"
+        android:fillColor="#AAFFFFFF" />
 </vector>

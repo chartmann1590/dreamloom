@@ -12,6 +12,7 @@ import com.charles.app.dreamloom.telemetry.DreamloomAnalytics
 import com.charles.app.dreamloom.llm.GenParams
 import com.charles.app.dreamloom.llm.LlmEngine
 import com.charles.app.dreamloom.llm.ModelStorage
+import com.charles.app.dreamloom.llm.OracleResponder
 import com.charles.app.dreamloom.llm.prompts.InsightOraclePrompts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -65,14 +66,8 @@ class OracleViewModel @Inject constructor(
             withContext(Dispatchers.IO) {
                 runCatching { engine.ensureLoaded(model) }
                     .onFailure { throw it }
-                val prompt = InsightOraclePrompts.oracleGemmaChat(top, q)
-                engine.generateStream(
-                    userMessage = prompt,
-                    topK = GenParams.ORACLE_TOP_K,
-                    topP = GenParams.ORACLE_TOP_P.toDouble(),
-                    temperature = GenParams.ORACLE_TEMPERATURE.toDouble(),
-                    maxTokens = GenParams.ORACLE_MAX_TOKENS,
-                ).collect { answerBuf.append(it) }
+                val responder = OracleResponder(engine)
+                answerBuf.append(responder.answer(q, top))
             }
             val answer = answerBuf.toString().trim()
             if (answer.isEmpty()) {
@@ -93,4 +88,5 @@ class OracleViewModel @Inject constructor(
     fun clearError() {
         _error.value = null
     }
+
 }

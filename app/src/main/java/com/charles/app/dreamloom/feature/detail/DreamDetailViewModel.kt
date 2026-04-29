@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.charles.app.dreamloom.ads.AdGate
 import com.charles.app.dreamloom.ads.InterstitialManager
+import com.charles.app.dreamloom.ads.RewardedAdManager
+import com.charles.app.dreamloom.ads.RewardedPlacement
 import com.charles.app.dreamloom.data.prefs.AppPreferences
 import com.charles.app.dreamloom.data.repo.DreamRepository
 import com.charles.app.dreamloom.telemetry.DreamloomAnalytics
@@ -23,6 +25,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONException
 import java.io.File
 import javax.inject.Inject
 
@@ -36,6 +40,7 @@ class DreamDetailViewModel @Inject constructor(
     private val adGate: AdGate,
     private val appPreferences: AppPreferences,
     private val interstitialManager: InterstitialManager,
+    private val rewardedAdManager: RewardedAdManager,
     private val analytics: DreamloomAnalytics,
 ) : ViewModel() {
     private val id: Long = savedStateHandle.get<Long>("id") ?: 0L
@@ -48,6 +53,7 @@ class DreamDetailViewModel @Inject constructor(
 
     fun preloadInterstitial() {
         interstitialManager.preload()
+        rewardedAdManager.preload(RewardedPlacement.ExtendedInterpretation)
     }
 
     suspend fun canShowInterstitialOnBack(): Boolean {
@@ -76,7 +82,13 @@ class DreamDetailViewModel @Inject constructor(
             runCatching { engine.ensureLoaded(ModelStorage.modelFile(app)) }
             val photo = ent.photoPath?.let { File(it) }?.takeIf { it.exists() }
             val hadPhoto = photo != null
-            interpreter.interpret(ent.rawText, ent.mood, photo).collect { chunk ->
+            val previousSymbols = parseSymbols(ent.symbolsJson)
+            interpreter.reInterpret(
+                dreamText = ent.rawText,
+                mood = ent.mood,
+                previousSymbols = previousSymbols,
+                photoFile = photo,
+            ).collect { chunk ->
                 when (chunk) {
                     is InterpretChunk.Partial -> {}
                     is InterpretChunk.Done -> {
@@ -98,6 +110,18 @@ class DreamDetailViewModel @Inject constructor(
         }
     }
 
+    private fun parseSymbols(symbolsJson: String?): List<String> = try {
+        if (symbolsJson.isNullOrBlank()) emptyList()
+        else {
+            val arr = JSONArray(symbolsJson)
+            (0 until arr.length()).mapNotNull { idx ->
+                arr.optString(idx).trim().lowercase().ifBlank { null }
+            }
+        }
+    } catch (_: JSONException) {
+        emptyList()
+    }
+
     fun showInterstitialIfPermitted(
         activity: android.app.Activity,
         onAfter: (adShown: Boolean) -> Unit,
@@ -109,6 +133,17 @@ class DreamDetailViewModel @Inject constructor(
         interstitialManager.showIfReady(activity) { shown ->
             onAfter(shown)
         }
+    }
+
+    fun showExtendedRewarded(
+        activity: android.app.Activity,
+        onAfter: (rewardEarned: Boolean) -> Unit,
+    ) {
+        rewardedAdManager.show(
+            activity = activity,
+            placement = RewardedPlacement.ExtendedInterpretation,
+            onFinished = onAfter,
+        )
     }
 
     fun deleteDream(onComplete: () -> Unit) = viewModelScope.launch {

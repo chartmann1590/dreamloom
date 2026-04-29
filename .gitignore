@@ -11,3 +11,7 @@ gradle-8.10.2
 gradle-8.10.2-bin.zip
 litertlm-aar.zip
 tmp-maven.xml
+
+# Local debug / capture artefacts (don't ship)
+uidump-*.xml
+latest-success.log

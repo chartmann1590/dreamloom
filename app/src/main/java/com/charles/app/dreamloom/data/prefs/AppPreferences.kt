@@ -49,6 +49,9 @@ class AppPreferences @Inject constructor(
     val wifiOnlyDownload: Flow<Boolean> = ds.data.map { it[KEY_WIFI_ONLY] != false }
     val insightGated: Flow<Boolean> = ds.data.map { it[KEY_INSIGHT_GATE] == true }
     val extendedGated: Flow<Boolean> = ds.data.map { it[KEY_EXT_GATE] == true }
+    val weeklyInsightLastRunAt: Flow<Long> = ds.data.map { it[KEY_WEEKLY_INSIGHT_LAST_RUN_AT] ?: 0L }
+    val weeklyInsightStatus: Flow<String> = ds.data.map { it[KEY_WEEKLY_INSIGHT_STATUS] ?: "idle" }
+    val weeklyInsightStatusNote: Flow<String> = ds.data.map { it[KEY_WEEKLY_INSIGHT_STATUS_NOTE] ?: "" }
 
     suspend fun setOnboardingComplete(v: Boolean) = ds.edit { it[KEY_ONBOARDING] = v }
     suspend fun setTheme(mode: ThemeMode) = ds.edit {
@@ -79,6 +82,11 @@ class AppPreferences @Inject constructor(
     suspend fun setWifiOnly(v: Boolean) = ds.edit { it[KEY_WIFI_ONLY] = v }
     suspend fun setInsightGated(v: Boolean) = ds.edit { it[KEY_INSIGHT_GATE] = v }
     suspend fun setExtendedGated(v: Boolean) = ds.edit { it[KEY_EXT_GATE] = v }
+    suspend fun setWeeklyInsightLastRunAt(v: Long) = ds.edit { it[KEY_WEEKLY_INSIGHT_LAST_RUN_AT] = v }
+    suspend fun setWeeklyInsightStatus(status: String, note: String = "") = ds.edit {
+        it[KEY_WEEKLY_INSIGHT_STATUS] = status
+        it[KEY_WEEKLY_INSIGHT_STATUS_NOTE] = note
+    }
     suspend fun clearAll() = ds.edit { it.clear() }
 
     private companion object {
@@ -100,5 +108,8 @@ class AppPreferences @Inject constructor(
         val KEY_WIFI_ONLY = booleanPreferencesKey("wifi_only")
         val KEY_INSIGHT_GATE = booleanPreferencesKey("insight_gated")
         val KEY_EXT_GATE = booleanPreferencesKey("extended_gated")
+        val KEY_WEEKLY_INSIGHT_LAST_RUN_AT = longPreferencesKey("weekly_insight_last_run_at")
+        val KEY_WEEKLY_INSIGHT_STATUS = stringPreferencesKey("weekly_insight_status")
+        val KEY_WEEKLY_INSIGHT_STATUS_NOTE = stringPreferencesKey("weekly_insight_status_note")
     }
 }

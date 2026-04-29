@@ -3,6 +3,7 @@ package com.charles.app.dreamloom.feature.settings
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,6 +44,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +55,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -62,6 +65,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.charles.app.dreamloom.data.prefs.ThemeMode
 import com.charles.app.dreamloom.llm.ModelConfig
+import com.charles.app.dreamloom.ads.NativeAdCard
 import com.charles.app.dreamloom.ui.components.AuroraStarfieldBackground
 import com.charles.app.dreamloom.ui.theme.DreamColors
 import com.charles.app.dreamloom.ui.theme.DreamSpacing
@@ -363,9 +367,28 @@ fun RemindersScreen(
     val line by vm.reminderText.collectAsStateWithLifecycle()
     var draft by remember(line) { mutableStateOf(line) }
     var showTime by remember { mutableStateOf(false) }
+    var showNotificationsPrompt by remember { mutableStateOf(false) }
     val is24 = DateFormat.is24HourFormat(ctx)
+    fun areAppNotificationsEnabled(): Boolean = NotificationManagerCompat.from(ctx).areNotificationsEnabled()
+    fun openAppNotificationSettings() {
+        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            putExtra(Settings.EXTRA_APP_PACKAGE, ctx.packageName)
+        }
+        ctx.startActivity(intent)
+    }
+    LaunchedEffect(enabled) {
+        if (enabled && !areAppNotificationsEnabled()) {
+            vm.setEnabled(false)
+            showNotificationsPrompt = true
+        }
+    }
     val permAsk = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
-        if (ok) vm.setEnabled(true)
+        if (ok && areAppNotificationsEnabled()) {
+            vm.setEnabled(true)
+            showNotificationsPrompt = false
+        } else {
+            showNotificationsPrompt = true
+        }
     }
     AuroraStarfieldBackground(Modifier.fillMaxSize()) {
         Column(
@@ -386,21 +409,57 @@ fun RemindersScreen(
                 checked = enabled,
                 onCheckedChange = { on ->
                     if (on) {
+                        if (!areAppNotificationsEnabled()) {
+                            showNotificationsPrompt = true
+                            return@Switch
+                        }
                         if (Build.VERSION.SDK_INT >= 33) {
                             val have = ContextCompat.checkSelfPermission(
                                 ctx,
                                 android.Manifest.permission.POST_NOTIFICATIONS,
                             ) == android.content.pm.PackageManager.PERMISSION_GRANTED
-                            if (have) vm.setEnabled(true)
+                            if (have) {
+                                vm.setEnabled(true)
+                                showNotificationsPrompt = false
+                            }
                             else permAsk.launch(android.Manifest.permission.POST_NOTIFICATIONS)
                         } else {
                             vm.setEnabled(true)
+                            showNotificationsPrompt = false
                         }
                     } else {
                         vm.setEnabled(false)
+                        showNotificationsPrompt = false
                     }
                 },
             )
+        }
+        if (showNotificationsPrompt) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = DreamColors.IndigoSoft.copy(alpha = 0.45f),
+                ),
+            ) {
+                Column(
+                    Modifier.padding(DreamSpacing.md),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.settings_notifications_disabled_title),
+                        style = MaterialTheme.typography.titleSmall,
+                    )
+                    Text(
+                        text = stringResource(R.string.settings_notifications_disabled_body),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = DreamColors.InkMuted,
+                    )
+                    Button(onClick = { openAppNotificationSettings() }) {
+                        Text(stringResource(R.string.settings_open_notification_settings))
+                    }
+                }
+            }
         }
         if (showTime) {
             val pState = rememberTimePickerState(initialHour = h, initialMinute = m, is24Hour = is24)
@@ -474,6 +533,7 @@ fun AboutScreen(onBack: () -> Unit) {
             style = MaterialTheme.typography.bodyMedium,
         )
         Text(stringResource(R.string.settings_about_ads_body), style = MaterialTheme.typography.bodyMedium)
+        NativeAdCard(modifier = Modifier.fillMaxWidth())
         TextButton(
             onClick = {
                 ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)))

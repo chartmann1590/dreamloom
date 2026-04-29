@@ -50,10 +50,33 @@ class InterstitialManager @Inject constructor(
      * or when there was nothing to show. [onFinished] receives true if an ad was displayed.
      */
     fun showIfReady(activity: Activity, onFinished: (shown: Boolean) -> Unit) {
-        val ad = adRef.getAndSet(null) ?: run {
-            onFinished(false)
+        val ad = adRef.getAndSet(null)
+        if (ad == null) {
+            // Fall back to a load-then-show path so fast back-nav still has a chance to show.
+            InterstitialAd.load(
+                app,
+                adUnitId,
+                AdRequest.Builder().build(),
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdFailedToLoad(error: LoadAdError) {
+                        onFinished(false)
+                    }
+
+                    override fun onAdLoaded(loadedAd: InterstitialAd) {
+                        showLoaded(activity, loadedAd, onFinished)
+                    }
+                },
+            )
             return
         }
+        showLoaded(activity, ad, onFinished)
+    }
+
+    private fun showLoaded(
+        activity: Activity,
+        ad: InterstitialAd,
+        onFinished: (shown: Boolean) -> Unit,
+    ) {
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 onFinished(true)

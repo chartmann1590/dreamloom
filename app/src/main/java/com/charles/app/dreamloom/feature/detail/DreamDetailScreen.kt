@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
@@ -50,6 +51,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -70,6 +72,7 @@ import com.charles.app.dreamloom.ui.theme.DreamColors
 import com.charles.app.dreamloom.ui.theme.DreamSpacing
 import com.charles.app.dreamloom.ui.theme.BodyFont
 import java.io.File
+import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -109,8 +112,16 @@ fun DreamDetailScreen(
 
     BackHandler(enabled = !reBusy) { handleBack() }
 
+    // Defensive: clamp height so the inner LazyColumn(weight=1f) never gets infinite max
+    // constraints (compose-animation can transiently propagate infinity through NavHost).
+    val maxScreenHeight = LocalConfiguration.current.screenHeightDp.dp + 200.dp
+
     AuroraStarfieldBackground(Modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .heightIn(max = maxScreenHeight),
+        ) {
             when (val d = dream) {
                 null -> {
                     TopAppBar(
@@ -329,6 +340,22 @@ fun DreamDetailScreen(
                                         color = DreamColors.Moonglow,
                                         modifier = Modifier.padding(DreamSpacing.md),
                                     )
+                                }
+                            }
+                            item {
+                                TextButton(
+                                    onClick = {
+                                        vm.showExtendedRewarded(activity) { earned ->
+                                            val msg = if (earned) {
+                                                "Extended interpretation unlocked."
+                                            } else {
+                                                "Ad unavailable right now. Try again in a moment."
+                                            }
+                                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                        }
+                                    },
+                                ) {
+                                    Text("✦ Look deeper (watch short ad)")
                                 }
                             }
                         }

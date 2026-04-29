@@ -6,8 +6,8 @@ package com.charles.app.dreamloom.llm
  */
 object GenParams {
     // Populated in [LlmEngine] using LiteRT-LM's builder; kept as documentation constants.
-    const val INTERPRET_TEMPERATURE = 0.85f
-    const val INTERPRET_TOP_P = 0.95f
+    const val INTERPRET_TEMPERATURE = 0.72f
+    const val INTERPRET_TOP_P = 0.9f
     const val INTERPRET_TOP_K = 64
     const val INTERPRET_MAX_TOKENS = 320
 

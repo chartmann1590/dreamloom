@@ -26,6 +26,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.random.Random
 
 @Singleton
 class LlmEngine @Inject constructor() {
@@ -41,50 +42,81 @@ class LlmEngine @Inject constructor() {
     private var engine: Engine? = null
 
     private fun preferredBackend(): Backend = when {
+        // Qualcomm Hexagon NPU when present (Snapdragon 8-class).
         QnnDetector.hasHexagon() -> Backend.NPU()
-        GpuDetector.hasOpenCl() -> Backend.GPU()
+        // GPU only when OpenCL is actually loadable AND we're on a vendor where LiteRT-LM's
+        // OpenCL path is known to work. On Google Tensor (Pixels) it crashes at inference
+        // with "Can not find OpenCL library on this device" even when libOpenCL.so exists,
+        // so we don't risk it there — CPU on a Cortex-X3/A715 cluster handles Gemma 4 E2B int4.
+        GpuDetector.hasOpenCl() && isQualcomm() -> Backend.GPU()
         else -> Backend.CPU()
     }
 
+    private fun isQualcomm(): Boolean =
+        (android.os.Build.SOC_MANUFACTURER ?: "").contains("Qualcomm", ignoreCase = true)
+
     /**
      * Loads the on-disk model. Thread-safe; safe to call multiple times.
+     *
+     * Memory note: the model itself is ~2.58 GB on disk; LiteRT-LM also allocates a
+     * KV cache proportional to [maxNumTokens] and per-image vision encoder state.
+     * On a Pixel 8 Pro the OS LMK starts killing the process around ~3 GB resident,
+     * so keep these tight: the interpretation prompt is ~600 tokens, output ~200,
+     * and we only ever attach one photo.
      */
     suspend fun ensureLoaded(modelFile: File) = withContext(generationDispatcher) {
         synchronized(this@LlmEngine) {
             if (engine != null) return@withContext
             _state.value = LlmEngineState.Loading(0.05f)
         }
-        try {
-            require(modelFile.exists()) { "Model file missing at ${modelFile.absolutePath}" }
-            val options = EngineConfig(
-                modelPath = modelFile.absolutePath,
-                backend = preferredBackend(),
-                visionBackend = preferredBackend(),
-                audioBackend = Backend.CPU(),
-                maxNumTokens = 32_768,
-                maxNumImages = 4,
-                cacheDir = null,
-            )
-            val e = Engine(options)
-            e.initialize()
-            synchronized(this@LlmEngine) {
-                engine = e
-            }
-            _state.value = LlmEngineState.Ready
-        } catch (t: Throwable) {
-            if (t is CancellationException) throw t
-            synchronized(this@LlmEngine) { engine = null }
-            _state.value = LlmEngineState.Error(t)
-            throw t
+        require(modelFile.exists()) { "Model file missing at ${modelFile.absolutePath}" }
+        val backendsToTry = buildList {
+            val preferred = preferredBackend()
+            add(preferred)
+            // Always have CPU as last-resort fallback (GPU/NPU init can fail or OOM).
+            if (preferred !is Backend.CPU) add(Backend.CPU())
         }
+        var lastError: Throwable? = null
+        for (backend in backendsToTry) {
+            try {
+                val options = EngineConfig(
+                    modelPath = modelFile.absolutePath,
+                    backend = backend,
+                    visionBackend = backend,
+                    audioBackend = Backend.CPU(),
+                    maxNumTokens = 4_096,
+                    maxNumImages = 1,
+                    cacheDir = null,
+                )
+                val e = Engine(options)
+                e.initialize()
+                synchronized(this@LlmEngine) {
+                    engine = e
+                }
+                _state.value = LlmEngineState.Ready
+                return@withContext
+            } catch (t: Throwable) {
+                if (t is CancellationException) throw t
+                lastError = t
+                // Keep going to the next backend (likely CPU).
+            }
+        }
+        synchronized(this@LlmEngine) { engine = null }
+        _state.value = LlmEngineState.Error(lastError ?: IllegalStateException("LlmEngine init failed"))
+        throw lastError ?: IllegalStateException("LlmEngine init failed")
     }
 
     /**
      * Streams **delta** text chunks (model output only) for a single user turn.
-     * [userMessage] is the full first user message (e.g. from [gemmaChat]).
+     *
+     * [systemPrompt] goes into the engine's system slot — do NOT pre-wrap it in chat template
+     * tokens; LiteRT-LM applies the model's correct template at tokenization time. Same for
+     * [userMessage]: pass plain text. Hand-rolled `<start_of_turn>...` wrappers are wrong
+     * for Gemma 4 (uses `<|turn>...<turn|>`) and double-templating breaks output quality.
      */
     fun generateStream(
         userMessage: String,
+        systemPrompt: String = "",
         imageFile: File? = null,
         topK: Int = GenParams.INTERPRET_TOP_K,
         topP: Double = GenParams.INTERPRET_TOP_P.toDouble(),
@@ -92,9 +124,10 @@ class LlmEngine @Inject constructor() {
         maxTokens: Int = GenParams.INTERPRET_MAX_TOKENS,
     ): Flow<String> = channelFlow {
         val eng = engine ?: error("LlmEngine not loaded")
-        val sampler = SamplerConfig(topK, topP, temperature, 0)
+        // Do not pin a fixed seed: it makes generations feel repetitive across dreams.
+        val sampler = SamplerConfig(topK, topP, temperature, Random.nextInt())
         val config = ConversationConfig(
-            Contents.of(""),
+            Contents.of(systemPrompt),
             emptyList(),
             emptyList(),
             sampler,

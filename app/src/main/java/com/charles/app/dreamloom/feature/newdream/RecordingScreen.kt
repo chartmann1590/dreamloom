@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -50,6 +51,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -133,8 +135,16 @@ fun RecordingScreen(
 
     val scroll = rememberScrollState()
 
+    // Defensive: clamp height so the inner weight(1f).verticalScroll never gets infinite max
+    // constraints (compose-animation can transiently propagate infinity through NavHost).
+    val maxScreenHeight = LocalConfiguration.current.screenHeightDp.dp + 200.dp
+
     AuroraStarfieldBackground(Modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .heightIn(max = maxScreenHeight),
+        ) {
             CenterAlignedTopAppBar(
                 title = {
                     Text(

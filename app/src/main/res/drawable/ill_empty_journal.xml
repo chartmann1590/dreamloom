@@ -1,27 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="200dp"
     android:height="160dp"
     android:viewportWidth="200"
     android:viewportHeight="160">
-    <!-- Open book / journal silhouette -->
+
+    <!-- Soft floor halo under the journal -->
+    <path android:pathData="M100,138 m-66,0 a66,12 0 1,1 132,0 a66,12 0 1,1 -132,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="100"
+                android:centerY="138"
+                android:gradientRadius="66"
+                android:startColor="#33A371FF"
+                android:endColor="#00A371FF" />
+        </aapt:attr>
+    </path>
+
+    <!-- Journal back cover -->
     <path
-        android:pathData="M40,45 L100,25 L160,45 L160,125 L100,145 L40,125 Z"
-        android:fillColor="#33231854"
-        android:strokeColor="#55D4B483"
-        android:strokeWidth="2" />
+        android:pathData="M40,52 L100,32 L160,52 L160,128 L100,148 L40,128 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="40"
+                android:startY="32"
+                android:endX="160"
+                android:endY="148"
+                android:startColor="#FF2A1E6E"
+                android:endColor="#FF1A1450" />
+        </aapt:attr>
+    </path>
+
+    <!-- Edge highlight along the spine -->
     <path
-        android:pathData="M100,25 L100,145"
-        android:strokeColor="#44A5A4C7"
-        android:strokeWidth="1.5" />
-    <!-- Moon above -->
+        android:pathData="M100,32 L100,148"
+        android:strokeColor="#66FCE9B8"
+        android:strokeWidth="1.6"
+        android:fillColor="#00000000" />
+
+    <!-- Front pages (left & right) -->
     <path
-        android:pathData="M100,12 A10,10 0 1,1 100,32 A8,8 0 1,0 100,12 Z"
-        android:fillColor="#CCFBE9C3" />
-    <!-- Decorative lines (dream lines) -->
+        android:pathData="M44,56 L98,38 L98,142 L44,124 Z"
+        android:fillColor="#22FCE9B8" />
     <path
-        android:pathData="M55,70 L90,70 M110,85 L145,85 M60,100 L85,100"
-        android:strokeColor="#408B5CF6"
+        android:pathData="M102,38 L156,56 L156,124 L102,142 Z"
+        android:fillColor="#22FFD98A" />
+
+    <!-- Hand-written dream lines -->
+    <path
+        android:pathData="M55,76 L88,76 M55,90 L82,90 M55,104 L86,104"
+        android:strokeColor="#88A371FF"
         android:strokeWidth="2"
         android:strokeLineCap="round" />
+    <path
+        android:pathData="M112,80 L142,80 M112,94 L148,94 M112,108 L138,108"
+        android:strokeColor="#88E8C77A"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+
+    <!-- Floating moon above the journal -->
+    <path android:pathData="M100,18 m-16,0 a16,16 0 1,1 32,0 a16,16 0 1,1 -32,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="100"
+                android:centerY="18"
+                android:gradientRadius="16"
+                android:startColor="#55FCE9B8"
+                android:endColor="#00FCE9B8" />
+        </aapt:attr>
+    </path>
+    <path android:pathData="M100,18 m-9,0 a9,9 0 1,1 18,0 a9,9 0 1,1 -18,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="97"
+                android:centerY="15"
+                android:gradientRadius="11"
+                android:startColor="#FFFCE9B8"
+                android:endColor="#FFC8964A" />
+        </aapt:attr>
+    </path>
+
+    <!-- Sparkles around the journal -->
+    <path
+        android:pathData="M28,42 L29,45 L32,45 L29.5,47 L30.5,50 L28,48 L25.5,50 L26.5,47 L24,45 L27,45 Z"
+        android:fillColor="#CCC084FC" />
+    <path
+        android:pathData="M170,68 L170.9,70.4 L173.4,70.4 L171.4,71.9 L172.1,74.4 L170,72.9 L167.9,74.4 L168.6,71.9 L166.6,70.4 L169.1,70.4 Z"
+        android:fillColor="#BBFCE9B8" />
+    <path
+        android:pathData="M22,108 L22.7,110 L24.7,110 L23.1,111.2 L23.7,113.2 L22,112 L20.3,113.2 L20.9,111.2 L19.3,110 L21.3,110 Z"
+        android:fillColor="#AAFF6FD8" />
+    <path android:pathData="M178,118 m-1.4,0 a1.4,1.4 0 1,1 2.8,0 a1.4,1.4 0 1,1 -2.8,0"
+        android:fillColor="#AAFFFFFF" />
+    <path android:pathData="M58,28 m-1,0 a1,1 0 1,1 2,0 a1,1 0 1,1 -2,0"
+        android:fillColor="#99FFFFFF" />
+    <path android:pathData="M142,28 m-1.1,0 a1.1,1.1 0 1,1 2.2,0 a1.1,1.1 0 1,1 -2.2,0"
+        android:fillColor="#88FFFFFF" />
 </vector>

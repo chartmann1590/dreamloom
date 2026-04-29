@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.charles.app.dreamloom.R
 import com.charles.app.dreamloom.ui.theme.DreamColors
 import com.charles.app.dreamloom.ui.theme.DreamSpacing
@@ -30,7 +29,6 @@ import com.charles.app.dreamloom.ui.theme.DreamSpacing
 @Composable
 fun OnboardingPermissionsScreen(
     onDone: () -> Unit,
-    vm: OnboardingPermissionsViewModel = hiltViewModel(),
 ) {
     val perms = buildList {
         add(Manifest.permission.RECORD_AUDIO)
@@ -39,12 +37,11 @@ fun OnboardingPermissionsScreen(
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
     ) {
-        vm.markOnboardingComplete()
         onDone()
     }
     OnboardingScreenContainer(
         step = 4,
-        totalSteps = 4,
+        totalSteps = 5,
         title = stringResource(R.string.onboard_permissions_title),
         subtitle = stringResource(R.string.onboard_permissions_lead),
         heroIcon = Icons.Outlined.ToggleOn,

@@ -19,6 +19,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 val localProperties = Properties().apply {
@@ -33,6 +34,28 @@ android {
     namespace = "com.charles.app.dreamloom"
     compileSdk = 35
 
+    signingConfigs {
+        create("release") {
+            val releaseStoreFile = localProperties.getProperty("dreamloom.release.storeFile")?.trim()
+            val releaseStorePassword = localProperties.getProperty("dreamloom.release.storePassword")?.trim()
+            val releaseKeyAlias = localProperties.getProperty("dreamloom.release.keyAlias")?.trim()
+            val releaseKeyPassword = localProperties.getProperty("dreamloom.release.keyPassword")?.trim()
+
+            if (!releaseStoreFile.isNullOrBlank()) {
+                storeFile = file(releaseStoreFile)
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            } else {
+                // Local fallback so assembleRelease is installable without extra setup.
+                storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "com.charles.app.dreamloom"
         minSdk = 28
@@ -46,6 +69,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
@@ -124,6 +148,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-perf-ktx")
 
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.1.0")

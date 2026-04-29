@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -55,6 +57,11 @@ fun InterpretingScreen(
     val streamFinished by vm.streamFinished.collectAsState()
     val streamSuccess by vm.streamSuccess.collectAsState()
     val streamed = parseInterpretationStreaming(raw)
+    val hasStructuredContent = streamed.title != null ||
+        streamed.symbols.isNotEmpty() ||
+        streamed.interpretation != null ||
+        streamed.intention != null
+    val rawFallback = raw.trim().ifBlank { null }
     val transition = rememberInfiniteTransition(label = "weaveText")
     val textPulse by transition.animateFloat(
         initialValue = 0.92f,
@@ -67,6 +74,9 @@ fun InterpretingScreen(
     )
     val scroll = rememberScrollState()
     val chipScroll = rememberScrollState()
+    // Defensive: clamp to screen height so verticalScroll never sees infinite max constraints
+    // (some navigation/animation transitions can transiently propagate infinity).
+    val maxScreenHeight = LocalConfiguration.current.screenHeightDp.dp + 200.dp
     val surface = DreamColors.Indigo.copy(alpha = 0.82f)
     val glowColor = DreamColors.Moonglow.copy(alpha = 0.12f * min(1f, textPulse))
     val headerText = if (streamFinished) {
@@ -90,6 +100,7 @@ fun InterpretingScreen(
         Column(
             Modifier
                 .fillMaxSize()
+                .heightIn(max = maxScreenHeight)
                 .verticalScroll(scroll)
                 .padding(horizontal = DreamSpacing.lg)
                 .padding(top = DreamSpacing.xl, bottom = DreamSpacing.xxl)
@@ -163,10 +174,10 @@ fun InterpretingScreen(
             Spacer(Modifier.height(DreamSpacing.md))
             LoomSectionLabel(
                 stringResource(R.string.section_interpretation),
-                streamed.interpretation != null,
+                streamed.interpretation != null || (!hasStructuredContent && rawFallback != null),
             )
             StreamedText(
-                text = streamed.interpretation,
+                text = streamed.interpretation ?: if (!hasStructuredContent) rawFallback else null,
                 pulse = if (!streamFinished) textPulse else 1f,
                 streamDone = streamFinished,
             )

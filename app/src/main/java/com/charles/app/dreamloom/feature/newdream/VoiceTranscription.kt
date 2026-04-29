@@ -25,6 +25,8 @@ class VoiceTranscription(
     private var partialTail: String = ""
     private var silenceEndRunnable: Runnable? = null
     private var suppressingErrors: Boolean = false
+    private var sessionActive: Boolean = false
+    private var restartRunnable: Runnable? = null
     private val autoStopMs: Long get() = silenceAutoStopMs
 
     private val listenIntent: Intent
@@ -32,6 +34,10 @@ class VoiceTranscription(
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 3)
+            // Ask the platform recognizer to allow longer speech windows before endpointing.
+            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 15_000L)
+            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 2_500L)
+            putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 5_000L)
         }
 
     private val listener = object : RecognitionListener {
@@ -39,12 +45,16 @@ class VoiceTranscription(
         override fun onBeginningOfSpeech() = scheduleSilenceStop()
         override fun onRmsChanged(rmsdB: Float) = scheduleSilenceStop()
         override fun onBufferReceived(buffer: ByteArray?) = Unit
-        override fun onEndOfSpeech() = cancelSilenceStop()
+        override fun onEndOfSpeech() = Unit
         override fun onEvent(eventType: Int, params: Bundle?) = Unit
 
         override fun onError(error: Int) {
             cancelSilenceStop()
+            if (sessionActive && error != SpeechRecognizer.ERROR_CLIENT) {
+                scheduleRecognizerRestart()
+            }
             if (suppressingErrors) return
+            if (sessionActive && error != SpeechRecognizer.ERROR_CLIENT) return
             val msg = when (error) {
                 SpeechRecognizer.ERROR_NO_MATCH -> "No speech detected"
                 SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "Listening timed out"
@@ -71,6 +81,9 @@ class VoiceTranscription(
                 partialTail = ""
             }
             publish()
+            if (sessionActive) {
+                scheduleRecognizerRestart()
+            }
         }
     }
 
@@ -79,7 +92,9 @@ class VoiceTranscription(
 
     fun startListening() {
         cancelSilenceStop()
+        cancelRecognizerRestart()
         partialTail = ""
+        sessionActive = true
         val sr = recognizer ?: SpeechRecognizer.createSpeechRecognizer(appContext).also {
             it.setRecognitionListener(listener)
             recognizer = it
@@ -92,7 +107,9 @@ class VoiceTranscription(
     }
 
     fun stopListening() {
+        sessionActive = false
         cancelSilenceStop()
+        cancelRecognizerRestart()
         suppressingErrors = true
         recognizer?.stopListening()
         mainHandler.postDelayed({ suppressingErrors = false }, 400L)
@@ -100,6 +117,26 @@ class VoiceTranscription(
 
     private fun autoStopFromSilence() {
         stopListening()
+    }
+
+    private fun scheduleRecognizerRestart() {
+        cancelRecognizerRestart()
+        if (!sessionActive) return
+        val r = Runnable {
+            if (!sessionActive) return@Runnable
+            try {
+                recognizer?.startListening(listenIntent)
+            } catch (_: Exception) {
+                onError("Could not continue listening")
+            }
+        }
+        restartRunnable = r
+        mainHandler.postDelayed(r, 200L)
+    }
+
+    private fun cancelRecognizerRestart() {
+        restartRunnable?.let { mainHandler.removeCallbacks(it) }
+        restartRunnable = null
     }
 
     private fun scheduleSilenceStop() {
@@ -116,7 +153,9 @@ class VoiceTranscription(
     }
 
     fun release() {
+        sessionActive = false
         cancelSilenceStop()
+        cancelRecognizerRestart()
         recognizer?.destroy()
         recognizer = null
     }

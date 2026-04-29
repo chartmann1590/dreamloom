@@ -40,6 +40,7 @@ import com.charles.app.dreamloom.feature.insight.InsightScreen
 import com.charles.app.dreamloom.feature.newdream.InterpretingScreen
 import com.charles.app.dreamloom.feature.newdream.RecordingScreen
 import com.charles.app.dreamloom.feature.onboarding.ModelDownloadScreen
+import com.charles.app.dreamloom.feature.onboarding.OnboardingNotificationsSetupScreen
 import com.charles.app.dreamloom.feature.onboarding.OnboardingPermissionsScreen
 import com.charles.app.dreamloom.feature.onboarding.OnboardingPrivacyScreen
 import com.charles.app.dreamloom.feature.onboarding.SplashScreen
@@ -154,6 +155,11 @@ fun AppNavHost(
             }
             composable(Routes.PERMISSIONS) {
                 OnboardingPermissionsScreen(
+                    onDone = { navController.navigate(Routes.ONBOARDING_NOTIFICATIONS) },
+                )
+            }
+            composable(Routes.ONBOARDING_NOTIFICATIONS) {
+                OnboardingNotificationsSetupScreen(
                     onDone = { navController.navigate(Routes.HOME) { popUpTo(Routes.SPLASH) { inclusive = true } } },
                 )
             }
@@ -217,4 +223,5 @@ private val onboardingRoutes: Set<String> = setOf(
     Routes.PRIVACY,
     Routes.MODEL_DOWNLOAD,
     Routes.PERMISSIONS,
+    Routes.ONBOARDING_NOTIFICATIONS,
 )

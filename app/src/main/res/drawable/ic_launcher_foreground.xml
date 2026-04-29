@@ -1,10 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- Soft outer halo around the moon -->
+    <path android:pathData="M54,54 m-32,0 a32,32 0 1,1 64,0 a32,32 0 1,1 -64,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="54"
+                android:centerY="54"
+                android:gradientRadius="32"
+                android:startColor="#66FFD98A"
+                android:endColor="#00FFD98A" />
+        </aapt:attr>
+    </path>
+
+    <!-- Woven gold threads (loom) curving behind the moon -->
     <path
-        android:fillColor="#D4B483"
-        android:pathData="M54,20c-12,0 -22,8 -25,19a18,18 0 1,0 0,30c3,11 13,19 25,19c16,0 28,-12 28,-28S70,20 54,20z" />
+        android:pathData="M14,68 C32,54 50,82 70,62 S96,54 100,46"
+        android:strokeColor="#88E8C77A"
+        android:strokeWidth="1.6"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M16,76 C36,68 56,86 76,72 S98,66 102,58"
+        android:strokeColor="#55FCE9B8"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round" />
+
+    <!-- Moon disc with a 3D gradient -->
+    <path android:pathData="M54,54 m-22,0 a22,22 0 1,1 44,0 a22,22 0 1,1 -44,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="radial"
+                android:centerX="46"
+                android:centerY="46"
+                android:gradientRadius="28"
+                android:startColor="#FFFCE9B8"
+                android:endColor="#FFB68C3F">
+                <item android:offset="0.0" android:color="#FFFCE9B8" />
+                <item android:offset="0.55" android:color="#FFFFD98A" />
+                <item android:offset="1.0" android:color="#FFB68C3F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Crescent shadow carved out of the right side -->
+    <path android:pathData="M62,54 m-18,0 a18,18 0 1,1 36,0 a18,18 0 1,1 -36,0"
+        android:fillColor="#552A1E6E" />
+
+    <!-- Tiny crater highlights -->
+    <path android:pathData="M44,46 m-2,0 a2,2 0 1,1 4,0 a2,2 0 1,1 -4,0"
+        android:fillColor="#33A06A2A" />
+    <path android:pathData="M40,58 m-1.4,0 a1.4,1.4 0 1,1 2.8,0 a1.4,1.4 0 1,1 -2.8,0"
+        android:fillColor="#22A06A2A" />
+
+    <!-- Sparkle stars -->
+    <path
+        android:pathData="M82,32 L83.4,36 L87.4,36 L84.2,38.4 L85.4,42.2 L82,40 L78.6,42.2 L79.8,38.4 L76.6,36 L80.6,36 Z"
+        android:fillColor="#FFFCE9B8" />
+    <path
+        android:pathData="M28,38 L28.9,40.4 L31.4,40.4 L29.4,41.9 L30.1,44.4 L28,42.9 L25.9,44.4 L26.6,41.9 L24.6,40.4 L27.1,40.4 Z"
+        android:fillColor="#CCC084FC" />
+    <path
+        android:pathData="M76,76 L76.7,78 L78.7,78 L77.1,79.2 L77.7,81.2 L76,80 L74.3,81.2 L74.9,79.2 L73.3,78 L75.3,78 Z"
+        android:fillColor="#BBFF6FD8" />
 </vector>
