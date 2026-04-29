@@ -105,8 +105,8 @@ jobs:
           echo "Inspecting $APK"
           BUILD_TOOLS_DIR="$(ls -d "$ANDROID_SDK_ROOT"/build-tools/* 2>/dev/null | sort -V | tail -n1 || true)"
           if [ -z "$BUILD_TOOLS_DIR" ] || [ ! -x "$BUILD_TOOLS_DIR/apksigner" ]; then
-            echo "apksigner not found under $ANDROID_SDK_ROOT/build-tools — skipping signature verify."
-            exit 0
+            echo "apksigner not found under $ANDROID_SDK_ROOT/build-tools — cannot verify APK signature."
+            exit 1
           fi
           "$BUILD_TOOLS_DIR/apksigner" verify --verbose --print-certs "$APK" | tee /tmp/apk-signing.txt
           if grep -En "CN=Android Debug" /tmp/apk-signing.txt; then
