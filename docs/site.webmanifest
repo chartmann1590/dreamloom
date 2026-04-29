@@ -5,14 +5,14 @@
   "start_url": "/dreamloom/",
   "scope": "/dreamloom/",
   "display": "standalone",
-  "background_color": "#050715",
-  "theme_color": "#070a17",
+  "background_color": "#060713",
+  "theme_color": "#090812",
   "icons": [
     {
-      "src": "./assets/store/01-home.png",
-      "sizes": "1080x1920",
+      "src": "./assets/store/icon_512.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }

@@ -1,0 +1,17 @@
+file 'h:/Dreamloom/play_store/raw_screenshots/01-home.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/02-atlas.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/03-insight.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/04-settings-root.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/05-settings-reminders.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/06-settings-privacy.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/07-settings-about.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/08-home-2.png'
+duration 3
+file 'h:/Dreamloom/play_store/raw_screenshots/08-home-2.png'

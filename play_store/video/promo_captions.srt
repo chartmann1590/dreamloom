@@ -1,0 +1,31 @@
+﻿1
+00:00:00,000 --> 00:00:03,000
+Dreamloom is your private dream journal.
+
+2
+00:00:03,000 --> 00:00:06,000
+Capture dreams quickly when you wake up.
+
+3
+00:00:06,000 --> 00:00:09,000
+See local AI insights and recurring patterns.
+
+4
+00:00:09,000 --> 00:00:12,000
+Explore your atlas of past dreams.
+
+5
+00:00:12,000 --> 00:00:15,000
+Set gentle reminders for your morning ritual.
+
+6
+00:00:15,000 --> 00:00:18,000
+Review privacy controls at any time.
+
+7
+00:00:18,000 --> 00:00:21,000
+No account. No cloud sync. No data selling.
+
+8
+00:00:21,000 --> 00:00:24,000
+Dreamloom keeps your dreams on your device.
