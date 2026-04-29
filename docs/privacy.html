@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#070a17" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>Privacy Policy — Dreamloom</title>
+    <meta name="description" content="Dreamloom Privacy Policy. How Dreamloom handles dream text (locally, encrypted), permissions, ads, analytics, and your rights." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://chartmann1590.github.io/dreamloom/privacy.html" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Dreamloom Privacy Policy" />
+    <meta property="og:description" content="How Dreamloom handles dream text (locally, encrypted), permissions, ads, analytics, and your rights." />
+    <meta property="og:url" content="https://chartmann1590.github.io/dreamloom/privacy.html" />
+    <meta property="og:image" content="https://chartmann1590.github.io/dreamloom/assets/store/01-home.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dreamloom Privacy Policy" />
+    <meta name="twitter:description" content="How Dreamloom handles dream text (locally, encrypted), permissions, ads, analytics, and your rights." />
+    <meta name="twitter:image" content="https://chartmann1590.github.io/dreamloom/assets/store/01-home.png" />
+
+    <link rel="icon" type="image/png" href="./assets/store/01-home.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Dreamloom Privacy Policy",
+      "url": "https://chartmann1590.github.io/dreamloom/privacy.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Dreamloom",
+        "url": "https://chartmann1590.github.io/dreamloom/"
+      },
+      "inLanguage": "en",
+      "dateModified": "2026-04-29",
+      "description": "How Dreamloom handles dream text (locally, encrypted), permissions, ads, analytics, and your rights."
+    }
+    </script>
+
+    <style>
+      :root {
+        --bg: #050715;
+        --card: rgba(20, 30, 60, 0.55);
+        --card-2: rgba(28, 42, 84, 0.45);
+        --text: #ecf1ff;
+        --muted: #aab7da;
+        --faint: #7d8aaf;
+        --accent: #8b95ff;
+        --accent-2: #5af0d9;
+        --stroke: rgba(120, 140, 220, 0.22);
+        --stroke-strong: rgba(140, 160, 240, 0.45);
+      }
+      * { box-sizing: border-box; }
+      html, body { padding: 0; margin: 0; }
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      .stars {
+        position: fixed; inset: 0; z-index: -2;
+        background:
+          radial-gradient(2px 2px at 12% 18%, #ffffffcc, transparent 60%),
+          radial-gradient(1.4px 1.4px at 78% 32%, #ffffffaa, transparent 60%),
+          radial-gradient(1.2px 1.2px at 32% 72%, #d6dbffaa, transparent 60%),
+          radial-gradient(1.4px 1.4px at 88% 78%, #b8c4ffaa, transparent 60%);
+        opacity: 0.7;
+      }
+      .aurora {
+        position: fixed; inset: -10%; z-index: -1;
+        background:
+          radial-gradient(60% 40% at 18% 8%, #2b3aa080 0%, transparent 60%),
+          radial-gradient(45% 35% at 88% 14%, #1c8c8780 0%, transparent 60%),
+          linear-gradient(180deg, #060a1a 0%, #0a0f24 60%, #050715 100%);
+        filter: blur(40px) saturate(120%);
+      }
+
+      .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 80px; }
+
+      .nav {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 6px 6px 22px;
+      }
+      .brand {
+        display: flex; align-items: center; gap: 10px;
+        font-weight: 800; letter-spacing: 0.4px;
+        color: var(--text); text-decoration: none;
+      }
+      .brand-mark {
+        width: 30px; height: 30px; border-radius: 50%;
+        background: radial-gradient(circle at 32% 32%, #f6f2ff, #c0c8ff 42%, #5e6cd6 70%, #1a2050 100%);
+        box-shadow: 0 0 22px #8b95ff66, inset -4px -6px 12px #00000055;
+      }
+      .nav-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.95rem;
+        padding: 8px 12px; border-radius: 999px;
+      }
+      .nav-links a:hover { color: var(--text); background: rgba(120,140,220,0.10); }
+
+      .header {
+        border: 1px solid var(--stroke);
+        border-radius: 22px;
+        padding: 28px;
+        background: linear-gradient(160deg, rgba(40, 60, 130, 0.45), rgba(15, 25, 55, 0.4));
+        margin-bottom: 28px;
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        color: var(--accent-2);
+        font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+        padding: 5px 10px; border-radius: 999px;
+        background: rgba(90, 240, 217, 0.08);
+        border: 1px solid rgba(90, 240, 217, 0.25);
+      }
+      h1 {
+        margin: 12px 0 6px;
+        font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+        line-height: 1.1;
+        background: linear-gradient(120deg, #ffffff 0%, #c8d0ff 50%, #5af0d9 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .meta { color: var(--muted); font-size: 0.95rem; }
+
+      article {
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 26px 26px 12px;
+        background: var(--card);
+        backdrop-filter: blur(10px);
+      }
+      article h2 {
+        font-size: 1.28rem;
+        margin: 26px 0 10px;
+        letter-spacing: -0.005em;
+      }
+      article h2:first-of-type { margin-top: 6px; }
+      article h3 {
+        font-size: 1.05rem;
+        margin: 18px 0 6px;
+        color: var(--text);
+      }
+      article p, article li {
+        color: var(--muted);
+      }
+      article p strong, article li strong { color: var(--text); }
+      article a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(139, 149, 255, 0.4); text-underline-offset: 2px; }
+      article a:hover { text-decoration-color: var(--accent); }
+      article ul { padding-left: 22px; }
+      article hr { border: none; border-top: 1px solid var(--stroke); margin: 26px 0; }
+
+      .toc {
+        margin: 14px 0 22px;
+        padding: 14px 18px;
+        border: 1px solid var(--stroke);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .toc strong { color: var(--text); }
+      .toc ol { margin: 8px 0 0; padding-left: 22px; color: var(--muted); }
+      .toc a { color: var(--muted); text-decoration: none; }
+      .toc a:hover { color: var(--text); }
+
+      footer {
+        margin-top: 36px;
+        padding-top: 22px;
+        border-top: 1px solid var(--stroke);
+        color: var(--faint);
+        font-size: 0.9rem;
+        display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center;
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: var(--text); }
+
+      code {
+        color: var(--accent-2);
+        background: rgba(20, 35, 80, 0.55);
+        border: 1px solid var(--stroke);
+        border-radius: 6px;
+        padding: 2px 6px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="stars" aria-hidden="true"></div>
+
+    <main class="wrap">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="./" aria-label="Dreamloom home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Dreamloom</span>
+        </a>
+        <div class="nav-links">
+          <a href="./">← Back to site</a>
+          <a href="https://github.com/chartmann1590/dreamloom" rel="noopener">GitHub</a>
+        </div>
+      </nav>
+
+      <header class="header">
+        <span class="eyebrow">Legal · Plain language</span>
+        <h1>Privacy Policy</h1>
+        <p class="meta">Last updated: <time datetime="2026-04-29">April 29, 2026</time></p>
+      </header>
+
+      <article>
+        <p><strong>Short version.</strong> Dreamloom is designed so your dream text never leaves your phone. Interpretation runs entirely on-device with a local Gemma model. Your journal is stored in an encrypted local database. Network use is narrow and explicit: a one-time model download, ads (AdMob), and opt-out crash and usage analytics. There is no account system and no cloud sync of dream content.</p>
+
+        <nav class="toc" aria-label="Table of contents">
+          <strong>Contents</strong>
+          <ol>
+            <li><a href="#who">Who we are</a></li>
+            <li><a href="#data">What data Dreamloom handles</a></li>
+            <li><a href="#permissions">Android permissions</a></li>
+            <li><a href="#ondevice">On-device processing</a></li>
+            <li><a href="#network">When the app uses the network</a></li>
+            <li><a href="#ads">Ads</a></li>
+            <li><a href="#analytics">Analytics & crash reporting</a></li>
+            <li><a href="#storage">Storage, encryption & retention</a></li>
+            <li><a href="#sharing">Sharing & third parties</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#rights">Your rights & controls</a></li>
+            <li><a href="#changes">Changes to this policy</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="who">1. Who we are</h2>
+        <p>Dreamloom is an Android application developed and published by Charles Hartmann ("we", "us"). This Privacy Policy explains how the Dreamloom app handles information when you install or use it. It does not cover any other software, websites, or services.</p>
+
+        <h2 id="data">2. What data Dreamloom handles</h2>
+        <p>Dreamloom is built around the principle that your dream content is the most personal thing in the app, and it should never leave your device. The categories of data Dreamloom handles are:</p>
+        <ul>
+          <li><strong>Dream content (local only).</strong> Text you type, voice you record, and AI-generated interpretations (title, symbols, meaning, intention). Stored only on your device, in an encrypted database.</li>
+          <li><strong>Audio recordings (local only, transient).</strong> If you use voice capture, audio is transcribed on-device and used to populate the text entry. Audio files live in app-internal storage and are subject to the in-app deletion controls.</li>
+          <li><strong>App preferences.</strong> Theme, opt-in choices for analytics and crash reporting, reminder settings, ad-frequency state. Stored locally via Android DataStore.</li>
+          <li><strong>Diagnostic data (opt-out).</strong> Anonymous counts and event flags for product analytics and crash reports, if the matching opt-out is left enabled. Never includes dream text, titles, symbols, audio, or user identifiers.</li>
+          <li><strong>Advertising data.</strong> Standard data sent by Google Mobile Ads (AdMob) and its mediation partners (Meta Audience Network, AppLovin) when ads are shown. This includes a resettable Android Advertising ID, coarse signals about the device, and consent state from the User Messaging Platform (UMP). It does <em>not</em> include your dream text.</li>
+          <li><strong>Network requests for the local AI model.</strong> The first time you use Dreamloom, the app downloads a Gemma model file (~2.6 GB) from a public host. This is a standard HTTPS request and we do not log dream content over it.</li>
+        </ul>
+
+        <h2 id="permissions">3. Android permissions</h2>
+        <ul>
+          <li><strong>Microphone</strong> — only when you start a voice capture. Audio is transcribed on-device.</li>
+          <li><strong>Internet & network state</strong> — for the model download, ads, and (opt-out) analytics.</li>
+          <li><strong>Post notifications</strong> — for optional dream reminders and the weekly insight notification.</li>
+          <li><strong>AD_ID</strong> — required by Google Mobile Ads to show ads.</li>
+        </ul>
+
+        <h2 id="ondevice">4. On-device processing</h2>
+        <p>All dream interpretation runs locally on your device using Gemma via LiteRT-LM. The model file is stored in your app's private internal storage. No dream text, voice audio, or interpretation output is sent to any server controlled by us or by Google's Gemini API as part of interpretation.</p>
+        <p>Backend acceleration is selected automatically (NPU → GPU → CPU). All execution stays on the device.</p>
+
+        <h2 id="network">5. When the app uses the network</h2>
+        <p>Dreamloom contacts the network only in these specific situations:</p>
+        <ul>
+          <li><strong>Initial model download.</strong> An HTTPS request to a public host (and configured fallback mirrors) to fetch the Gemma model. Verified by SHA-256 before being used.</li>
+          <li><strong>Ads.</strong> Requests to Google Mobile Ads (AdMob) and its mediation partners to load and display ads.</li>
+          <li><strong>Consent (UMP).</strong> A request to Google's User Messaging Platform to determine and record your ad-personalization consent state, where applicable.</li>
+          <li><strong>Crash & analytics (opt-out).</strong> If left enabled, anonymous events and crash reports go to Firebase Analytics, Crashlytics, and Performance Monitoring (Google).</li>
+        </ul>
+        <p>No other network calls are made by the app.</p>
+
+        <h2 id="ads">6. Ads</h2>
+        <p>Dreamloom is free, and shows ads via Google Mobile Ads (AdMob), with mediation partners <strong>Meta Audience Network</strong> and <strong>AppLovin</strong>. Ad formats used in the app include app-open ads, interstitials, rewarded ads, and native ads.</p>
+        <p>We use Google's User Messaging Platform (UMP) to handle consent in regions that require it (such as the EEA, UK, and Switzerland). You can change your consent choice at any time from in-app settings or device-level controls.</p>
+        <p><strong>Ads do not see your dream content.</strong> Dream text is never used as an input to ad targeting. Ad-frequency caps are applied locally to keep ads out of the way of journaling.</p>
+        <p>Google's privacy policy for Mobile Ads is at <a href="https://policies.google.com/technologies/ads" rel="noopener">policies.google.com/technologies/ads</a>. Mediation partner policies: <a href="https://www.facebook.com/about/privacy/" rel="noopener">Meta</a>, <a href="https://www.applovin.com/privacy/" rel="noopener">AppLovin</a>.</p>
+
+        <h2 id="analytics">7. Analytics & crash reporting</h2>
+        <p>If left enabled, Dreamloom uses Firebase Analytics, Crashlytics, and Performance Monitoring to understand how the app is used and to investigate crashes. Events are limited to the schema documented in the project's <code>INSTRUCTIONS.md</code> — counts and coarse flags only — and never include dream text, titles, symbols, audio, or user identifiers.</p>
+        <p>You can disable analytics and crash reporting from <strong>Settings → Privacy</strong>. The change applies on the next process start as well as immediately for new events.</p>
+
+        <h2 id="storage">8. Storage, encryption & retention</h2>
+        <ul>
+          <li><strong>Encrypted at rest.</strong> Your dream entries and interpretations are stored in a Room database wrapped in <strong>SQLCipher</strong>. The passphrase is held in the Android Keystore and accessed via EncryptedSharedPreferences.</li>
+          <li><strong>App-internal storage.</strong> Audio recordings, the Gemma model file, and small caches live in your app's private storage area, not on shared storage.</li>
+          <li><strong>Retention.</strong> Dream entries persist on your device until you delete them or uninstall the app. There is no remote copy.</li>
+          <li><strong>Wipe & reset.</strong> The Settings screen offers a "Wipe Data" action that closes the model engine, deletes the encrypted database, removes the model file, clears preferences, and clears the Keystore-backed passphrase before restarting the process.</li>
+        </ul>
+
+        <h2 id="sharing">9. Sharing & third parties</h2>
+        <p>We do not sell your data. We do not share your dream content with anyone. The third parties that may receive non-content data, only when their respective feature is in use, are:</p>
+        <ul>
+          <li>Google (AdMob, Firebase Analytics, Crashlytics, Performance, UMP) — see <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</li>
+          <li>Meta Audience Network — only when serving an ad mediated to Meta.</li>
+          <li>AppLovin — only when serving an ad mediated to AppLovin.</li>
+          <li>The host that serves the Gemma model file — only during the initial model download.</li>
+        </ul>
+
+        <h2 id="children">10. Children</h2>
+        <p>Dreamloom is not directed to children under 13, and we do not knowingly collect data from children under 13. If you believe a child has used the app and you would like the local journal removed, simply uninstall the app or use the in-app "Wipe Data" action.</p>
+
+        <h2 id="rights">11. Your rights & controls</h2>
+        <p>Because Dreamloom keeps dream content on your device only, the most important controls are local:</p>
+        <ul>
+          <li><strong>Delete an entry</strong> — long-press in the Atlas, then Delete.</li>
+          <li><strong>Wipe the journal</strong> — Settings → "Wipe Data".</li>
+          <li><strong>Opt out of analytics & crash reporting</strong> — Settings → Privacy.</li>
+          <li><strong>Manage ad consent</strong> — Settings → Privacy (UMP).</li>
+          <li><strong>Uninstall</strong> — removes all local data, including the encrypted database and model file.</li>
+        </ul>
+        <p>If you are in the EEA, UK, Switzerland, California, or another jurisdiction with applicable rights (access, deletion, correction, portability, objection), you can exercise those rights for any data we control by contacting us at the address below. Note that, by design, we do not hold a copy of your dream content.</p>
+
+        <h2 id="changes">12. Changes to this policy</h2>
+        <p>If this policy changes materially, we will update the "Last updated" date at the top and, where appropriate, surface the change in the app or in release notes.</p>
+
+        <h2 id="contact">13. Contact</h2>
+        <p>Questions about this policy? Email <a href="mailto:charles.h.hartmann1@gmail.com">charles.h.hartmann1@gmail.com</a> or open an issue at <a href="https://github.com/chartmann1590/dreamloom/issues" rel="noopener">github.com/chartmann1590/dreamloom/issues</a>.</p>
+      </article>
+
+      <footer>
+        <div>© <span id="year">2026</span> Dreamloom · A private, on-device dream journal.</div>
+        <div>
+          <a href="./">Home</a> ·
+          <a href="https://github.com/chartmann1590/dreamloom" rel="noopener">GitHub</a> ·
+          <a href="https://github.com/chartmann1590/dreamloom/releases" rel="noopener">Releases</a>
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

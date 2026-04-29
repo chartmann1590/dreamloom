@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.charles.app.dreamloom.R
+import com.charles.app.dreamloom.ads.NativeAdCard
 import com.charles.app.dreamloom.data.model.dreamMoodOptionKeys
 import com.charles.app.dreamloom.data.model.moodLabelForKey
 import com.charles.app.dreamloom.feature.detail.DreamShareImageRenderer
@@ -217,6 +218,9 @@ fun AtlasScreen(
                             onClick = { onOpenDream(d.id) },
                             onLongClick = { longPressDreamId = d.id },
                         )
+                    }
+                    item(key = "atlas_native_ad") {
+                        NativeAdCard(modifier = Modifier.fillMaxWidth())
                     }
                 }
             }

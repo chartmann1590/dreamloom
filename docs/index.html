@@ -2,234 +2,702 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dreamloom - Private AI Dream Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#070a17" />
+    <meta name="color-scheme" content="dark light" />
+
+    <title>Dreamloom — Private On-Device AI Dream Journal</title>
+    <meta name="description" content="Dreamloom is a private, on-device AI dream journal for Android. Record voice or text dreams; Gemma (LiteRT-LM) interprets symbols, themes, and patterns locally. No account. No cloud sync of dream text." />
+    <meta name="keywords" content="dream journal, AI dream interpretation, on-device AI, private dream journal, Gemma, LiteRT-LM, Android dream app, lucid dreaming, sleep journal, symbol interpretation, encrypted journal, offline AI" />
+    <meta name="author" content="Charles Hartmann" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="https://chartmann1590.github.io/dreamloom/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dreamloom" />
+    <meta property="og:title" content="Dreamloom — Private On-Device AI Dream Journal" />
+    <meta property="og:description" content="A mystical Android journal that decodes your dreams on-device with Gemma. Symbols, patterns, and weekly insights — without ever uploading your dream text." />
+    <meta property="og:url" content="https://chartmann1590.github.io/dreamloom/" />
+    <meta property="og:image" content="https://chartmann1590.github.io/dreamloom/assets/store/01-home.png" />
+    <meta property="og:image:alt" content="Dreamloom home screen with crescent moon" />
+    <meta property="og:image:width" content="1080" />
+    <meta property="og:image:height" content="1920" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:video" content="https://chartmann1590.github.io/dreamloom/assets/video/promo_video_voiceover_burned_v2.mp4" />
+    <meta property="og:video:type" content="video/mp4" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dreamloom — Private On-Device AI Dream Journal" />
+    <meta name="twitter:description" content="Capture, decode, and explore your dreams. All on-device. No account. No cloud upload of dream text." />
+    <meta name="twitter:image" content="https://chartmann1590.github.io/dreamloom/assets/store/01-home.png" />
+    <meta name="twitter:image:alt" content="Dreamloom home screen with crescent moon" />
+
+    <!-- Favicons & manifest -->
+    <link rel="icon" type="image/png" href="./assets/store/01-home.png" />
+    <link rel="apple-touch-icon" href="./assets/store/01-home.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="./sitemap.xml" />
+    <link rel="alternate" type="text/html" hreflang="en" href="https://chartmann1590.github.io/dreamloom/" />
+    <link rel="alternate" type="application/atom+xml" title="Dreamloom releases (Atom)" href="https://github.com/chartmann1590/dreamloom/releases.atom" />
+
+    <!-- Preconnects -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" />
+
+    <!-- Structured data: SoftwareApplication + WebSite + Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Dreamloom",
+          "operatingSystem": "Android 9.0+",
+          "applicationCategory": "LifestyleApplication",
+          "applicationSubCategory": "Dream Journal",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Dreamloom is a private, on-device AI dream journal. Record voice or text dreams; Gemma (LiteRT-LM) interprets symbols, themes, and weekly patterns locally — no account, no cloud sync of dream text.",
+          "url": "https://chartmann1590.github.io/dreamloom/",
+          "downloadUrl": "https://github.com/chartmann1590/dreamloom/releases/latest",
+          "softwareVersion": "0.1",
+          "author": {
+            "@type": "Person",
+            "name": "Charles Hartmann"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Dreamloom",
+            "url": "https://chartmann1590.github.io/dreamloom/"
+          },
+          "image": "https://chartmann1590.github.io/dreamloom/assets/store/01-home.png",
+          "screenshot": [
+            "https://chartmann1590.github.io/dreamloom/assets/store/01-home.png",
+            "https://chartmann1590.github.io/dreamloom/assets/store/02-atlas.png",
+            "https://chartmann1590.github.io/dreamloom/assets/store/03-insight.png"
+          ],
+          "featureList": [
+            "On-device AI interpretation with Gemma via LiteRT-LM",
+            "Voice or text dream capture",
+            "Encrypted local journal (SQLCipher)",
+            "Dream Atlas with symbol and mood filters",
+            "Weekly Insight pattern surfacing",
+            "Dream Oracle Q&A",
+            "Works offline after first model download"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "name": "Dreamloom",
+          "url": "https://chartmann1590.github.io/dreamloom/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://github.com/chartmann1590/dreamloom/issues?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "Dreamloom",
+          "url": "https://chartmann1590.github.io/dreamloom/",
+          "logo": "https://chartmann1590.github.io/dreamloom/assets/store/01-home.png",
+          "sameAs": [
+            "https://github.com/chartmann1590/dreamloom"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is my dream text uploaded to the cloud?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. All dream text is interpreted on-device with Gemma via LiteRT-LM. Dream content is stored only in an encrypted local database and never sent to any server."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need an account to use Dreamloom?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Dreamloom has no account system. Your journal lives only on your device."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Dreamloom work offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. After a one-time download of the local AI model, journaling and interpretation work fully offline. Network use is limited to optional ads, opt-out analytics, and the initial model download."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What devices are supported?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Android 9.0 (API 28) and newer. Dreamloom auto-selects the best on-device backend: NPU (Hexagon) → GPU (OpenCL) → CPU."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <style>
       :root {
-        --bg: #070a17;
-        --card: #101831;
-        --card-2: #162247;
-        --text: #ebf1ff;
-        --muted: #a9b8db;
-        --accent: #7f8cff;
-        --accent-2: #4de4cf;
-        --stroke: #2b3e75;
+        --bg: #050715;
+        --bg-2: #0a0f24;
+        --card: rgba(20, 30, 60, 0.55);
+        --card-2: rgba(28, 42, 84, 0.45);
+        --text: #ecf1ff;
+        --muted: #aab7da;
+        --faint: #7d8aaf;
+        --accent: #8b95ff;
+        --accent-2: #5af0d9;
+        --accent-3: #f5a3ff;
+        --stroke: rgba(120, 140, 220, 0.22);
+        --stroke-strong: rgba(140, 160, 240, 0.45);
+        --shadow: 0 22px 70px rgba(0, 0, 0, 0.55);
       }
       * { box-sizing: border-box; }
+      html, body { padding: 0; margin: 0; }
       body {
-        margin: 0;
-        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
         color: var(--text);
+        background: var(--bg);
+        line-height: 1.55;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      .stars {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
         background:
-          radial-gradient(1200px 500px at 20% -5%, #20326b80, transparent),
-          radial-gradient(900px 450px at 90% 10%, #238a8380, transparent),
-          var(--bg);
+          radial-gradient(2px 2px at 12% 18%, #ffffffcc, transparent 60%),
+          radial-gradient(1.6px 1.6px at 78% 32%, #ffffffaa, transparent 60%),
+          radial-gradient(1.4px 1.4px at 32% 72%, #d6dbffaa, transparent 60%),
+          radial-gradient(1.6px 1.6px at 88% 78%, #b8c4ffaa, transparent 60%),
+          radial-gradient(1.2px 1.2px at 56% 12%, #ffffff99, transparent 60%),
+          radial-gradient(1.4px 1.4px at 22% 90%, #ffffffaa, transparent 60%),
+          radial-gradient(1px 1px at 66% 60%, #ffffff80, transparent 60%);
+        opacity: 0.85;
       }
-      .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 16px 56px; }
+      .aurora {
+        position: fixed;
+        inset: -10%;
+        z-index: -1;
+        background:
+          radial-gradient(60% 40% at 18% 8%, #2b3aa080 0%, transparent 60%),
+          radial-gradient(45% 35% at 88% 14%, #1c8c8780 0%, transparent 60%),
+          radial-gradient(50% 40% at 70% 90%, #6a3ea080 0%, transparent 60%),
+          linear-gradient(180deg, #060a1a 0%, #0a0f24 60%, #050715 100%);
+        filter: blur(40px) saturate(120%);
+        animation: drift 28s ease-in-out infinite alternate;
+      }
+      @keyframes drift {
+        0%   { transform: translate3d(0,0,0); }
+        100% { transform: translate3d(-3%, 2%, 0); }
+      }
+
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 18px 64px; }
+
+      /* Top nav */
+      .nav {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 6px 6px 18px;
+      }
+      .brand {
+        display: flex; align-items: center; gap: 10px;
+        font-weight: 800; letter-spacing: 0.4px;
+      }
+      .brand-mark {
+        width: 32px; height: 32px; border-radius: 50%;
+        background:
+          radial-gradient(circle at 32% 32%, #f6f2ff, #c0c8ff 42%, #5e6cd6 70%, #1a2050 100%);
+        box-shadow: 0 0 22px #8b95ff66, inset -4px -6px 12px #00000055;
+      }
+      .nav-links { display: flex; gap: 14px; }
+      .nav-links a {
+        color: var(--muted); text-decoration: none; font-size: 0.95rem;
+        padding: 8px 12px; border-radius: 999px;
+      }
+      .nav-links a:hover { color: var(--text); background: rgba(120,140,220,0.10); }
+
+      /* Hero */
       .hero {
-        background: linear-gradient(145deg, #18295a, #0f1a37);
+        position: relative;
         border: 1px solid var(--stroke);
-        border-radius: 22px;
-        padding: 28px;
-        box-shadow: 0 18px 60px #00000055;
+        background:
+          linear-gradient(160deg, rgba(40, 60, 130, 0.45), rgba(15, 25, 55, 0.4)),
+          radial-gradient(420px 200px at 12% 0%, #5363d950 0%, transparent 60%),
+          radial-gradient(380px 200px at 92% 6%, #36c5b955 0%, transparent 60%);
+        border-radius: 28px;
+        padding: 32px 28px 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
       }
-      h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 3vw, 2.6rem); }
-      .sub { margin: 0; color: var(--muted); }
-      .actions { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+      .hero::after {
+        content: "";
+        position: absolute; inset: 0;
+        background: radial-gradient(800px 280px at 50% 110%, #ffffff10, transparent 70%);
+        pointer-events: none;
+      }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        color: var(--accent-2);
+        font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
+        padding: 6px 10px; border-radius: 999px;
+        background: rgba(90, 240, 217, 0.08);
+        border: 1px solid rgba(90, 240, 217, 0.25);
+      }
+      h1 {
+        margin: 14px 0 8px;
+        font-size: clamp(2rem, 4.6vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        font-weight: 800;
+        background: linear-gradient(120deg, #ffffff 0%, #c8d0ff 40%, #5af0d9 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      h1 em {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic; font-weight: 500;
+        background: linear-gradient(90deg, #f5a3ff, #8b95ff);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .lede {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.3vw, 1.12rem);
+        max-width: 64ch;
+      }
+      .actions { display: flex; gap: 10px; flex-wrap: wrap; }
       .btn {
-        display: inline-block;
-        text-decoration: none;
-        color: #0d1230;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--accent), #9bceff);
+        display: inline-flex; align-items: center; gap: 8px;
+        text-decoration: none; font-weight: 700;
         border-radius: 999px;
-        padding: 11px 18px;
+        padding: 12px 20px;
+        transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
       }
-      .btn.alt {
+      .btn-primary {
+        color: #0c1130;
+        background: linear-gradient(135deg, #c8d0ff 0%, #8b95ff 50%, #5af0d9 100%);
+        box-shadow: 0 10px 30px rgba(139, 149, 255, 0.35), inset 0 0 0 1px #ffffff60;
+      }
+      .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 36px rgba(139, 149, 255, 0.5); }
+      .btn-secondary {
         color: var(--text);
-        background: transparent;
-        border: 1px solid var(--stroke);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--stroke-strong);
+        backdrop-filter: blur(8px);
       }
-      .panel {
-        margin-top: 16px;
-        border: 1px solid var(--stroke);
-        background: linear-gradient(180deg, var(--card), var(--card-2));
-        border-radius: 16px;
-        padding: 16px;
-      }
-      .panel h2 { margin: 0 0 8px; font-size: 1.1rem; }
-      .muted { color: var(--muted); }
+      .btn-secondary:hover { background: rgba(255, 255, 255, 0.08); }
+
       .hero-grid {
-        margin-top: 16px;
+        margin-top: 26px;
         display: grid;
-        grid-template-columns: 1.3fr 1fr;
-        gap: 14px;
-      }
-      .media {
-        margin-top: 24px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
+        grid-template-columns: 1.35fr 1fr;
+        gap: 16px;
       }
       .video-card {
-        border-radius: 16px;
+        border-radius: 20px;
         border: 1px solid var(--stroke);
         overflow: hidden;
-        background: #0c1430;
+        background: #0a1234;
+        box-shadow: var(--shadow);
       }
-      .video-card video { width: 100%; display: block; background: #000; }
-      .video-card p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
-      .about-card {
-        border-radius: 16px;
-        border: 1px solid var(--stroke);
-        background: linear-gradient(180deg, var(--card), var(--card-2));
+      .video-card video { width: 100%; display: block; background: #000; aspect-ratio: 16/9; object-fit: cover; }
+      .release-panel {
         padding: 18px;
+        border-radius: 20px;
+        border: 1px solid var(--stroke);
+        background: var(--card);
+        backdrop-filter: blur(10px);
+        display: flex; flex-direction: column; gap: 10px;
       }
-      .about-card h2 {
-        margin: 0 0 10px;
-        font-size: 1.2rem;
-      }
-      .about-card p {
-        margin: 0 0 12px;
-        color: var(--muted);
-        line-height: 1.5;
-      }
-      .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+      .release-panel h2 { margin: 0; font-size: 1.05rem; letter-spacing: 0.02em; }
+      .pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
       .pill {
+        display: inline-flex; align-items: center; gap: 6px;
         border: 1px solid var(--stroke);
         border-radius: 999px;
-        padding: 6px 11px;
-        font-size: 0.85rem;
-        color: #dbe5ff;
-        background: #0d1740;
+        padding: 5px 10px;
+        font-size: 0.78rem;
+        color: #d8e0ff;
+        background: rgba(255,255,255,0.03);
       }
+      .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); }
+      .release-meta { color: var(--muted); font-size: 0.92rem; }
+      .small-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+      .small-actions a { font-size: 0.88rem; padding: 8px 12px; }
+
+      /* Section */
+      section { margin-top: 56px; }
+      .section-title {
+        font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+        margin: 0 0 6px;
+        letter-spacing: -0.01em;
+      }
+      .section-sub { color: var(--muted); margin: 0 0 22px; max-width: 64ch; }
+
+      /* Feature grid */
       .features {
-        margin-top: 18px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
       }
       .feature {
-        border-radius: 14px;
+        position: relative;
+        border-radius: 18px;
+        padding: 18px;
         border: 1px solid var(--stroke);
-        background: #0c1638;
-        padding: 14px;
+        background: linear-gradient(160deg, var(--card), var(--card-2));
+        backdrop-filter: blur(10px);
+        transition: transform 200ms ease, border-color 200ms ease;
       }
-      .feature h3 {
-        margin: 0 0 8px;
-        font-size: 1rem;
+      .feature:hover { transform: translateY(-2px); border-color: var(--stroke-strong); }
+      .feature .icon {
+        width: 38px; height: 38px;
+        border-radius: 12px;
+        display: grid; place-items: center;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #5363d950, #36c5b950);
+        border: 1px solid var(--stroke);
+        font-size: 20px;
       }
-      .feature p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.93rem;
-        line-height: 1.45;
-      }
-      .grid {
-        margin-top: 24px;
+      .feature h3 { margin: 0 0 6px; font-size: 1.05rem; }
+      .feature p { margin: 0; color: var(--muted); font-size: 0.94rem; }
+
+      /* Screens gallery */
+      .gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 14px;
       }
       .shot {
-        border-radius: 16px;
+        border-radius: 22px;
         border: 1px solid var(--stroke);
         overflow: hidden;
-        background: #0c1430;
+        background: #0a1234;
+        box-shadow: var(--shadow);
+        transition: transform 200ms ease;
       }
+      .shot:hover { transform: translateY(-3px); }
       .shot img { width: 100%; display: block; }
-      .shot p { margin: 10px 12px 12px; color: var(--muted); font-size: 0.94rem; }
-      @media (max-width: 900px) {
-        .hero-grid { grid-template-columns: 1fr; }
-        .media { grid-template-columns: 1fr; }
+      .shot p { margin: 12px 14px 14px; color: var(--muted); font-size: 0.92rem; }
+
+      /* How it works steps */
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
       }
-      footer { margin-top: 28px; color: var(--muted); font-size: 0.9rem; }
+      .step {
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid var(--stroke);
+        background: var(--card);
+        position: relative;
+        backdrop-filter: blur(10px);
+      }
+      .step .num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.4rem; line-height: 1;
+        color: var(--accent-2);
+        font-style: italic;
+        opacity: 0.85;
+      }
+      .step h3 { margin: 6px 0 6px; }
+      .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+      /* Privacy callout */
+      .privacy-callout {
+        position: relative;
+        border-radius: 22px;
+        padding: 28px;
+        border: 1px solid rgba(90, 240, 217, 0.30);
+        background:
+          radial-gradient(450px 180px at 0% 0%, rgba(90, 240, 217, 0.12), transparent 70%),
+          radial-gradient(450px 180px at 100% 100%, rgba(245, 163, 255, 0.12), transparent 70%),
+          var(--card);
+        backdrop-filter: blur(10px);
+      }
+      .privacy-callout h2 { margin-top: 0; }
+      .privacy-callout ul { margin: 10px 0 18px; padding-left: 20px; color: var(--muted); }
+      .privacy-callout li { margin: 4px 0; }
+
+      /* FAQ */
+      details {
+        border-radius: 14px;
+        border: 1px solid var(--stroke);
+        padding: 14px 16px;
+        background: var(--card);
+        margin-bottom: 10px;
+      }
+      details + details { margin-top: 0; }
+      details[open] { border-color: var(--stroke-strong); }
+      summary {
+        cursor: pointer;
+        font-weight: 600;
+        list-style: none;
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      summary::-webkit-details-marker { display: none; }
+      summary::after { content: "+"; color: var(--accent-2); font-size: 1.2rem; }
+      details[open] summary::after { content: "−"; }
+      details p { margin: 10px 0 0; color: var(--muted); }
+
+      footer {
+        margin-top: 60px;
+        padding-top: 22px;
+        border-top: 1px solid var(--stroke);
+        color: var(--faint);
+        font-size: 0.9rem;
+        display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center;
+      }
+      footer a { color: var(--muted); text-decoration: none; }
+      footer a:hover { color: var(--text); }
+
       code {
         color: var(--accent-2);
-        background: #0a1230;
+        background: rgba(20, 35, 80, 0.55);
         border: 1px solid var(--stroke);
         border-radius: 6px;
         padding: 2px 6px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 540px) {
+        .nav-links a:not(.primary) { display: none; }
+        .hero { padding: 22px 18px 18px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .aurora { animation: none; }
       }
     </style>
   </head>
   <body>
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="stars" aria-hidden="true"></div>
+
     <main class="wrap">
-      <section class="hero">
-        <h1>Dreamloom: Private AI Dream Journal</h1>
-        <p class="sub">
-          Capture dreams, decode symbols, and discover patterns. All on-device. No account. No cloud upload of dream text.
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#" aria-label="Dreamloom home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Dreamloom</span>
+        </a>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#screens">Screens</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#faq">FAQ</a>
+          <a href="./privacy.html">Privacy Policy</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <span class="eyebrow">✨ Now in early release</span>
+        <h1>Decode your dreams. <em>Privately.</em></h1>
+        <p class="lede">
+          Dreamloom is an Android dream journal where on-device AI — Gemma running through LiteRT-LM — turns your half‑remembered dreams into structured interpretation. Symbols, themes, weekly patterns. Nothing leaves your phone.
         </p>
         <div class="actions">
-          <a id="apk-link" class="btn" href="#">Download APK</a>
-          <a id="aab-link" class="btn alt" href="#">Download AAB</a>
-          <a id="release-link" class="btn alt" href="#">Open Release</a>
+          <a id="apk-link" class="btn btn-primary" href="#" rel="noopener">⬇️ Download APK</a>
+          <a id="aab-link" class="btn btn-secondary" href="#" rel="noopener">📦 Download AAB</a>
+          <a id="release-link" class="btn btn-secondary" href="https://github.com/chartmann1590/dreamloom/releases" rel="noopener">View on GitHub</a>
         </div>
+
         <div class="hero-grid">
           <article class="video-card">
-            <video controls autoplay muted loop playsinline preload="metadata" poster="./assets/store/01-home.png">
+            <video controls autoplay muted loop playsinline preload="metadata" poster="./assets/store/01-home.png" aria-label="Dreamloom promo video">
               <source src="./assets/video/promo_video_voiceover_burned_v2.mp4" type="video/mp4" />
               <source src="./assets/video/promo_video_voiceover_burned.mp4" type="video/mp4" />
               Your browser does not support embedded video.
             </video>
-            <p>Official Dreamloom promo video.</p>
           </article>
-          <div class="panel">
-            <h2>Latest Release Status</h2>
-            <p id="release-meta" class="muted">Loading latest release...</p>
+          <aside class="release-panel">
+            <h2>Latest release</h2>
+            <p id="release-meta" class="release-meta">Loading latest release…</p>
             <div class="pill-row">
-              <span class="pill">On-device Gemma AI</span>
-              <span class="pill">Encrypted local storage</span>
-              <span class="pill">Weekly insight</span>
-              <span class="pill">Dream Oracle</span>
+              <span class="pill"><span class="dot"></span>On-device Gemma</span>
+              <span class="pill"><span class="dot"></span>Encrypted (SQLCipher)</span>
+              <span class="pill"><span class="dot"></span>Voice + text capture</span>
+              <span class="pill"><span class="dot"></span>Weekly insights</span>
+              <span class="pill"><span class="dot"></span>Dream Oracle</span>
             </div>
+            <div class="small-actions">
+              <a id="apk-link-2" class="btn btn-secondary" href="#">APK</a>
+              <a id="aab-link-2" class="btn btn-secondary" href="#">AAB</a>
+              <a class="btn btn-secondary" href="https://github.com/chartmann1590/dreamloom" rel="noopener">Source</a>
+            </div>
+          </aside>
+        </div>
+      </header>
+
+      <section id="features" aria-labelledby="features-title">
+        <h2 id="features-title" class="section-title">A journal that listens, decodes, and remembers — locally.</h2>
+        <p class="section-sub">Designed for the morning after. Whisper your dream while it's still warm, and Dreamloom does the rest — without phoning anyone.</p>
+        <div class="features">
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🎙️</div>
+            <h3>Voice or text capture</h3>
+            <p>Record while half-awake, or type. On-device transcription means no audio is ever uploaded.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🔮</div>
+            <h3>Symbol decoding</h3>
+            <p>Title, symbols, interpretation, and a daytime intention — generated by a local Gemma model.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🗺️</div>
+            <h3>Dream Atlas</h3>
+            <p>Browse, search, and filter every entry by symbol, mood, or week. Patterns you forgot will resurface.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">📈</div>
+            <h3>Weekly Insight</h3>
+            <p>A weekly local job analyses your last seven days and surfaces recurring symbols and emotions.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">💬</div>
+            <h3>Dream Oracle</h3>
+            <p>Ask follow-up questions about your own dream world. Answers stay on the device that asked them.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">🔒</div>
+            <h3>Encrypted by default</h3>
+            <p>Room over SQLCipher with a Keystore-backed passphrase. Even at rest, your journal is locked.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">📶</div>
+            <h3>Works offline</h3>
+            <p>One model download up front, then journaling and interpretation work without any network.</p>
+          </div>
+          <div class="feature">
+            <div class="icon" aria-hidden="true">⚡</div>
+            <h3>Auto backend</h3>
+            <p>Picks NPU → GPU → CPU automatically. Fast on flagships; gentle on older hardware.</p>
           </div>
         </div>
       </section>
 
-      <section class="media">
-        <article class="about-card">
-          <h2>What Dreamloom does</h2>
-          <p>Dreamloom turns voice or text dream entries into structured interpretation: title, symbols, meaning, and intention.</p>
-          <p>It keeps your most intimate writing private by processing interpretations directly on your phone.</p>
-          <div class="features">
-            <div class="feature">
-              <h3>Morning Capture</h3>
-              <p>Record or type dreams quickly right after waking, then save entries to your Dream Atlas.</p>
-            </div>
-            <div class="feature">
-              <h3>Pattern Insight</h3>
-              <p>See recurring themes and symbols through weekly local analysis of your journal history.</p>
-            </div>
-            <div class="feature">
-              <h3>Privacy by Design</h3>
-              <p>No account and no cloud sync for dream text. Data stays local with encrypted storage.</p>
-            </div>
+      <section id="how" aria-labelledby="how-title">
+        <h2 id="how-title" class="section-title">How it works</h2>
+        <p class="section-sub">Three quiet steps from waking up to understanding what your night was trying to tell you.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="num">i.</div>
+            <h3>Capture</h3>
+            <p>Tap the moon. Speak or type while the dream is still vivid. Nothing uploads.</p>
           </div>
-        </article>
-        <article class="shot">
-          <img src="./assets/store/07-settings-about.png" alt="Dreamloom about and privacy screen" />
-          <p>In-app About + Privacy section with version and legal links.</p>
-        </article>
+          <div class="step">
+            <div class="num">ii.</div>
+            <h3>Decode</h3>
+            <p>Gemma runs on your phone — Hexagon NPU, OpenCL GPU, or CPU — and produces your interpretation in seconds.</p>
+          </div>
+          <div class="step">
+            <div class="num">iii.</div>
+            <h3>Reflect</h3>
+            <p>Open the Atlas, follow your symbols across weeks, and let Insight surface the patterns you couldn't see alone.</p>
+          </div>
+        </div>
       </section>
 
-      <section class="grid">
-        <article class="shot">
-          <img src="./assets/store/01-home.png" alt="Dreamloom home screen" />
-          <p>Reflective Home screen from the latest onboarded build.</p>
-        </article>
-        <article class="shot">
-          <img src="./assets/store/02-atlas.png" alt="Dream atlas screen" />
-          <p>Dream Atlas trends and saved symbolism history.</p>
-        </article>
-        <article class="shot">
-          <img src="./assets/store/03-insight.png" alt="Dream insight screen" />
-          <p>Weekly insight card generated from local journal history.</p>
-        </article>
+      <section id="screens" aria-labelledby="screens-title">
+        <h2 id="screens-title" class="section-title">Screens</h2>
+        <p class="section-sub">A quiet, moonlit interface — designed to feel like the dream itself.</p>
+        <div class="gallery">
+          <article class="shot">
+            <img src="./assets/store/01-home.png" alt="Dreamloom home screen with crescent moon and tap-to-record affordance" loading="lazy" />
+            <p>Home — moonlit capture, lunar phase, and quick access to the Oracle.</p>
+          </article>
+          <article class="shot">
+            <img src="./assets/store/02-atlas.png" alt="Dream atlas listing past entries with filter chips" loading="lazy" />
+            <p>Atlas — search and filter every dream by symbol, mood, and time.</p>
+          </article>
+          <article class="shot">
+            <img src="./assets/store/03-insight.png" alt="Weekly Insight card showing recurring symbols and patterns" loading="lazy" />
+            <p>Insight — your week, distilled into recurring themes.</p>
+          </article>
+          <article class="shot">
+            <img src="./assets/store/07-settings-about.png" alt="Settings screen showing privacy controls and version" loading="lazy" />
+            <p>Settings — privacy controls, opt-outs, and licenses, all in plain sight.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="privacy" aria-labelledby="privacy-title">
+        <div class="privacy-callout">
+          <h2 id="privacy-title" class="section-title">Privacy is the product.</h2>
+          <p class="section-sub">Dreams are some of the most personal text a person ever writes. Dreamloom treats them like that.</p>
+          <ul>
+            <li><strong>Dream content stays local.</strong> Stored only in an encrypted Room database (SQLCipher) and app-internal files.</li>
+            <li><strong>No account.</strong> No sign-up, no profile, no cloud sync of dream text.</li>
+            <li><strong>Network use is narrow.</strong> First-time model download, ads, and (opt-out) Firebase analytics & Crashlytics.</li>
+            <li><strong>Telemetry never includes journal text.</strong> Only counts and coarse flags — and you can turn it off.</li>
+            <li><strong>Open about what's where.</strong> Source code is available; the brand-promise tests fail the build if these invariants break.</li>
+          </ul>
+          <a class="btn btn-secondary" href="./privacy.html">Read the full Privacy Policy →</a>
+        </div>
+      </section>
+
+      <section id="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title" class="section-title">Frequently asked</h2>
+        <p class="section-sub">If your question isn't here, open an issue on GitHub — we read every one.</p>
+        <details>
+          <summary>Is my dream text uploaded to the cloud?</summary>
+          <p>No. All interpretation runs locally on your device using Gemma via LiteRT-LM. Dream text is stored only in an encrypted local database and is never sent to any server.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>No. There is no account system. Your journal lives on your phone, full stop.</p>
+        </details>
+        <details>
+          <summary>Does Dreamloom work offline?</summary>
+          <p>Yes. After a one-time model download, journaling and interpretation work fully offline. The only network calls are the model download, ads, and (opt-out) analytics.</p>
+        </details>
+        <details>
+          <summary>What devices are supported?</summary>
+          <p>Android 9.0 (API 28) and newer. The app auto-selects the best available backend: NPU (Hexagon) → GPU (OpenCL) → CPU.</p>
+        </details>
+        <details>
+          <summary>Are there ads?</summary>
+          <p>Yes — Dreamloom is free, and supports itself with non-intrusive ads (AdMob with mediation). Ads never see your dream text. Ad placements are frequency-capped so they stay out of the way.</p>
+        </details>
+        <details>
+          <summary>How big is the AI model download?</summary>
+          <p>Roughly 2.6 GB on disk for the int4 Gemma model used by Dreamloom. After that, no further downloads are required to use the journal.</p>
+        </details>
       </section>
 
       <footer>
-        This page uses the GitHub Releases API for <code>chartmann1590/dreamloom</code>.
+        <div>
+          <strong>Dreamloom</strong> — built with Compose, Hilt, SQLCipher, and a locally-hosted Gemma.
+        </div>
+        <div>
+          <a href="./privacy.html">Privacy Policy</a> ·
+          <a href="https://github.com/chartmann1590/dreamloom" rel="noopener">GitHub</a> ·
+          <a href="https://github.com/chartmann1590/dreamloom/releases" rel="noopener">Releases</a> ·
+          <a href="https://github.com/chartmann1590/dreamloom/issues" rel="noopener">Issues</a>
+        </div>
       </footer>
     </main>
 
@@ -237,9 +705,23 @@
       const repo = "chartmann1590/dreamloom";
       const latestReleaseApi = `https://api.github.com/repos/${repo}/releases/latest`;
       const releaseMeta = document.getElementById("release-meta");
-      const apkLink = document.getElementById("apk-link");
-      const aabLink = document.getElementById("aab-link");
+      const apkLinks = ["apk-link", "apk-link-2"].map((id) => document.getElementById(id));
+      const aabLinks = ["aab-link", "aab-link-2"].map((id) => document.getElementById(id));
       const releaseLink = document.getElementById("release-link");
+
+      function setLinks(links, url, fallbackText) {
+        links.forEach((el) => {
+          if (!el) return;
+          if (url) {
+            el.href = url;
+            el.removeAttribute("aria-disabled");
+          } else {
+            el.textContent = fallbackText;
+            el.removeAttribute("href");
+            el.setAttribute("aria-disabled", "true");
+          }
+        });
+      }
 
       async function loadLatestRelease() {
         try {
@@ -252,30 +734,18 @@
           const apk = assets.find((a) => a.name.endsWith(".apk"));
           const aab = assets.find((a) => a.name.endsWith(".aab"));
 
-          releaseLink.href = release.html_url;
-          releaseMeta.textContent =
-            `Latest tag: ${release.tag_name} | Published: ${new Date(release.published_at).toLocaleString()}`;
-
-          if (apk) {
-            apkLink.href = apk.browser_download_url;
-          } else {
-            apkLink.textContent = "APK unavailable";
-            apkLink.removeAttribute("href");
+          if (releaseLink) releaseLink.href = release.html_url;
+          if (releaseMeta) {
+            releaseMeta.textContent =
+              `Latest tag: ${release.tag_name} · Published ${new Date(release.published_at).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" })}`;
           }
-
-          if (aab) {
-            aabLink.href = aab.browser_download_url;
-          } else {
-            aabLink.textContent = "AAB unavailable";
-            aabLink.removeAttribute("href");
-          }
+          setLinks(apkLinks, apk?.browser_download_url, "APK unavailable");
+          setLinks(aabLinks, aab?.browser_download_url, "AAB unavailable");
         } catch (err) {
-          releaseMeta.textContent = `Unable to load release data: ${err.message}`;
-          apkLink.textContent = "APK unavailable";
-          aabLink.textContent = "AAB unavailable";
-          apkLink.removeAttribute("href");
-          aabLink.removeAttribute("href");
-          releaseLink.href = `https://github.com/${repo}/releases`;
+          if (releaseMeta) releaseMeta.textContent = `Unable to load release data: ${err.message}`;
+          setLinks(apkLinks, null, "APK unavailable");
+          setLinks(aabLinks, null, "AAB unavailable");
+          if (releaseLink) releaseLink.href = `https://github.com/${repo}/releases`;
         }
       }
 

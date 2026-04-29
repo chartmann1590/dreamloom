@@ -66,7 +66,7 @@ jobs:
           content = path.read_text(encoding="utf-8")
           content = re.sub(r"versionCode\s*=\s*\d+", f"versionCode = {version_code}", content, count=1)
           content = re.sub(r'versionName\s*=\s*"[^"]+"', f'versionName = "{version_name}"', content, count=1)
-          content = re.sub(r"isMinifyEnabled\s*=\s*true", "isMinifyEnabled = false", content, count=1)
+          # Keep release minify enabled (Play Store builds ship shrunk + obfuscated).
           path.write_text(content, encoding="utf-8")
           PY
           cat <<EOF >> local.properties
@@ -76,7 +76,7 @@ jobs:
           dreamloom.release.keyPassword=$KEY_PASSWORD
           EOF
 
-      - name: Build release APK and AAB
+      - name: Build signed release APK and AAB (ads enabled, R8/proguard on)
         env:
           MODEL_SHA256: ${{ secrets.DREAMLOOM_MODEL_SHA256 }}
         run: |
@@ -88,6 +88,22 @@ jobs:
           ./gradlew :app:assembleRelease :app:bundleRelease \
             -Pdreamloom.modelSha256="$MODEL_SHA256" \
             -x lintVitalRelease
+
+      - name: Verify release APK is signed
+        run: |
+          set -e
+          APK="$(ls app/build/outputs/apk/release/*.apk | head -n1)"
+          if [ -z "$APK" ]; then
+            echo "No release APK produced."
+            exit 1
+          fi
+          echo "Inspecting $APK"
+          BUILD_TOOLS_DIR="$(ls -d "$ANDROID_SDK_ROOT"/build-tools/* 2>/dev/null | sort -V | tail -n1 || true)"
+          if [ -z "$BUILD_TOOLS_DIR" ] || [ ! -x "$BUILD_TOOLS_DIR/apksigner" ]; then
+            echo "apksigner not found under $ANDROID_SDK_ROOT/build-tools — skipping signature verify."
+            exit 0
+          fi
+          "$BUILD_TOOLS_DIR/apksigner" verify --verbose "$APK"
 
       - name: Collect release artifacts
         run: |
@@ -111,6 +127,15 @@ jobs:
           print(f"Using APK: {apk_candidates[0]}")
           print(f"Using AAB: {aab_candidates[0]}")
           PY
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dreamloom-release-${{ env.VERSION_NAME }}
+          path: |
+            release-artifacts/app-release.apk
+            release-artifacts/app-release.aab
+          if-no-files-found: error
 
       - name: Create GitHub release with artifacts
         uses: softprops/action-gh-release@v2

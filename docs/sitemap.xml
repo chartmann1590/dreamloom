@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://chartmann1590.github.io/dreamloom/</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://chartmann1590.github.io/dreamloom/assets/store/01-home.png</image:loc>
+      <image:title>Dreamloom home screen</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chartmann1590.github.io/dreamloom/assets/store/02-atlas.png</image:loc>
+      <image:title>Dreamloom Atlas</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chartmann1590.github.io/dreamloom/assets/store/03-insight.png</image:loc>
+      <image:title>Dreamloom Weekly Insight</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://chartmann1590.github.io/dreamloom/assets/store/07-settings-about.png</image:loc>
+      <image:title>Dreamloom Settings &amp; Privacy</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://chartmann1590.github.io/dreamloom/assets/store/01-home.png</video:thumbnail_loc>
+      <video:title>Dreamloom Promo</video:title>
+      <video:description>Dreamloom is a private, on-device AI dream journal for Android.</video:description>
+      <video:content_loc>https://chartmann1590.github.io/dreamloom/assets/video/promo_video_voiceover_burned_v2.mp4</video:content_loc>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://chartmann1590.github.io/dreamloom/privacy.html</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>

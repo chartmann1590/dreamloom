@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.charles.app.dreamloom.R
+import com.charles.app.dreamloom.ads.NativeAdCard
 import com.charles.app.dreamloom.ui.components.AuroraStarfieldBackground
 import com.charles.app.dreamloom.ui.theme.DreamColors
 import com.charles.app.dreamloom.ui.theme.DreamSpacing
@@ -89,6 +90,11 @@ fun OracleScreen(
                             style = MaterialTheme.typography.bodyMedium,
                             color = DreamColors.Ink,
                         )
+                    }
+                }
+                if (list.isNotEmpty()) {
+                    item(key = "oracle_native_ad") {
+                        NativeAdCard(modifier = Modifier.fillMaxWidth())
                     }
                 }
             }
