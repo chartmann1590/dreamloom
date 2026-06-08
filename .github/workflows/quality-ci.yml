@@ -58,6 +58,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build, lint, and unit tests
+        env:
+          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_REPO_OWNER: ${{ secrets.GH_REPO_OWNER }}
+          GH_REPO_NAME: ${{ secrets.GH_REPO_NAME }}
         run: |
           chmod +x ./gradlew
           ./gradlew :app:assembleDebug :app:lintDebug :app:testDebugUnitTest --no-daemon

@@ -239,6 +239,8 @@ fun SettingsRootScreen(
                     )
                 },
             )
+            Spacer(Modifier.height(DreamSpacing.sm))
+            SupportFeedbackSection(viewModel = hiltViewModel())
         }
     }
 }

@@ -20,6 +20,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 val localProperties = Properties().apply {
@@ -29,6 +30,19 @@ val localProperties = Properties().apply {
 val dreamloomModelSha256: String? =
     localProperties.getProperty("dreamloom.modelSha256")?.trim()?.takeIf { it.isNotEmpty() }
         ?: (project.findProperty("dreamloom.modelSha256") as String?)?.trim()?.takeIf { it.isNotEmpty() }
+
+val githubApiToken = localProperties.getProperty("github.api.token")?.trim()
+    ?: System.getenv("GH_API_TOKEN")
+    ?: (project.findProperty("github.api.token") as? String)?.trim()
+    ?: ""
+val githubRepoOwner = localProperties.getProperty("github.repo.owner")?.trim()
+    ?: System.getenv("GH_REPO_OWNER")
+    ?: (project.findProperty("github.repo.owner") as? String)?.trim()
+    ?: ""
+val githubRepoName = localProperties.getProperty("github.repo.name")?.trim()
+    ?: System.getenv("GH_REPO_NAME")
+    ?: (project.findProperty("github.repo.name") as? String)?.trim()
+    ?: ""
 
 android {
     namespace = "com.charles.app.dreamloom"
@@ -58,6 +72,11 @@ android {
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
+
+        buildConfigField("String", "GITHUB_API_TOKEN", "\"$githubApiToken\"")
+        buildConfigField("String", "GITHUB_REPO_OWNER", "\"$githubRepoOwner\"")
+        buildConfigField("String", "GITHUB_REPO_NAME", "\"$githubRepoName\"")
+        buildConfigField("String", "FEEDBACK_ASSETS_DIR", "\"feedback-assets\"")
     }
 
     buildTypes {
@@ -147,6 +166,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("com.google.android.gms:play-services-oss-licenses:17.1.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
