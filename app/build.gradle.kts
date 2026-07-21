@@ -46,7 +46,7 @@ val githubRepoName = localProperties.getProperty("github.repo.name")?.trim()
 
 android {
     namespace = "com.charles.app.dreamloom"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
         create("release") {
@@ -67,7 +67,7 @@ android {
     defaultConfig {
         applicationId = "com.charles.app.dreamloom"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
