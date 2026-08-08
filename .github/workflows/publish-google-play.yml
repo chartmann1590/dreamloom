@@ -21,9 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.confirm_play_publish == 'publish' }}
     timeout-minutes: 45
-    env:
-      VERSION_CODE: ${{ github.run_number }}
-      VERSION_NAME: 0.1.${{ github.run_number }}
+
 
     steps:
       - uses: actions/checkout@v4
@@ -37,6 +35,16 @@ jobs:
           java-version: "17"
 
       - uses: gradle/actions/setup-gradle@v4
+
+      - name: Compute version
+        run: |
+          # Timestamp-based, not github.run_number: this workflow's own run counter starts
+          # at 1 and would undercut whatever versionCode the OTHER build workflow already
+          # published (Play rejects any versionCode <= the live one).
+          NOW_UTC=$(date -u +'%y%j%H%M')
+          VERSION_NAME="0.1.$(date -u +'%Y%m%d.%H%M')"
+          echo "VERSION_CODE=${NOW_UTC}" >> "$GITHUB_ENV"
+          echo "VERSION_NAME=${VERSION_NAME}" >> "$GITHUB_ENV"
 
       - name: Decode signing keystore
         env:
