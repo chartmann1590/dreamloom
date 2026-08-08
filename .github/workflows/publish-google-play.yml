@@ -1,0 +1,116 @@
+name: Publish to Google Play
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_play_publish:
+        description: 'Type "publish" to confirm a full production release (100% rollout, no draft)'
+        required: true
+        type: string
+      release_notes:
+        description: 'Release notes for this version (optional)'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.confirm_play_publish == 'publish' }}
+    timeout-minutes: 45
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      VERSION_NAME: 0.1.${{ github.run_number }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode signing keystore
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_B64" ]; then
+            echo "::error::ANDROID_KEYSTORE_B64 secret is missing."
+            exit 1
+          fi
+          echo "$ANDROID_KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/release.keystore"
+
+      - name: Apply CI version bump and signing properties
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEY_ALIAS" ] || [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::Android signing secrets are missing."
+            exit 1
+          fi
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          version_code = os.environ["VERSION_CODE"]
+          version_name = os.environ["VERSION_NAME"]
+          path = Path("app/build.gradle.kts")
+          content = path.read_text(encoding="utf-8")
+          content = re.sub(r"versionCode\s*=\s*\d+", f"versionCode = {version_code}", content, count=1)
+          content = re.sub(r'versionName\s*=\s*"[^"]+"', f'versionName = "{version_name}"', content, count=1)
+          path.write_text(content, encoding="utf-8")
+          PY
+          cat <<EOF >> local.properties
+          dreamloom.release.storeFile=$RUNNER_TEMP/release.keystore
+          dreamloom.release.storePassword=$KEYSTORE_PASSWORD
+          dreamloom.release.keyAlias=$KEY_ALIAS
+          dreamloom.release.keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Build signed release AAB
+        env:
+          MODEL_SHA256: ${{ secrets.DREAMLOOM_MODEL_SHA256 }}
+          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_REPO_OWNER: ${{ secrets.GH_REPO_OWNER }}
+          GH_REPO_NAME: ${{ secrets.GH_REPO_NAME }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :app:bundleRelease -Pdreamloom.modelSha256="$MODEL_SHA256" -x lintVitalRelease
+
+      - name: Generate release notes
+        run: |
+          mkdir -p distribution/whatsnew
+          NOTES_FILE="distribution/whatsnew/whatsnew-en-US"
+          if [ -n "${{ github.event.inputs.release_notes }}" ]; then
+            printf '%s' "${{ github.event.inputs.release_notes }}" > "$NOTES_FILE"
+          else
+            echo "Bug fixes and performance improvements." > "$NOTES_FILE"
+          fi
+
+      - name: Verify Play service account
+        run: |
+          if [ -z "${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}" ]; then
+            echo "::error::GOOGLE_PLAY_SERVICE_ACCOUNT_JSON secret is not set"
+            exit 1
+          fi
+
+      - name: Publish to Google Play Production
+        uses: r0adkll/upload-google-play@v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.charles.app.dreamloom
+          releaseFiles: app/build/outputs/bundle/release/*.aab
+          track: production
+          status: completed
+          whatsNewDirectory: distribution/whatsnew
