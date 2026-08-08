@@ -154,6 +154,8 @@ dependencies {
     implementation("com.google.ai.edge.litertlm:litertlm-android:0.10.2")
 
     implementation("com.google.android.gms:play-services-ads:23.5.0")
+    implementation("com.google.android.play:review-ktx:2.0.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0")
     implementation("com.google.android.ump:user-messaging-platform:3.0.0")
     implementation("com.google.ads.mediation:facebook:6.18.0.0")
     implementation("com.google.ads.mediation:applovin:13.0.1.0")
