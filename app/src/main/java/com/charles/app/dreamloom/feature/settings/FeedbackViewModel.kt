@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.charles.app.dreamloom.BuildConfig
 import com.charles.app.dreamloom.data.feedback.BugReport
 import com.charles.app.dreamloom.data.feedback.BugReportRepo
 import com.charles.app.dreamloom.data.feedback.CreateIssueRequest
@@ -55,11 +54,7 @@ class FeedbackViewModel @Inject constructor(
     val isPostingComment = MutableStateFlow(false)
     val commentError = MutableStateFlow<String?>(null)
 
-    fun hasValidConfig(): Boolean {
-        return BuildConfig.GITHUB_API_TOKEN.isNotEmpty() &&
-                BuildConfig.GITHUB_REPO_OWNER.isNotEmpty() &&
-                BuildConfig.GITHUB_REPO_NAME.isNotEmpty()
-    }
+    fun hasValidConfig(): Boolean = true
 
     fun submitReport(
         title: String,
@@ -75,13 +70,6 @@ class FeedbackViewModel @Inject constructor(
             submitSuccess.value = false
 
             try {
-                if (!hasValidConfig()) {
-                    throw Exception("Configuration error: GitHub repository info or token is missing.")
-                }
-
-                val owner = BuildConfig.GITHUB_REPO_OWNER
-                val repoName = BuildConfig.GITHUB_REPO_NAME
-
                 var attachmentUrl: String? = null
                 if (imageUri != null) {
                     val base64 = withContext(Dispatchers.IO) {
@@ -92,11 +80,11 @@ class FeedbackViewModel @Inject constructor(
                     val filename = "issue-$timestamp-$random.png"
 
                     val uploadReq = UploadAssetRequest(
-                        message = "Upload screenshot for bug report",
-                        content = base64
+                        filename = filename,
+                        contentBase64 = base64
                     )
                     val response = withContext(Dispatchers.IO) {
-                        api.uploadAsset(owner, repoName, BuildConfig.FEEDBACK_ASSETS_DIR, filename, uploadReq)
+                        api.uploadAsset(uploadReq)
                     }
                     attachmentUrl = response.content?.download_url ?: response.content?.html_url
                 }
@@ -122,7 +110,7 @@ class FeedbackViewModel @Inject constructor(
                 )
 
                 val issue = withContext(Dispatchers.IO) {
-                    api.createIssue(owner, repoName, issueReq)
+                    api.createIssue(issueReq)
                 }
 
                 // Save to DataStore
@@ -151,20 +139,13 @@ class FeedbackViewModel @Inject constructor(
             selectedReportComments.value = emptyList()
 
             try {
-                if (!hasValidConfig()) {
-                    throw Exception("Configuration error: GitHub API values are not initialized.")
-                }
-
-                val owner = BuildConfig.GITHUB_REPO_OWNER
-                val repoName = BuildConfig.GITHUB_REPO_NAME
-
                 val issue = withContext(Dispatchers.IO) {
-                    api.getIssue(owner, repoName, report.number)
+                    api.getIssue(report.number)
                 }
                 selectedReportDetails.value = issue
 
                 val comments = withContext(Dispatchers.IO) {
-                    api.getComments(owner, repoName, report.number)
+                    api.getComments(report.number)
                 }
                 selectedReportComments.value = comments
 
@@ -187,13 +168,6 @@ class FeedbackViewModel @Inject constructor(
             commentError.value = null
 
             try {
-                if (!hasValidConfig()) {
-                    throw Exception("Configuration error: GitHub API values are not initialized.")
-                }
-
-                val owner = BuildConfig.GITHUB_REPO_OWNER
-                val repoName = BuildConfig.GITHUB_REPO_NAME
-
                 var attachmentUrl: String? = null
                 if (imageUri != null) {
                     val base64 = withContext(Dispatchers.IO) {
@@ -204,11 +178,11 @@ class FeedbackViewModel @Inject constructor(
                     val filename = "comment-${report.number}-$timestamp-$random.png"
 
                     val uploadReq = UploadAssetRequest(
-                        message = "Upload comment attachment",
-                        content = base64
+                        filename = filename,
+                        contentBase64 = base64
                     )
                     val response = withContext(Dispatchers.IO) {
-                        api.uploadAsset(owner, repoName, BuildConfig.FEEDBACK_ASSETS_DIR, filename, uploadReq)
+                        api.uploadAsset(uploadReq)
                     }
                     attachmentUrl = response.content?.download_url ?: response.content?.html_url
                 }
@@ -221,7 +195,7 @@ class FeedbackViewModel @Inject constructor(
 
                 val commentReq = PostCommentRequest(body = bodyBuilder.toString())
                 withContext(Dispatchers.IO) {
-                    api.postComment(owner, repoName, report.number, commentReq)
+                    api.postComment(report.number, commentReq)
                 }
 
                 // Refresh comments and status

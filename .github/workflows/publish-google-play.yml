@@ -89,9 +89,6 @@ jobs:
       - name: Build signed release AAB
         env:
           MODEL_SHA256: ${{ secrets.DREAMLOOM_MODEL_SHA256 }}
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
-          GH_REPO_OWNER: ${{ secrets.GH_REPO_OWNER }}
-          GH_REPO_NAME: ${{ secrets.GH_REPO_NAME }}
         run: |
           chmod +x ./gradlew
           ./gradlew :app:bundleRelease -Pdreamloom.modelSha256="$MODEL_SHA256" -x lintVitalRelease

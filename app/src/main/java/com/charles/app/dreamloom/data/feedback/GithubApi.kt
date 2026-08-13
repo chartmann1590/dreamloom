@@ -1,7 +1,6 @@
 package com.charles.app.dreamloom.data.feedback
 
 import android.util.Log
-import com.charles.app.dreamloom.BuildConfig
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.encodeToString
 import okhttp3.MediaType.Companion.toMediaType
@@ -12,6 +11,13 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Talks to the cloudflare-worker/ feedback relay, not api.github.com directly. See
+ * cloudflare-worker/src/index.ts, which holds the GitHub token server-side as a Worker
+ * secret. Previously this embedded BuildConfig.GITHUB_API_TOKEN client-side as a Bearer
+ * header, which shipped a real repo-write PAT in every release build (extractable from
+ * the APK).
+ */
 @Singleton
 class GithubApi @Inject constructor(
     baseOkHttpClient: OkHttpClient
@@ -21,48 +27,24 @@ class GithubApi @Inject constructor(
         coerceInputValues = true
     }
 
-    private val client: OkHttpClient
-
-    init {
-        val builder = baseOkHttpClient.newBuilder()
-
-        // Redacting custom logging interceptor to satisfy security requirements
-        builder.addInterceptor { chain ->
+    private val client: OkHttpClient = baseOkHttpClient.newBuilder()
+        .addInterceptor { chain ->
             val request = chain.request()
-            val redactedHeaders = request.headers.toString()
-                .replace(Regex("Authorization: Bearer \\S+", RegexOption.IGNORE_CASE), "Authorization: Bearer [REDACTED]")
-            Log.d("GithubApi", "Sending request to ${request.url}\nHeaders:\n$redactedHeaders")
-
+            Log.d("GithubApi", "Sending request to ${request.url}")
             val response = chain.proceed(request)
             Log.d("GithubApi", "Received response code ${response.code} from ${response.request.url}")
             response
         }
+        .build()
 
-        // Interceptor to add global headers automatically
-        builder.addInterceptor { chain ->
-            val original = chain.request()
-            val requestBuilder = original.newBuilder()
-                .header("Accept", "application/vnd.github+json")
-                .header("X-GitHub-Api-Version", "2022-11-28")
-                .header("User-Agent", "Dreamloom-Android/0.1")
-
-            val token = BuildConfig.GITHUB_API_TOKEN
-            if (token.isNotEmpty()) {
-                requestBuilder.header("Authorization", "Bearer $token")
-            }
-            chain.proceed(requestBuilder.build())
-        }
-
-        client = builder.build()
-    }
+    private val baseUrl = "https://dreamloom-github-feedback.charles-h-hartmann1.workers.dev"
 
     private val jsonMediaType = "application/json; charset=utf-8".toMediaType()
 
     @Throws(IOException::class)
-    fun createIssue(owner: String, repo: String, request: CreateIssueRequest): GithubIssue {
-        val url = "https://api.github.com/repos/$owner/$repo/issues"
+    fun createIssue(request: CreateIssueRequest): GithubIssue {
         val body = json.encodeToString(request).toRequestBody(jsonMediaType)
-        val httpRequest = Request.Builder().url(url).post(body).build()
+        val httpRequest = Request.Builder().url("$baseUrl/issue").post(body).build()
 
         client.newCall(httpRequest).execute().use { response ->
             if (!response.isSuccessful) {
@@ -75,9 +57,8 @@ class GithubApi @Inject constructor(
     }
 
     @Throws(IOException::class)
-    fun getIssue(owner: String, repo: String, number: Int): GithubIssue {
-        val url = "https://api.github.com/repos/$owner/$repo/issues/$number"
-        val httpRequest = Request.Builder().url(url).get().build()
+    fun getIssue(number: Int): GithubIssue {
+        val httpRequest = Request.Builder().url("$baseUrl/issue/$number").get().build()
 
         client.newCall(httpRequest).execute().use { response ->
             if (!response.isSuccessful) {
@@ -90,9 +71,8 @@ class GithubApi @Inject constructor(
     }
 
     @Throws(IOException::class)
-    fun getComments(owner: String, repo: String, number: Int): List<GithubComment> {
-        val url = "https://api.github.com/repos/$owner/$repo/issues/$number/comments"
-        val httpRequest = Request.Builder().url(url).get().build()
+    fun getComments(number: Int): List<GithubComment> {
+        val httpRequest = Request.Builder().url("$baseUrl/issue/$number/comments").get().build()
 
         client.newCall(httpRequest).execute().use { response ->
             if (!response.isSuccessful) {
@@ -105,10 +85,9 @@ class GithubApi @Inject constructor(
     }
 
     @Throws(IOException::class)
-    fun postComment(owner: String, repo: String, number: Int, request: PostCommentRequest): GithubComment {
-        val url = "https://api.github.com/repos/$owner/$repo/issues/$number/comments"
+    fun postComment(number: Int, request: PostCommentRequest): GithubComment {
         val body = json.encodeToString(request).toRequestBody(jsonMediaType)
-        val httpRequest = Request.Builder().url(url).post(body).build()
+        val httpRequest = Request.Builder().url("$baseUrl/issue/$number/comments").post(body).build()
 
         client.newCall(httpRequest).execute().use { response ->
             if (!response.isSuccessful) {
@@ -121,10 +100,9 @@ class GithubApi @Inject constructor(
     }
 
     @Throws(IOException::class)
-    fun uploadAsset(owner: String, repo: String, assetDir: String, filename: String, request: UploadAssetRequest): UploadAssetResponse {
-        val url = "https://api.github.com/repos/$owner/$repo/contents/$assetDir/$filename"
+    fun uploadAsset(request: UploadAssetRequest): UploadAssetResponse {
         val body = json.encodeToString(request).toRequestBody(jsonMediaType)
-        val httpRequest = Request.Builder().url(url).put(body).build()
+        val httpRequest = Request.Builder().url("$baseUrl/upload-image").post(body).build()
 
         client.newCall(httpRequest).execute().use { response ->
             if (!response.isSuccessful) {

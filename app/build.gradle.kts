@@ -31,18 +31,6 @@ val dreamloomModelSha256: String? =
     localProperties.getProperty("dreamloom.modelSha256")?.trim()?.takeIf { it.isNotEmpty() }
         ?: (project.findProperty("dreamloom.modelSha256") as String?)?.trim()?.takeIf { it.isNotEmpty() }
 
-val githubApiToken = localProperties.getProperty("github.api.token")?.trim()
-    ?: System.getenv("GH_API_TOKEN")
-    ?: (project.findProperty("github.api.token") as? String)?.trim()
-    ?: ""
-val githubRepoOwner = localProperties.getProperty("github.repo.owner")?.trim()
-    ?: System.getenv("GH_REPO_OWNER")
-    ?: (project.findProperty("github.repo.owner") as? String)?.trim()
-    ?: ""
-val githubRepoName = localProperties.getProperty("github.repo.name")?.trim()
-    ?: System.getenv("GH_REPO_NAME")
-    ?: (project.findProperty("github.repo.name") as? String)?.trim()
-    ?: ""
 
 android {
     namespace = "com.charles.app.dreamloom"
@@ -73,10 +61,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
 
-        buildConfigField("String", "GITHUB_API_TOKEN", "\"$githubApiToken\"")
-        buildConfigField("String", "GITHUB_REPO_OWNER", "\"$githubRepoOwner\"")
-        buildConfigField("String", "GITHUB_REPO_NAME", "\"$githubRepoName\"")
-        buildConfigField("String", "FEEDBACK_ASSETS_DIR", "\"feedback-assets\"")
+        // GitHub token no longer travels through this app — held server-side as a
+        // Cloudflare Worker secret instead (cloudflare-worker/). Owner is kept as a
+        // plain, non-secret constant since FeedbackComponents.kt uses it to badge
+        // developer replies.
+        buildConfigField("String", "GITHUB_REPO_OWNER", "\"chartmann1590\"")
     }
 
     buildTypes {
