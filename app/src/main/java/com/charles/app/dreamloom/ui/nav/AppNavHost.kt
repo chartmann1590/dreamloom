@@ -207,11 +207,15 @@ fun AppNavHost(
                     onPrivacy = { navController.navigate(Routes.SETTINGS_PRIVACY) },
                     onReminders = { navController.navigate(Routes.SETTINGS_REMINDERS) },
                     onAbout = { navController.navigate(Routes.SETTINGS_ABOUT) },
+                    onMoreApps = { navController.navigate(Routes.SETTINGS_MORE_APPS) },
                 )
             }
             composable(Routes.SETTINGS_PRIVACY) { PrivacySettingsScreen { navController.popBackStack(); } }
             composable(Routes.SETTINGS_REMINDERS) { RemindersScreen(onBack = { navController.popBackStack(); }) }
             composable(Routes.SETTINGS_ABOUT) { AboutScreen { navController.popBackStack(); } }
+            composable(Routes.SETTINGS_MORE_APPS) {
+                com.charles.app.dreamloom.feature.settings.MoreAppsScreen(onBack = { navController.popBackStack(); })
+            }
         }
     }
 }

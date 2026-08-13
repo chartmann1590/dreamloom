@@ -20,4 +20,5 @@ object Routes {
     const val SETTINGS_PRIVACY = "settings/privacy"
     const val SETTINGS_REMINDERS = "settings/reminders"
     const val SETTINGS_ABOUT = "settings/about"
+    const val SETTINGS_MORE_APPS = "settings/moreApps"
 }
