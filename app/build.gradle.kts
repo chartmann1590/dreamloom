@@ -37,9 +37,9 @@ android {
     compileSdk = 37
 
     lint {
-        // Compose runtime's RememberInComposition check crashes this AGP's lint
-        // (IncompatibleClassChangeError on KaSimpleVariableAccessCall). Re-enable after an AGP/Compose update.
-        disable += "RememberInComposition"
+        // Compose runtime's RememberInComposition / FrequentlyChangingValue checks crash this AGP's lint
+        // (IncompatibleClassChangeError in RememberInCompositionDetector). Re-enable after an AGP/Compose update.
+        disable += setOf("RememberInComposition", "FrequentlyChangingValue")
     }
 
     signingConfigs {
