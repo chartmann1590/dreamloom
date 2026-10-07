@@ -57,28 +57,7 @@ android {
             "ProduceStateDoesNotAssignValue",
         )
     }
-
-    lint {
-        // The Compose runtime / lifecycle lint checks shipped with these libraries are compiled against a
-        // newer Kotlin Analysis API than this AGP's lint, so their detectors crash with
-        // IncompatibleClassChangeError (e.g. "Found class KaFunctionCall, but interface was expected").
-        // Disable that family of checks until the AGP 9 upgrade lands, then re-enable.
-        disable += setOf(
-            "RememberInComposition",
-            "FrequentlyChangingValue",
-            "NullSafeMutableLiveData",
-            "AutoboxingStateCreation",
-            "AutoboxingStateValueProperty",
-            "CoroutineCreationDuringComposition",
-            "FlowOperatorInvokedInComposition",
-            "StateFlowValueCalledInComposition",
-            "MutableCollectionMutableState",
-            "UnrememberedMutableState",
-            "RememberReturnType",
-            "OpaqueUnitKey",
-            "ProduceStateDoesNotAssignValue",
-        )
-    }
+
 
     signingConfigs {
         create("release") {
