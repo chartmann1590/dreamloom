@@ -110,13 +110,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs += listOf(
-            // litertlm-android may be built with a newer Kotlin than our toolchain
-            "-Xskip-metadata-version-check",
-        )
-    }
     buildFeatures { compose = true; buildConfig = true }
     bundle {
         language { enableSplit = true }
@@ -196,10 +189,12 @@ dependencies {
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0")
 }
 
-// KSP runs as KotlinCompile; it does not use android.kotlinOptions, so litertlm
-// (Kotlin 2.3 metadata) needs this on all compile tasks.
+// Kotlin compiler options for every KotlinCompile task (app and KSP). The old android.kotlinOptions
+// block is an error under Kotlin 2.4. litertlm-android may be built with a newer Kotlin than our
+// toolchain, hence the metadata check skip.
 tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         freeCompilerArgs.add("-Xskip-metadata-version-check")
     }
 }
