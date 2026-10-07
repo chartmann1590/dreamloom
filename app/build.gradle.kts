@@ -57,7 +57,6 @@ android {
             "ProduceStateDoesNotAssignValue",
         )
     }
-
 
     signingConfigs {
         create("release") {
