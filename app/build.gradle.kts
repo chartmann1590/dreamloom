@@ -37,10 +37,25 @@ android {
     compileSdk = 36
 
     lint {
-        // Compose runtime's RememberInComposition / FrequentlyChangingValue checks and lifecycle-livedata's
-        // NullSafeMutableLiveData check crash this AGP's lint (IncompatibleClassChangeError in their detectors).
-        // Re-enable after an AGP/Compose/lifecycle update.
-        disable += setOf("RememberInComposition", "FrequentlyChangingValue", "NullSafeMutableLiveData")
+        // The Compose runtime / lifecycle lint checks shipped with these libraries are compiled against a
+        // newer Kotlin Analysis API than this AGP's lint, so their detectors crash with
+        // IncompatibleClassChangeError (e.g. "Found class KaFunctionCall, but interface was expected").
+        // Disable that family of checks until the AGP 9 upgrade lands, then re-enable.
+        disable += setOf(
+            "RememberInComposition",
+            "FrequentlyChangingValue",
+            "NullSafeMutableLiveData",
+            "AutoboxingStateCreation",
+            "AutoboxingStateValueProperty",
+            "CoroutineCreationDuringComposition",
+            "FlowOperatorInvokedInComposition",
+            "StateFlowValueCalledInComposition",
+            "MutableCollectionMutableState",
+            "UnrememberedMutableState",
+            "RememberReturnType",
+            "OpaqueUnitKey",
+            "ProduceStateDoesNotAssignValue",
+        )
     }
 
     signingConfigs {
