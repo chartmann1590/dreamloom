@@ -37,9 +37,10 @@ android {
     compileSdk = 36
 
     lint {
-        // Compose runtime's RememberInComposition / FrequentlyChangingValue checks crash this AGP's lint
-        // (IncompatibleClassChangeError in RememberInCompositionDetector). Re-enable after an AGP/Compose update.
-        disable += setOf("RememberInComposition", "FrequentlyChangingValue")
+        // Compose runtime's RememberInComposition / FrequentlyChangingValue checks and lifecycle-livedata's
+        // NullSafeMutableLiveData check crash this AGP's lint (IncompatibleClassChangeError in their detectors).
+        // Re-enable after an AGP/Compose/lifecycle update.
+        disable += setOf("RememberInComposition", "FrequentlyChangingValue", "NullSafeMutableLiveData")
     }
 
     signingConfigs {
