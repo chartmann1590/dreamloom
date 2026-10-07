@@ -36,6 +36,12 @@ android {
     namespace = "com.charles.app.dreamloom"
     compileSdk = 36
 
+    lint {
+        // Compose runtime's RememberInComposition check crashes this AGP's lint
+        // (IncompatibleClassChangeError on KaSimpleVariableAccessCall). Re-enable after an AGP/Compose update.
+        disable += "RememberInComposition"
+    }
+
     signingConfigs {
         create("release") {
             val releaseStoreFile = localProperties.getProperty("dreamloom.release.storeFile")?.trim()
