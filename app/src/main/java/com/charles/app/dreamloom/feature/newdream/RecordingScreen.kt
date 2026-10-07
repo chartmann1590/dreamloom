@@ -80,6 +80,9 @@ fun RecordingScreen(
     vm: RecordingViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    // Resolve strings during composition (lint LocalContextGetResourceValueCall), use them in callbacks.
+    val micDeniedHint = stringResource(R.string.recording_mic_denied)
+    val voiceUnavailableHint = stringResource(R.string.recording_voice_unavailable)
     var isTextMode by remember { mutableStateOf(false) }
     var isListening by remember { mutableStateOf(false) }
     var transcript by remember { mutableStateOf("") }
@@ -118,7 +121,7 @@ fun RecordingScreen(
                 isListening = true
             }
         } else {
-            errorHint = context.getString(R.string.recording_mic_denied)
+            errorHint = micDeniedHint
         }
     }
 
@@ -284,7 +287,7 @@ fun RecordingScreen(
                     FilledTonalButton(
                         onClick = {
                             if (!voice.isAvailable) {
-                                errorHint = context.getString(R.string.recording_voice_unavailable)
+                                errorHint = voiceUnavailableHint
                                 isTextMode = true
                                 return@FilledTonalButton
                             }
