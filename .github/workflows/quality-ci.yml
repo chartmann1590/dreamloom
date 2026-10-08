@@ -61,3 +61,6 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew :app:assembleDebug :app:lintDebug :app:testDebugUnitTest --no-daemon
+
+      - name: Check 16 KB page size support
+        run: python3 scripts/check_16kb.py app/build/outputs/apk/debug/*.apk

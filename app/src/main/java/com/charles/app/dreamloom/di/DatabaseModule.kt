@@ -12,7 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +24,8 @@ object DatabaseModule {
         @ApplicationContext context: Context,
         pass: PassphraseProvider,
     ): AppDatabase {
-        val factory = SupportFactory(pass.getOrCreateDbPassphrase())
+        System.loadLibrary("sqlcipher")
+        val factory = SupportOpenHelperFactory(pass.getOrCreateDbPassphrase())
         return Room.databaseBuilder(context, AppDatabase::class.java, "dreamloom.db")
             .openHelperFactory(factory)
             .fallbackToDestructiveMigration()
