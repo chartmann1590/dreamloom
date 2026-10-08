@@ -11,6 +11,11 @@ updates:
     labels:
       - "dependencies"
       - "android"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -23,3 +28,8 @@ updates:
     labels:
       - "dependencies"
       - "ci"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
