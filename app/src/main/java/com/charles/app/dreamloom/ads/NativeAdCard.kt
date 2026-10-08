@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
 import com.charles.app.dreamloom.BuildConfig
 import com.charles.app.dreamloom.R
@@ -29,12 +30,13 @@ fun NativeAdCard(
 ) {
     val context = LocalContext.current
     var nativeAd by remember { mutableStateOf<NativeAd?>(null) }
-    val adUnitId = remember {
-        if (BuildConfig.DEBUG) {
-            "ca-app-pub-3940256099942544/2247696110"
-        } else {
-            context.getString(R.string.ad_native_advanced)
-        }
+    // stringResource (not context.getString) so the ad unit follows configuration changes;
+    // Compose lint flags LocalContext resource reads (LocalContextGetResourceValueCall).
+    val releaseAdUnitId = stringResource(R.string.ad_native_advanced)
+    val adUnitId = if (BuildConfig.DEBUG) {
+        "ca-app-pub-3940256099942544/2247696110"
+    } else {
+        releaseAdUnitId
     }
 
     LaunchedEffect(Unit) {
