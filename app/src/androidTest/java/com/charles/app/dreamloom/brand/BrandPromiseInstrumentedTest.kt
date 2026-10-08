@@ -9,8 +9,7 @@ import com.charles.app.dreamloom.data.db.AppDatabase
 import com.charles.app.dreamloom.data.db.DreamEntity
 import com.charles.app.dreamloom.llm.DreamInterpreter
 import com.charles.app.dreamloom.llm.LlmEngine
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -97,9 +96,10 @@ class BrandPromiseInstrumentedTest {
         val ctx = ApplicationProvider.getApplicationContext<Context>()
         val dbFile = ctx.getDatabasePath("brand_promise_cipher_test.db")
         dbFile.delete()
-        val passphrase = SQLiteDatabase.getBytes("instrumented-test-passphrase".toCharArray())
+        System.loadLibrary("sqlcipher")
+        val passphrase = "instrumented-test-passphrase".toByteArray(Charsets.UTF_8)
         val db = Room.databaseBuilder(ctx, AppDatabase::class.java, dbFile.absolutePath)
-            .openHelperFactory(SupportFactory(passphrase))
+            .openHelperFactory(SupportOpenHelperFactory(passphrase))
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .build()
