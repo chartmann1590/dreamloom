@@ -10,52 +10,56 @@ Dreamloom: AI Dream Journal
 ## Short description (max 80 chars)
 
 ```
-Your dreams, decoded by AI — entirely on your phone. Private. Beautiful. Free.
+Private dream journal: record by voice or text, on-device AI reads the meaning.
 ```
-(78 chars)
+(79 chars)
 
 ## Full description (max 4000 chars)
 
 ```
-Wake up. Whisper your dream. Watch it bloom into meaning.
+Dreamloom is a private dream journal with an AI dream reader that runs entirely on your phone. Record a dream by voice or text the moment you wake up, and the app writes a title, picks out the symbols, explains what the dream might mean, and suggests an intention for the day. Your journal never leaves your device.
 
-Dreamloom is the first dream journal where the AI lives entirely on your phone. No account. No cloud. No one — not even us — can read what you write. Just you, your dreams, and a private oracle that learns the shape of your subconscious.
+🌙 Record your dreams
+• Speak your dream and it is transcribed, or type it
+• Tag the mood of the night: serene, anxious, joyful, lost or fierce
+• Entries are saved to an encrypted journal on your phone
 
-★ ON-DEVICE AI — POWERED BY GEMMA 4 ★
-Most "AI journal" apps quietly send everything you write to a server. Dreamloom is different. We use Google's Gemma 4 model running locally on your phone with LiteRT, so your most intimate words physically cannot leave your device. Open the app on a plane, in the woods, in airplane mode — it still works. Forever.
+🔮 On-device dream reading
+• A small AI language model (Gemma, through LiteRT-LM) runs on your phone and reads each dream
+• For every dream you get a title, a list of symbols, an interpretation and an intention for the day
+• Dream text is never uploaded to a server for interpretation
+• One-time download of the AI model (about 2.5 GB) during setup; after that, journaling and interpretation work offline
 
-★ THE MORNING RITUAL ★
-• Tap the moon. Speak or type your dream.
-• Watch as Dreamloom decodes the symbols — water, falling, flying, faces — and weaves a poetic interpretation drawn from Jungian, Freudian, and folkloric traditions.
-• Receive a daily intention spun from the emotional thread of your night.
-• Save the entry to your private Dream Atlas.
+🗺️ Dream Atlas
+• Search the full text of every dream
+• Filter by this week, this month, a symbol or a mood
+• Reopen any dream to read its interpretation again
 
-★ THE DREAM ATLAS ★
-A gorgeous timeline of every dream you've ever recorded. Filter by symbol, mood, or moon phase. Rediscover that dream from three months ago that felt important.
+📈 Weekly Insight
+• Once a week the app reads your last seven saved dreams and writes a card with your recurring symbols, the pattern it sees and a short summary
+• A mood strip shows how recent nights felt
+• Run a new insight on demand
 
-★ PATTERN INSIGHT ★
-Every Sunday, Dreamloom quietly studies your week and shows you the recurring symbols, the colors of your moods, and the themes that have been weaving themselves through your sleep. (Optional. You'll never see this if you don't want it.)
+🧙 Dream Oracle
+• Ask follow-up questions about your dreams and get a short answer, generated on your phone
 
-★ DREAM ORACLE ★
-Have a question? Ask the dream. Dreamloom draws on the symbols you've recorded over time and offers a single, calm answer.
+⏰ Morning reminder
+• An optional notification at the time you choose, with your own reminder text
 
-★ DESIGN THAT FEELS LIKE A STARRY NIGHT ★
-Cosmic dark mode by default. Hand-tuned typography. Soft particle motion. The kind of app you actually want to open at 6am.
+✨ More
+• Share a dream as an image
+• Dark, light or system theme
+• Erase the whole journal from Settings at any time
 
-★ FREE FOREVER ★
-No subscription. No "premium" wall. Supported by occasional, respectful ads. The full app is yours from day one.
+🔒 Privacy
+• No account and no cloud sync; your dreams are stored only on your device
+• Free, supported by ads (Google AdMob); watching a rewarded ad unlocks an extended interpretation or an on-demand weekly insight
+• Optional anonymous usage analytics and crash reports help improve the app and can be turned off in Settings
+• Privacy policy: https://chartmann1590.github.io/dreamloom/privacy.html
 
-★ PRIVACY YOU CAN VERIFY ★
-• No account required.
-• No cloud sync (and we built it that way on purpose).
-• No analytics on your dream content — only anonymous app-usage stats you can disable.
-• Local database is encrypted at rest with SQLCipher.
+Requirements: Android 9 or newer, about 3 GB of free storage for the AI model, and the microphone permission if you want to record by voice. Interpretation speed depends on your phone.
 
-You'll need about 2.6 GB of free storage for the AI model, downloaded on first launch over Wi-Fi. After that, everything runs offline. Forever.
-
-Dream well.
-
-— Dreamloom
+Dreamloom is for reflection and curiosity. It is not medical, psychological or sleep advice.
 ```
 
 ## Category
