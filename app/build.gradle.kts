@@ -149,7 +149,7 @@ dependencies {
     implementation("androidx.sqlite:sqlite-ktx:2.6.2")
 
     implementation("androidx.datastore:datastore-preferences:1.2.1")
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    implementation("androidx.security:security-crypto:1.1.0")
 
     implementation("androidx.work:work-runtime-ktx:2.10.0")
     implementation("androidx.hilt:hilt-work:1.4.0")
