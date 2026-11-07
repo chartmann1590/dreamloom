@@ -16,7 +16,7 @@ wait 120
 shot 05-downloading-4
 wait 150
 shot 05b-after-download
-tap (?i)^allow & continue$
+tap (?i)^allow (&amp;|&) continue$
 wait 4
 taploop (?i)^(allow|while using the app|only this time)$
 wait 3
