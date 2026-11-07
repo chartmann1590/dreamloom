@@ -16,29 +16,36 @@ wait 120
 shot 05-downloading-4
 wait 150
 shot 05b-after-download
-taploop (?i)^(continue|next|done|get started|finish|start|start journaling|allow|ok|not now|later|skip)$
+tap (?i)^allow & continue$
+wait 4
+taploop (?i)^(allow|while using the app|only this time)$
 wait 3
+shot 05c-reminders
+tap (?i)^finish setup$
+wait 5
+taploop (?i)^(allow|ok|not now|later|skip|continue)$
 adclose
-shot 06-main
-swipeup
-shot 07-main-scrolled
-swipedown
-tap (?i)^(record|new dream|capture|add dream|\+)$
+shot 06-home
+tap (?i)^(record a new dream|tap to record a dream)$
 wait 4
 shot 08-capture
 back
-wait 2
-tap (?i)^(patterns|insights|archive|journal|library)$
+wait 3
+tap (?i)^atlas$
 wait 4
 adclose
-shot 09-tab2
+shot 09-atlas
+tap (?i)^insight$
+wait 4
+adclose
+shot 09b-insight
 tap (?i)^settings$
 wait 4
 adclose
 shot 10-settings
-scrollto (?i)more apps
+scrollto (?i)^more apps from this developer
 wait 4
 shot 11-more-apps
-back
-wait 2
-shot 12-back
+tap (?i)^home$
+wait 3
+shot 12-home-again
