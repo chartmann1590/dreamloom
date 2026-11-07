@@ -151,6 +151,9 @@ class ModelDownloadWorker constructor(
             }
         }
         val hex = md.digest().joinToString("") { b -> "%02x".format(b) }
-        return hex.equals(expected, ignoreCase = true)
+        if (hex.equals(expected.trim(), ignoreCase = true)) return true
+        if (com.charles.app.dreamloom.BuildConfig.STORE == "direct" && hex.lowercase() in ModelConfig.DIRECT_EXTRA_SHA256) return true
+        Log.e(TAG, "SHA-256 of downloaded file: $hex (${file.length()} bytes)")
+        return false
     }
 }
