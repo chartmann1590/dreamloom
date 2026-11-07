@@ -31,21 +31,21 @@ wait 4
 shot 08-capture
 back
 wait 3
-tap (?i)^atlas$
+tapxy 370 945
 wait 4
 adclose
 shot 09-atlas
-tap (?i)^insight$
+tapxy 630 945
 wait 4
 adclose
 shot 09b-insight
-tap (?i)^settings$
+tapxy 880 945
 wait 4
 adclose
 shot 10-settings
 scrollto (?i)^more apps from this developer
 wait 4
 shot 11-more-apps
-tap (?i)^home$
+tapxy 110 945
 wait 3
 shot 12-home-again
