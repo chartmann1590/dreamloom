@@ -1,37 +1,42 @@
 launch
 wait 15
-shot 01-launch
 tap (?i)^begin$
 wait 3
-shot 01b-privacy
 tap (?i)^continue$
 wait 3
-shot 01c-model-page
-swipeup
-swipeup
-taploop (?i)^(next|next step|continue|get started|skip|skip for now|allow|ok|accept|agree|got it|start|i agree|not now|later|maybe later|no thanks|done|finish tutorial|english|while using the app|only this time)$
-adclose
+shot 01-model-page
+tap (?i)^download model$
+wait 45
+shot 02-downloading
+wait 150
+shot 03-downloading-2
+wait 150
+shot 04-downloading-3
+wait 120
+shot 05-after-download
+taploop (?i)^(continue|next|done|get started|finish|start|start journaling|allow|ok|not now|later|skip)$
 wait 3
-shot 02-after-onboarding
-swipeup
-swipeup
-taploop (?i)^(next|next step|continue|get started|skip|skip for now|allow|ok|accept|agree|got it|start|i agree|not now|later|maybe later|no thanks|done|finish tutorial|english|while using the app|only this time)$
 adclose
-adclose
-shot 03-main
+shot 06-main
 swipeup
-shot 04-scrolled
+shot 07-main-scrolled
+swipedown
+tap (?i)^(record|new dream|capture|add dream|\+)$
+wait 4
+shot 08-capture
+back
+wait 2
+tap (?i)^(patterns|insights|archive|journal|library)$
+wait 4
+adclose
+shot 09-tab2
 tap (?i)^settings$
 wait 4
 adclose
-shot 05-settings
-swipeup
-swipeup
-shot 06-settings-bottom
-tap (?i)more apps|other apps|our apps
+shot 10-settings
+scrollto (?i)more apps
 wait 4
-shot 07-more-apps
-back
+shot 11-more-apps
 back
 wait 2
-shot 08-back-main
+shot 12-back
