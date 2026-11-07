@@ -62,6 +62,7 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 30
+        profile: Nexus 7 2013
         target: default
         arch: x86_64
         ram-size: 3072M
