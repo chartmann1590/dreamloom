@@ -13,8 +13,11 @@ object ModelConfig {
     /** Expected SHA-256 of [FILENAME] after download (`BuildConfig.MODEL_SHA256`). */
     val modelSha256: String get() = BuildConfig.MODEL_SHA256
 
-    val SOURCES: List<String> = listOf(
-        "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME",
-        "https://huggingface.co/huggingworld/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME",
-    )
+    private val PRIMARY = "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME"
+    private val MIRROR = "https://huggingface.co/huggingworld/gemma-4-E2B-it-litert-lm/resolve/main/$FILENAME"
+
+    // Direct (non-Play) builds try the mirror first: since Nov 2026 the primary repo serves a newer
+    // 2,588,147,712-byte file whose SHA-256 no longer matches the pinned hash (the mirror still has the pinned one).
+    val SOURCES: List<String> =
+        if (BuildConfig.STORE == "direct") listOf(MIRROR, PRIMARY) else listOf(PRIMARY, MIRROR)
 }

@@ -56,6 +56,8 @@ class ModelDownloadWorker constructor(
                     if (!verifySha256(tmp, ModelConfig.modelSha256)) {
                         Log.e(TAG, "SHA-256 mismatch for downloaded model")
                         tmp.delete()
+                        // Direct builds: a mirror serving a different file is not fatal; try the next one.
+                        if (com.charles.app.dreamloom.BuildConfig.STORE == "direct") continue
                         return@withContext Result.failure()
                     }
                     if (!tmp.renameTo(target)) {
