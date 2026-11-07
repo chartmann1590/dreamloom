@@ -1,6 +1,12 @@
 launch
 wait 15
 shot 01-launch
+tap (?i)^begin$
+wait 3
+shot 01b-privacy
+tap (?i)^continue$
+wait 3
+shot 01c-model-page
 swipeup
 swipeup
 taploop (?i)^(next|next step|continue|get started|skip|skip for now|allow|ok|accept|agree|got it|start|i agree|not now|later|maybe later|no thanks|done|finish tutorial|english|while using the app|only this time)$
