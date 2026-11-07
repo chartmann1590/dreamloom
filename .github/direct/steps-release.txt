@@ -13,7 +13,9 @@ shot 03-downloading-2
 wait 150
 shot 04-downloading-3
 wait 120
-shot 05-after-download
+shot 05-downloading-4
+wait 150
+shot 05b-after-download
 taploop (?i)^(continue|next|done|get started|finish|start|start journaling|allow|ok|not now|later|skip)$
 wait 3
 adclose
