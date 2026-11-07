@@ -630,7 +630,7 @@ fun MoreAppsScreen(onBack: () -> Unit) {
                             .fillMaxWidth()
                             .clickable {
                                 ctx.startActivity(
-                                    Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${app.packageName}"))
+                                    Intent(Intent.ACTION_VIEW, Uri.parse((if (com.charles.app.dreamloom.BuildConfig.STORE == "amazon") "https://www.amazon.com/gp/mas/dl/android?p=${app.packageName}" else "https://play.google.com/store/apps/details?id=${app.packageName}")))
                                 )
                             },
                         shape = RoundedCornerShape(14.dp),
