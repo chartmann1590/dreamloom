@@ -54,9 +54,10 @@ class ModelDownloadWorker constructor(
             when (outcome) {
                 DownloadOutcome.Success -> {
                     if (!verifySha256(tmp, ModelConfig.modelSha256)) {
-                        Log.e(TAG, "SHA-256 mismatch for downloaded model")
+                        Log.e(TAG, "SHA-256 mismatch for downloaded model from $url")
                         tmp.delete()
-                        return@withContext Result.failure()
+                        // A source serving a different file is not fatal; try the next one.
+                        continue
                     }
                     if (!tmp.renameTo(target)) {
                         tmp.copyTo(target, overwrite = true)
