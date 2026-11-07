@@ -1,0 +1,85 @@
+name: Direct download build + emulator test
+# Direct-download build of this app (GitHub Releases / charleshartmann.com): same code, built with store=direct
+# (no Google Play links, no Play in-app review prompt, nothing sold through Google Play). Emulator with Google APIs (a normal phone).
+# Branch builds only make a DRAFT release; nothing is uploaded to any store.
+on:
+  push:
+    branches: [direct-stripe]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency:
+  group: direct-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  direct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      VERSION_NAME: 0.1.${{ github.run_number }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Setup Java 17
+      uses: actions/setup-java@v5
+      with:
+        distribution: temurin
+        java-version: '17'
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
+    - name: Decode signing keystore
+      env:
+        ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+      run: "if [ -z \"$ANDROID_KEYSTORE_B64\" ]; then\n  echo \"ANDROID_KEYSTORE_B64 secret is missing.\"\n  exit 1\nfi\necho \"$ANDROID_KEYSTORE_B64\" | base64 --decode > \"$RUNNER_TEMP/release.keystore\"\n"
+    - name: Apply CI version bump and signing properties
+      env:
+        KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      run: "if [ -z \"$KEYSTORE_PASSWORD\" ] || [ -z \"$KEY_ALIAS\" ] || [ -z \"$KEY_PASSWORD\" ]; then\n  echo \"Android signing secrets are missing.\"\n  exit 1\nfi\nif [ \"$KEY_ALIAS\" = \"androiddebugkey\" ]; then\n  echo \"ANDROID_KEY_ALIAS is androiddebugkey. Configure a real release/upload key alias.\"\n  exit 1\nfi\nkeytool -list -v \\\n  -keystore \"$RUNNER_TEMP/release.keystore\" \\\n  -storepass \"$KEYSTORE_PASSWORD\" \\\n  -alias \"$KEY_ALIAS\" > /tmp/keystore-cert.txt\nif grep -En \"Owner: .*CN=Android Debug\" /tmp/keystore-cert.txt; then\n  echo \"Configured keystore alias resolves to Android Debug certificate. Use a real release/upload keystore.\"\n  exit 1\nfi\npython3 - <<'PY'\nimport os\nimport re\nfrom pathlib import Path\n\nversion_code = os.environ[\"VERSION_CODE\"]\nversion_name = os.environ[\"VERSION_NAME\"]\npath = Path(\"app/build.gradle.kts\")\ncontent = path.read_text(encoding=\"utf-8\")\ncontent = re.sub(r\"versionCode\\s*=\\s*\\d+\", f\"versionCode = {version_code}\"\
+        , content, count=1)\ncontent = re.sub(r'versionName\\s*=\\s*\"[^\"]+\"', f'versionName = \"{version_name}\"', content, count=1)\n# Keep release minify enabled (Play Store builds ship shrunk + obfuscated).\npath.write_text(content, encoding=\"utf-8\")\nPY\ncat <<EOF >> local.properties\ndreamloom.release.storeFile=$RUNNER_TEMP/release.keystore\ndreamloom.release.storePassword=$KEYSTORE_PASSWORD\ndreamloom.release.keyAlias=$KEY_ALIAS\ndreamloom.release.keyPassword=$KEY_PASSWORD\nEOF\n"
+    - name: Build direct APKs (store=direct)
+      env:
+        MODEL_SHA256: ${{ secrets.DREAMLOOM_MODEL_SHA256 }}
+        APP_VERSION_CODE: ${{ github.run_number }}
+      run: "set -o pipefail\nif [ -z \"$MODEL_SHA256\" ]; then\n  echo \"DREAMLOOM_MODEL_SHA256 secret is missing.\"\n  exit 1\nfi\nif grep -Eni 'ca-app-pub-3940256099942544|REPLACE_ME|ca-app-pub-XXXXXXXXXXXXXXXX' app/src/main/res/values/ads.xml; then\n  echo \"ads.xml appears to contain test/placeholder ad IDs. Refusing release build.\"\n  exit 1\nfi\nchmod +x ./gradlew\n./gradlew :app:assembleRelease -Pstore=direct  \\\n  -Pdreamloom.modelSha256=\"$MODEL_SHA256\" \\\n  -x lintVitalRelease 2>&1 | tee -a /tmp/dsk-build.log\nmkdir -p dsk-apk\ncp \"$(ls app/build/outputs/apk/release/*.apk | grep -v unsigned | head -1 || ls app/build/outputs/apk/release/*.apk | head -1)\" dsk-apk/Dreamloom-direct-release.apk\nls -la dsk-apk\nBT=$ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)\n$BT/apksigner verify --print-certs dsk-apk/Dreamloom-direct-release.apk | head -3 || true\n$BT/aapt2 dump badging dsk-apk/Dreamloom-direct-release.apk | head -3 || true\necho \"--- Play Store\
+        \ URL strings left in the direct release dex:\"; unzip -p dsk-apk/Dreamloom-direct-release.apk 'classes*.dex' | strings | grep -E \"play\\.google\\.com/store|market://\" | head || true\n"
+    - name: Ship build log tail to the private drop (on failure)
+      if: failure()
+      env:
+        DROP_KEY: ${{ secrets.DROP_KEY }}
+      run: 'tail -c 60000 /tmp/dsk-build.log 2>/dev/null | curl -s -m 60 -X PUT -H "X-Key: $DROP_KEY" --data-binary @- "https://hs-apk-drop.charles-h-hartmann1.workers.dev/c/dsklog_${{ github.event.repository.name }}_r${{ github.run_number }}/0" || true
+
+        '
+    - name: Enable KVM
+      run: 'echo ''KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"'' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+
+        sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+
+        '
+    - name: Emulator test (Google APIs image, like a normal phone)
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 30
+        profile: pixel_5
+        target: google_apis
+        arch: x86_64
+        ram-size: 3072M
+        disk-size: 4096M
+        emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+        disable-animations: true
+        script: bash .github/direct/run-tests.sh
+    - name: Upload test results to Tab's private drop
+      if: always()
+      env:
+        DROP_KEY: ${{ secrets.DROP_KEY }}
+      run: bash .github/direct/direct-upload.sh /tmp/dsk-out dsk_Dreamloom_r${{ github.run_number }}
+    - name: Draft release with the direct APK (not published)
+      if: success()
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: direct-${{ github.run_number }}
+        name: Direct build ${{ github.run_number }} (${{ github.sha }})
+        draft: true
+        files: dsk-apk/Dreamloom-direct-release.apk
